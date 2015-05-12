@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.happyfall.speedkit.listing.SPListingCellGroup;
+import com.happyfall.speedkit.listing.SPListingData;
+import com.happyfall.speedkit.listing.gridview.SPGridView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class HomeActivity extends ActionBarActivity {
 
@@ -12,6 +19,21 @@ public class HomeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        SPListingCellGroup cellGroup = new SPListingCellGroup(Integer.toString(R.id.SPTitleCell),
+                10,
+                "Sample");
+        List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
+        listingCellGroupList.add(cellGroup);
+
+        SPListingData listingData = new SPListingData(listingCellGroupList);
+
+        SPGridView gridView = (SPGridView)findViewById(R.id.Home_SPGridView);
+        gridView.listingData = listingData;
+
+
+
     }
 
 

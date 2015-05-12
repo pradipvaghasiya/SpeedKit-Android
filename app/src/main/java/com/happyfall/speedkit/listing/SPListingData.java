@@ -9,7 +9,7 @@ final public class SPListingData {
     List<SPListingCellGroup> cellGroupList;
 
     // Create Listing Data with given section array.
-    SPListingData(List<SPListingCellGroup> cellGroupList){
+    public SPListingData(List<SPListingCellGroup> cellGroupList){
         this.cellGroupList = cellGroupList;
     }
 

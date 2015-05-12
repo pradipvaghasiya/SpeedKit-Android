@@ -42,7 +42,7 @@ public class SPListingCellGroup {
     }
 
     //Constructors
-    SPListingCellGroup(String cellId, List<Object> cellModelList){
+    public SPListingCellGroup(String cellId, List<Object> cellModelList){
         this.cellId = cellId;
         this.cellModelList = cellModelList;
         this.cellCount = cellModelList.size();
@@ -53,7 +53,7 @@ public class SPListingCellGroup {
         this.removeCellIdValueIfInValid();
     }
 
-    SPListingCellGroup(String cellId, List<Object> cellModelList, SPCellType cellType){
+    public SPListingCellGroup(String cellId, List<Object> cellModelList, SPCellType cellType){
         this.cellId = cellId;
         this.cellModelList = cellModelList;
         this.cellCount = cellModelList.size();
@@ -64,7 +64,7 @@ public class SPListingCellGroup {
         this.removeCellIdValueIfInValid();
     }
 
-    SPListingCellGroup(String cellId, Object cellCommonModel , List<Object> cellModelList){
+    public SPListingCellGroup(String cellId, Object cellCommonModel , List<Object> cellModelList){
         this.cellId = cellId;
         this.cellModelList = cellModelList;
         this.cellCount = cellModelList.size();
@@ -75,7 +75,7 @@ public class SPListingCellGroup {
         this.removeCellIdValueIfInValid();
     }
 
-    SPListingCellGroup(String cellId, Object cellCommonModel , List<Object> cellModelList, SPCellType cellType){
+    public SPListingCellGroup(String cellId, Object cellCommonModel , List<Object> cellModelList, SPCellType cellType){
         this.cellId = cellId;
         this.cellModelList = cellModelList;
         this.cellCount = cellModelList.size();
@@ -86,7 +86,7 @@ public class SPListingCellGroup {
         this.removeCellIdValueIfInValid();
     }
 
-    SPListingCellGroup(String cellId, int cellCount, Object cellCommonModel){
+    public SPListingCellGroup(String cellId, int cellCount, Object cellCommonModel){
         this.cellId = cellId;
         this.cellModelList = new ArrayList<Object>();
         this.cellCount = cellCount;
@@ -97,7 +97,7 @@ public class SPListingCellGroup {
         this.removeCellIdValueIfInValid();
     }
 
-    SPListingCellGroup(String cellId, int cellCount, Object cellCommonModel, SPCellType cellType){
+    public SPListingCellGroup(String cellId, int cellCount, Object cellCommonModel, SPCellType cellType){
         this.cellId = cellId;
         this.cellModelList = new ArrayList<Object>();
         this.cellCount = cellCount;
