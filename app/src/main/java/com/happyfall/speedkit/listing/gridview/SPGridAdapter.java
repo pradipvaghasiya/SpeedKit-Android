@@ -19,14 +19,14 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class SPGridAdapter extends BaseAdapter {
 
-    SPListingViewInterface listingView;
-    public SPGridAdapter(SPListingViewInterface listingView){
-        this.listingView = listingView;
+    SPListingData listingData;
+    public SPGridAdapter(SPListingData listingData){
+        this.listingData = listingData;
     }
 
     @Override
     public int getCount() {
-        return this.listingView.getListingData().getTotalCellCount();
+        return this.listingData.getTotalCellCount();
     }
 
     @Override
@@ -42,7 +42,6 @@ public class SPGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         SPListingCellInterface listingCell  = (SPListingCellInterface)convertView;
-        SPListingData listingData = listingView.getListingData();
         SPListingData.CellGroupAndCellModelIndexReturnType cellGroupDetail = listingData.getListingCellGroupWithIndexOfCellModelList(position);
 
         if (listingCell == null){

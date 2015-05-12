@@ -7,12 +7,11 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.SPListingViewInterface;
 
 /**
  * Created by Pradip on 5/12/2015.
  */
-public class SPGridView extends GridView implements SPListingViewInterface {
+public class SPGridView extends GridView {
     public SPListingData listingData;
     public SPGridView(Context context) {
         super(context);
@@ -34,11 +33,13 @@ public class SPGridView extends GridView implements SPListingViewInterface {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        this.setAdapter(new SPGridAdapter(this));
     }
 
-    @Override
-    public SPListingData getListingData() {
-        return this.listingData;
+    public void setListingData(SPListingData listingData) {
+        if (this.listingData != listingData){
+            this.listingData = listingData;
+            //TODO Check Whether This gets call even when same instance gets changed.
+            this.setAdapter(new SPGridAdapter(this.listingData));
+        }
     }
 }
