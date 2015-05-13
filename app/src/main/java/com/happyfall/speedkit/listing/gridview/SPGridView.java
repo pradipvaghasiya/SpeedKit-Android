@@ -12,7 +12,7 @@ import com.happyfall.speedkit.listing.SPListingData;
  * Created by Pradip on 5/12/2015.
  */
 public class SPGridView extends GridView {
-    public SPListingData listingData;
+    private SPListingData listingData;
     public SPGridView(Context context) {
         super(context);
     }
@@ -38,6 +38,7 @@ public class SPGridView extends GridView {
     public void setListingData(SPListingData listingData) {
         if (this.listingData != listingData){
             this.listingData = listingData;
+
             //TODO Check Whether This gets call even when same instance gets changed.
             this.setAdapter(new SPGridAdapter(this.listingData));
         }

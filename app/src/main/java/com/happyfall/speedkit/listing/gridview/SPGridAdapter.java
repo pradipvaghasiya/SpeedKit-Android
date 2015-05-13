@@ -9,10 +9,8 @@ import android.widget.BaseAdapter;
 
 import com.happyfall.speedkit.listing.SPListingCellInterface;
 import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.SPListingViewInterface;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Pradip on 5/12/2015.
