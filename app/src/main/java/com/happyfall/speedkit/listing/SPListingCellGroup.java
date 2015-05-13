@@ -26,8 +26,8 @@ public class SPListingCellGroup {
     public String cellViewHolderClassName;
 
     // Cell Model
-    public List<Object> cellModelList;
-    public void setCellModelList(List<Object> cellModelList) {
+    public List<?> cellModelList;
+    public void setCellModelList(List<?> cellModelList) {
         this.cellModelList = cellModelList;
         this.cellCount = cellModelList.size();
     }
@@ -72,7 +72,7 @@ public class SPListingCellGroup {
     }
 
 
-    public SPListingCellGroup(int cellLayoutId, String cellViewHolderClassName, List<Object> cellModelList){
+    public SPListingCellGroup(int cellLayoutId, String cellViewHolderClassName, List<?> cellModelList){
         this.cellClassName = null;
         this.cellLayoutId = cellLayoutId;
         this.cellViewHolderClassName = cellViewHolderClassName;

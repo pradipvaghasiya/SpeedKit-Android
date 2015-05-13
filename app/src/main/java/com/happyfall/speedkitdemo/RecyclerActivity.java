@@ -2,6 +2,7 @@ package com.happyfall.speedkitdemo;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import com.happyfall.speedkit.listing.SPListingData;
 import com.happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,15 +27,18 @@ public class RecyclerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_recycler);
 
         SPListingCellGroup cellGroup = new SPListingCellGroup(R.layout.recycler_cell_title, SPTitleViewHolder.class.getName(),
-                10,
-                "Common Model It is!");
+                Arrays.asList("Title Cell 1","Title Cell 2","Title Cell 3",
+                        "Title Cell 4","Title Cell 5","Title Cell 6",
+                        "Title Cell 7","Title Cell 8","Title Cell 9","Title Cell 10"));
         List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
         listingCellGroupList.add(cellGroup);
 
         SPListingData listingData = new SPListingData(listingCellGroupList);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new SPRecyclerAdapter(listingData));
 
