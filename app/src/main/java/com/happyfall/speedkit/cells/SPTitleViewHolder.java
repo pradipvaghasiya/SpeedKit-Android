@@ -13,6 +13,8 @@ public class SPTitleViewHolder extends SPRecyclerAdapter.ViewHolder{
     public static final String CLASS_NAME = "SPTitleViewHolder";
 
     TextView textView;
+
+
     public SPTitleViewHolder(View v) {
         super(v);
         System.out.println("View Holder Created");
@@ -31,4 +33,5 @@ public class SPTitleViewHolder extends SPRecyclerAdapter.ViewHolder{
             this.textView.setText((String) cellModel);
         }
     }
+
 }

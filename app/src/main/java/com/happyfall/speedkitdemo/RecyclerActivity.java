@@ -29,6 +29,9 @@ public class RecyclerActivity extends ActionBarActivity {
         SPListingCellGroup cellGroup = new SPListingCellGroup(R.layout.recycler_cell_title, SPTitleViewHolder.class.getName(),
                 Arrays.asList("Title Cell 1","Title Cell 2","Title Cell 3",
                         "Title Cell 4","Title Cell 5","Title Cell 6",
+                        "Title Cell 7","Title Cell 8","Title Cell 9","Title Cell 10",
+                        "Title Cell 1","Title Cell 2","Title Cell 3",
+                        "Title Cell 4","Title Cell 5","Title Cell 6",
                         "Title Cell 7","Title Cell 8","Title Cell 9","Title Cell 10"));
         List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
         listingCellGroupList.add(cellGroup);
