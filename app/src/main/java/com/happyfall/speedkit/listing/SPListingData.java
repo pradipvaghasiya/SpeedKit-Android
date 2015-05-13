@@ -6,16 +6,16 @@ import java.util.List;
  * Created by Pradip on 5/12/2015.
  */
 final public class SPListingData {
-    List<SPListingCellGroup> cellGroupList;
+    public List<SPListingCellGroup> spCellGroupList;
 
     // Create Listing Data with given section array.
-    public SPListingData(List<SPListingCellGroup> cellGroupList){
-        this.cellGroupList = cellGroupList;
+    public SPListingData(List<SPListingCellGroup> spCellGroupList){
+        this.spCellGroupList = spCellGroupList;
     }
 
     public int getTotalCellCount(){
         int cellCount = 0;
-        for (SPListingCellGroup cellGroup : cellGroupList){
+        for (SPListingCellGroup cellGroup : spCellGroupList){
             cellCount += cellGroup.cellCount;
         }
         return cellCount;
@@ -31,7 +31,7 @@ final public class SPListingData {
 
         int startIndexOfCellFound  = 0;
         int totalCellCountParsedFromCellGroupArray  = 0;
-        for(SPListingCellGroup cellGroup : this.cellGroupList){
+        for(SPListingCellGroup cellGroup : this.spCellGroupList){
             totalCellCountParsedFromCellGroupArray += cellGroup.cellCount;
             if (index < totalCellCountParsedFromCellGroupArray){
                 returnType.spListingCellGroup = cellGroup;

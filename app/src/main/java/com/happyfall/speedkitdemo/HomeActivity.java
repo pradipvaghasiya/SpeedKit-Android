@@ -4,11 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
+import android.widget.BaseAdapter;
 
 import com.happyfall.speedkit.listing.SPListingCellGroup;
 import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.gridview.SPGridAdapter;
 import com.happyfall.speedkit.listing.gridview.SPGridView;
 
 import java.util.ArrayList;
@@ -16,6 +15,8 @@ import java.util.List;
 
 
 public class HomeActivity extends ActionBarActivity {
+    SPListingData listingData;
+    SPGridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,10 @@ public class HomeActivity extends ActionBarActivity {
         List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
         listingCellGroupList.add(cellGroup);
 
-        SPListingData listingData = new SPListingData(listingCellGroupList);
+        listingData = new SPListingData(listingCellGroupList);
 
-        SPGridView gridView = (SPGridView)findViewById(R.id.Home_SPGridView);
+        gridView = (SPGridView)findViewById(R.id.Home_SPGridView);
         gridView.setListingData(listingData);
-
 
     }
 
@@ -53,6 +53,8 @@ public class HomeActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            listingData.spCellGroupList.get(0).setCellCount(12);
+            ((BaseAdapter)gridView.getAdapter()).notifyDataSetChanged();
             return true;
         }
 
