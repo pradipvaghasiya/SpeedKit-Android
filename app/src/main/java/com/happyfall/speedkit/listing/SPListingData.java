@@ -43,4 +43,16 @@ final public class SPListingData {
         }
         return returnType;
     }
+
+    public int getIndexOfCellGroupFrom(int indexOfListView){
+        int startIndexOfCellGroup  = 0;
+        for(SPListingCellGroup cellGroup : this.spCellGroupList){
+            if (indexOfListView < cellGroup.cellCount){
+                return startIndexOfCellGroup;
+            }
+
+            startIndexOfCellGroup ++;
+        }
+        return 0;
+    }
 }

@@ -45,9 +45,9 @@ public class SPGridAdapter extends BaseAdapter {
         if (listingCell == null){
             switch (cellGroupDetail.spListingCellGroup.cellType){
                 case SubclassCell:
-                    listingCell = this.createCellFromSubclass(cellGroupDetail.spListingCellGroup.cellId, parent.getContext());
+                    listingCell = this.createCellFromSubclass(cellGroupDetail.spListingCellGroup.cellClassName, parent.getContext());
                 case XMLCell:
-                    listingCell = this.createCellFromXML(cellGroupDetail.spListingCellGroup.cellId, parent);
+                    listingCell = this.createCellFromXML(cellGroupDetail.spListingCellGroup.cellLayoutId, parent);
             }
         }
 
@@ -75,9 +75,9 @@ public class SPGridAdapter extends BaseAdapter {
         return null;
     }
 
-    SPListingCellInterface createCellFromXML(String cellId, ViewGroup parent){
+    SPListingCellInterface createCellFromXML(int cellLayoutId, ViewGroup parent){
         return  (SPListingCellInterface) LayoutInflater
                 .from(parent.getContext())
-                .inflate(Integer.parseInt(cellId), parent, false);
+                .inflate(cellLayoutId, parent, false);
     }
 }

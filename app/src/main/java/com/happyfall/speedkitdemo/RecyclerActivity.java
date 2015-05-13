@@ -2,45 +2,47 @@ package com.happyfall.speedkitdemo;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 
+import com.happyfall.speedkit.cells.SPTitleCell;
+import com.happyfall.speedkit.cells.SPTitleViewHolder;
 import com.happyfall.speedkit.listing.SPListingCellGroup;
 import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.gridview.SPGridView;
+import com.happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeActivity extends ActionBarActivity {
-    SPListingData listingData;
-    SPGridView gridView;
+public class RecyclerActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_recycler);
 
-        SPListingCellGroup cellGroup = new SPListingCellGroup(R.layout.cell_title,
+        SPListingCellGroup cellGroup = new SPListingCellGroup(R.layout.recycler_cell_title, SPTitleViewHolder.class.getName(),
                 10,
-                "Sample");
+                "Common Model It is!");
         List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
         listingCellGroupList.add(cellGroup);
 
-        listingData = new SPListingData(listingCellGroupList);
+        SPListingData listingData = new SPListingData(listingCellGroupList);
 
-        gridView = (SPGridView)findViewById(R.id.Home_SPGridView);
-        gridView.setListingData(listingData);
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new SPRecyclerAdapter(listingData));
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_recycler, menu);
         return true;
     }
 
@@ -53,8 +55,6 @@ public class HomeActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            listingData.spCellGroupList.get(0).setCellCount(12);
-            ((BaseAdapter)gridView.getAdapter()).notifyDataSetChanged();
             return true;
         }
 
