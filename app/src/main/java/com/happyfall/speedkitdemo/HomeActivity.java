@@ -1,15 +1,11 @@
 package com.happyfall.speedkitdemo;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.BaseAdapter;
 
-import com.happyfall.speedkit.listing.SPListingCellGroup;
-import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.gridview.SPGridView;
+import happyfall.speedkit.listing.SPListingCellGroup;
+import happyfall.speedkit.listing.SPListingData;
+import happyfall.speedkit.listing.gridview.SPGridView;
 
 import java.util.ArrayList;
 import java.util.List;

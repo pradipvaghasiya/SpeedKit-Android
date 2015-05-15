@@ -1,19 +1,16 @@
 package com.happyfall.speedkitdemo;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.happyfall.speedkit.cells.SPCheckListViewHolder;
-import com.happyfall.speedkit.cells.SPTitleViewHolder;
-import com.happyfall.speedkit.listing.SPListingCellGroup;
-import com.happyfall.speedkit.listing.SPListingData;
-import com.happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
+import com.happyfall.speedkitcells.SPCheckListViewHolder;
+import com.happyfall.speedkitcells.SPTitleViewHolder;
+import happyfall.speedkit.listing.SPListingCellGroup;
+import happyfall.speedkit.listing.SPListingData;
+import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,12 +29,12 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
 
         modelArrayList = new ArrayList<>();
 
-        for(String titleText : Arrays.asList("Title Cell 1","Title Cell 2","Title Cell 3",
-                "Title Cell 4","Title Cell 5","Title Cell 6",
-                "Title Cell 7","Title Cell 8","Title Cell 9","Title Cell 10 with very very long name to check how it behaves.",
-                "Title Cell 11","Title Cell 12","Title Cell 13",
-                "Title Cell 14","Title Cell 15","Title Cell 16",
-                "Title Cell 17","Title Cell 18","Title Cell 19","Title Cell 20" )){
+        for(String titleText : Arrays.asList("Check List Cell 1","Check List Cell 2","Check List Cell 3",
+                "Check List Cell 4","Check List Cell 5","Check List Cell 6",
+                "Check List Cell 7","Check List Cell 8","Check List Cell 9","Check List Cell 10 with very very long name to check how it behaves.",
+                "Check List Cell 11","Check List Cell 12","Check List Cell 13",
+                "Check List Cell 14","Check List Cell 15","Check List Cell 16",
+                "Check List Cell 17","Check List Cell 18","Check List Cell 19","Check List Cell 20" )){
 
             SPCheckListViewHolder.Model cellModel = new SPCheckListViewHolder.Model();
             cellModel.titleText = titleText;
@@ -75,28 +72,6 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
         spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
         recyclerView.setAdapter(spRecyclerAdapter);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recycler, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
