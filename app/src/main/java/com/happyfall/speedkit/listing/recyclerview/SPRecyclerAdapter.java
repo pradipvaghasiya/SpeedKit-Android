@@ -17,15 +17,31 @@ import java.lang.reflect.Constructor;
  */
 public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.ViewHolder> {
     // SPListing Data
-    public  SPListingData spListingData;
-    public SPRecyclerAdapter(SPListingData spListingData){
+    public SPListingData spListingData;
+    ViewHolderNotifier notifier;
+
+    public SPRecyclerAdapter(SPListingData spListingData, ViewHolderNotifier notifier){
         super();
         this.spListingData = spListingData;
+        this.notifier = notifier;
+    }
+
+    public static interface ViewHolderNotifier{
+        void didSelectItem(View view);
     }
 
     abstract public static class ViewHolder extends RecyclerView.ViewHolder {
+        protected ViewHolderNotifier notifier;
+
         public ViewHolder(View v) {
             super(v);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifier.didSelectItem(v);
+                }
+            });
         }
 
         public abstract void configureCellUsing(Object cellModel);
@@ -58,7 +74,10 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
         try {
             Class<?> viewClass = Class.forName(cellGRoup.cellViewHolderClassName);
             Constructor<?> constructor = viewClass.getConstructor(View.class);
-            return (ViewHolder)constructor.newInstance(listingCell);
+
+            ViewHolder viewHolder = (ViewHolder)constructor.newInstance(listingCell);
+            viewHolder.notifier = this.notifier;
+            return viewHolder;
 
         } catch (Exception e) {
             System.out.println("SpeedKit Error: View Holder Class <" + cellGRoup.cellViewHolderClassName + "> is not valid : " + e.toString());

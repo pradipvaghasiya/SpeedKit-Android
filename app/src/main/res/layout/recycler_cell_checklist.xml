@@ -2,7 +2,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -14,7 +17,7 @@
         android:id="@+id/SPCheckList_TextView"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Hello There!"
         android:gravity="center_vertical"
         android:textSize="18dp" />
