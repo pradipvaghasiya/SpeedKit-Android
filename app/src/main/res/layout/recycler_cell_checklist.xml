@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Hello There!"
         android:gravity="center_vertical"
-        android:textSize="18sp" />
+        android:textSize="17sp" />
 
     <ImageView
         android:id="@+id/SPCheckList_ImageView"
