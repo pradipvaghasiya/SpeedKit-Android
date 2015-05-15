@@ -27,7 +27,7 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
         this.notifier = notifier;
     }
 
-    public static interface ViewHolderNotifier{
+    public interface ViewHolderNotifier{
         void didSelectItem(View view);
     }
 
@@ -40,7 +40,9 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    notifier.didSelectItem(v);
+                    if(notifier != null){
+                        notifier.didSelectItem(v);
+                    }
                 }
             });
         }

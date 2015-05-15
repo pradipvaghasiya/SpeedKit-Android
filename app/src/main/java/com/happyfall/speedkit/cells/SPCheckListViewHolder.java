@@ -28,6 +28,7 @@ public class SPCheckListViewHolder extends SPRecyclerAdapter.ViewHolder {
 
     @Override
     public void configureCellUsing(Object cellModel) {
+
         // Check if the model is my model.
         if (cellModel instanceof Model){
             Model myModel = ((Model) cellModel);
