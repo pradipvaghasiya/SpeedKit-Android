@@ -32,11 +32,6 @@ public class SPTitleCell extends LinearLayout implements SPListingCellInterface{
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        //this.textView = findViewById()
-    }
 
     @Override
     public void configureCellUsing(Object cellModel) {

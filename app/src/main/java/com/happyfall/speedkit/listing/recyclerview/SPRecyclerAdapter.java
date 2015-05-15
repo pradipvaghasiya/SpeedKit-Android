@@ -102,7 +102,7 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
     }
 
     View createCellFromXML(int cellLayoutId, ViewGroup parent){
-        return  (View) LayoutInflater
+        return LayoutInflater
                 .from(parent.getContext())
                 .inflate(cellLayoutId, parent, false);
     }

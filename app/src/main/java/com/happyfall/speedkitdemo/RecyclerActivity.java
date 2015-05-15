@@ -104,7 +104,7 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
         int position = recyclerView.getChildLayoutPosition(view);
 
         if (modelArrayList.size()>position){
-            modelArrayList.get(position).isSelected = modelArrayList.get(position).isSelected ? false : true;
+            modelArrayList.get(position).isSelected = !modelArrayList.get(position).isSelected;
             spRecyclerAdapter.notifyItemChanged(position);
         }
 

@@ -30,11 +30,6 @@ public class SPGridView extends GridView {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-    }
-
     public void setListingData(SPListingData listingData) {
         if (this.listingData != listingData){
             this.listingData = listingData;
