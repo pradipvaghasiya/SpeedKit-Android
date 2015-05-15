@@ -15,6 +15,7 @@ import java.lang.reflect.Constructor;
 /**
  * Created by Pradip on 5/13/2015.
  */
+
 public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.ViewHolder> {
     // SPListing Data
     public SPListingData spListingData;

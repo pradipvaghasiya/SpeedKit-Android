@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class RecyclerActivity extends ActionBarActivity implements SPRecyclerAdapter.ViewHolderNotifier {
 
     RecyclerView recyclerView;
