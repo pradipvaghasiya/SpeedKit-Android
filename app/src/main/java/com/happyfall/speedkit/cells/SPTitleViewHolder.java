@@ -17,20 +17,16 @@ public class SPTitleViewHolder extends SPRecyclerAdapter.ViewHolder{
 
     public SPTitleViewHolder(View v) {
         super(v);
-        System.out.println("View Holder Created");
-
-        try {
-            this.textView = (TextView)v.findViewById(R.id.SPTitleViewHolder_TextView);
-
-        } catch (Exception e) {
-            System.out.println("SpeedKit Error: Resource Class R not Found");        }
-
+        System.out.println("SPTitleViewHolder View Holder Created");
+        this.textView = (TextView)v.findViewById(R.id.SPTitleViewHolder_TextView);
     }
 
     @Override
     public void configureCellUsing(Object cellModel) {
-        if (this.textView != null) {
-            this.textView.setText((String) cellModel);
+        if (cellModel instanceof String) {
+            if (this.textView != null) {
+                this.textView.setText((String) cellModel);
+            }
         }
     }
 
