@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.happyfall.speedkitcells.SPCheckListViewHolder;
-import com.happyfall.speedkitcells.SPTitleViewHolder;
+import happyfall.speedkit.cells.SPCheckListViewHolder;
+import happyfall.speedkit.cells.SPTitleViewHolder;
 import happyfall.speedkit.listing.SPListingCellGroup;
 import happyfall.speedkit.listing.SPListingData;
 import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
