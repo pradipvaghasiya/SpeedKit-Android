@@ -2,6 +2,7 @@ package com.happyfall.speedkitdemo;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerActivity extends ActionBarActivity implements SPRecyclerAdapter.ViewHolderNotifier {
+public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAdapter.ViewHolderNotifier {
 
     RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.Model> modelArrayList;

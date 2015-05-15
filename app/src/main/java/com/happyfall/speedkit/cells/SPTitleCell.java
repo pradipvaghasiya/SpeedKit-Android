@@ -22,6 +22,7 @@ public class SPTitleCell extends LinearLayout implements SPListingCellInterface{
         super(context, attrs);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public SPTitleCell(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
