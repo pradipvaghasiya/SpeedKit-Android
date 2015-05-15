@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.happyfall.speedkit.cells.SPCheckListViewHolder;
+import com.happyfall.speedkit.cells.SPTitleViewHolder;
 import com.happyfall.speedkit.listing.SPListingCellGroup;
 import com.happyfall.speedkit.listing.SPListingData;
 import com.happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
@@ -50,8 +51,15 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
                 SPCheckListViewHolder.class.getName(),
                 modelArrayList);
 
+        SPListingCellGroup cellGroup1 = new SPListingCellGroup(
+                R.layout.recycler_cell_title,
+                SPTitleViewHolder.class.getName(),
+                Arrays.asList("Title 1", "Title 2"));
+
+
         List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
         listingCellGroupList.add(cellGroup);
+        listingCellGroupList.add(cellGroup1);
 
         SPListingData listingData = new SPListingData(listingCellGroupList);
 
@@ -93,10 +101,12 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
 
     @Override
     public void didSelectItem(View view) {
-        int position = recyclerView.getChildPosition(view);
+        int position = recyclerView.getChildLayoutPosition(view);
 
-        modelArrayList.get(position).isSelected = modelArrayList.get(position).isSelected ? false : true;
-        spRecyclerAdapter.notifyItemChanged(position);
+        if (modelArrayList.size()>position){
+            modelArrayList.get(position).isSelected = modelArrayList.get(position).isSelected ? false : true;
+            spRecyclerAdapter.notifyItemChanged(position);
+        }
 
         System.out.println("Item DidSelect At : " + position);
     }

@@ -46,8 +46,10 @@ final public class SPListingData {
 
     public int getIndexOfCellGroupFrom(int indexOfListView){
         int startIndexOfCellGroup  = 0;
+        int totalIndexConvered = 0;
         for(SPListingCellGroup cellGroup : this.spCellGroupList){
-            if (indexOfListView < cellGroup.cellCount){
+            totalIndexConvered += cellGroup.cellCount;
+            if (indexOfListView < totalIndexConvered){
                 return startIndexOfCellGroup;
             }
 
