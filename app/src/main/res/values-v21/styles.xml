@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/AppActionBar</item>
+    </style>
+
+    <style name="AppActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="elevation">2dp</item>
+    </style>
+
+</resources>
