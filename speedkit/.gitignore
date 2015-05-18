@@ -1,1 +1,4 @@
 /build
+gradle/* 
+speedkit/gradle/* 
+/speedkit/gradle/* 

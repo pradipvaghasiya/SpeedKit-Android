@@ -25,22 +25,18 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            libraryVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def file = output.outputFile
-
-                    if (file.name.contains('release')){
-					     output.outputFile = new File(file.parent, file.name.replace(".aar", "-" + defaultConfig.versionName + ".aar"))
-					}
-                }
-            }
+//            libraryVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def file = output.outputFile
+//
+//                    if (file.name.contains('release')){
+//					     output.outputFile = new File(file.parent, file.name.replace(".aar", "-" + defaultConfig.versionName + ".aar"))
+//					}
+//                }
+//            }
 
         }
     }
-}
-
-dependencies {
-    compile 'com.android.support:recyclerview-v7:22.1.1'
 }
 
 task wrapper(type: Wrapper) {
@@ -48,4 +44,10 @@ task wrapper(type: Wrapper) {
 }
 
 //To publish to JCenter
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+///apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+
+apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'
+
+dependencies {
+    compile 'com.android.support:recyclerview-v7:22.1.1'
+}

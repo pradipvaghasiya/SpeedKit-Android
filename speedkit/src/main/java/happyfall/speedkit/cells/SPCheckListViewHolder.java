@@ -14,16 +14,25 @@ public class SPCheckListViewHolder extends SPRecyclerAdapter.ViewHolder {
     TextView textView;
     ImageView imageView;
 
+    public interface Customizor{
+        void customizeTextView(TextView textView, SPCheckListViewHolder viewHolder);
+    }
+
     public static class Model{
         public String titleText;
         public boolean isSelected;
     }
 
-    public SPCheckListViewHolder(View v) {
-        super(v);
+    public SPCheckListViewHolder(View v, SPRecyclerAdapter.ViewHolderDelegate delegate) {
+        super(v,delegate);
         System.out.println("SPCheckListViewHolder View Holder Created");
         this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);
         this.imageView = (ImageView)v.findViewById(R.id.SPCheckList_ImageView);
+
+        if (this.notifier instanceof Customizor &&
+                this.textView != null){
+            ((Customizor) this.notifier).customizeTextView(this.textView, this);
+        }
     }
 
     @Override
