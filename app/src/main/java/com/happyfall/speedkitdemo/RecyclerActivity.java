@@ -1,10 +1,13 @@
 package com.happyfall.speedkitdemo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import happyfall.speedkit.cells.SPCheckListViewHolder;
 import happyfall.speedkit.cells.SPTitleViewHolder;
@@ -16,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAdapter.ViewHolderNotifier {
+public class RecyclerActivity extends AppCompatActivity
+        implements SPRecyclerAdapter.ViewHolderDelegate, SPCheckListViewHolder.Customizor, SPTitleViewHolder.Customizor{
 
     RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.Model> modelArrayList;
@@ -84,5 +88,15 @@ public class RecyclerActivity extends AppCompatActivity implements SPRecyclerAda
         }
 
         System.out.println("Item DidSelect At : " + position);
+    }
+
+    @Override
+    public void customizeTextView(TextView textView, SPTitleViewHolder viewHolder) {
+        textView.setGravity(Gravity.CENTER);
+    }
+
+    @Override
+    public void customizeTextView(TextView textView, SPCheckListViewHolder spCheckListViewHolder) {
+        textView.setTextColor(Color.GRAY);
     }
 }

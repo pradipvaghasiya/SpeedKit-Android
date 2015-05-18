@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import happyfall.speedkit.listing.SPListingCellGroup;
 import happyfall.speedkit.listing.SPListingData;
@@ -19,23 +18,24 @@ import java.lang.reflect.Constructor;
 public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.ViewHolder> {
     // SPListing Data
     public SPListingData spListingData;
-    ViewHolderNotifier notifier;
+    ViewHolderDelegate notifier;
 
-    public SPRecyclerAdapter(SPListingData spListingData, ViewHolderNotifier notifier){
+    public SPRecyclerAdapter(SPListingData spListingData, ViewHolderDelegate notifier){
         super();
         this.spListingData = spListingData;
         this.notifier = notifier;
     }
 
-    public interface ViewHolderNotifier{
+    public interface ViewHolderDelegate {
         void didSelectItem(View view);
     }
 
     abstract public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected ViewHolderNotifier notifier;
+        protected ViewHolderDelegate notifier;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, ViewHolderDelegate pDelegate) {
             super(v);
+            this.notifier = pDelegate;
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,10 +76,10 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
 
         try {
             Class<?> viewClass = Class.forName(cellGRoup.cellViewHolderClassName);
-            Constructor<?> constructor = viewClass.getConstructor(View.class);
+            Constructor<?> constructor = viewClass.getConstructor(View.class,ViewHolderDelegate.class);
 
-            ViewHolder viewHolder = (ViewHolder)constructor.newInstance(listingCell);
-            viewHolder.notifier = this.notifier;
+            ViewHolder viewHolder = (ViewHolder)constructor.newInstance(listingCell,this.notifier);
+
             return viewHolder;
 
         } catch (Exception e) {

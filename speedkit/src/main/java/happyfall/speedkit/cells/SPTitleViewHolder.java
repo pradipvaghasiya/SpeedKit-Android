@@ -14,11 +14,19 @@ public class SPTitleViewHolder extends SPRecyclerAdapter.ViewHolder{
 
     TextView textView;
 
+    public interface Customizor{
+        void customizeTextView(TextView textView, SPTitleViewHolder viewHolder);
+    }
 
-    public SPTitleViewHolder(View v) {
-        super(v);
+    public SPTitleViewHolder(View v, SPRecyclerAdapter.ViewHolderDelegate delegate) {
+        super(v,delegate);
         System.out.println("SPTitleViewHolder View Holder Created");
         this.textView = (TextView)v.findViewById(R.id.SPTitleViewHolder_TextView);
+
+        if (this.notifier instanceof Customizor &&
+                this.textView != null){
+            ((Customizor) this.notifier).customizeTextView(this.textView, this);
+        }
 
     }
 
