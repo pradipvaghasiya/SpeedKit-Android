@@ -33,11 +33,11 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
     abstract public static class ViewHolder extends RecyclerView.ViewHolder {
         protected ViewHolderDelegate notifier;
 
-        public ViewHolder(View v, ViewHolderDelegate pDelegate) {
-            super(v);
+        public ViewHolder(View itemView, ViewHolderDelegate pDelegate) {
+            super(itemView);
             this.notifier = pDelegate;
 
-            v.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(notifier != null){

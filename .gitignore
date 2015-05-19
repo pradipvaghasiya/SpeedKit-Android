@@ -13,3 +13,4 @@ gradlew.bat
 /speedkit/gradle
 /speedkit/gradlew
 speedkit/gradlew.bat
+gradle.properties 
