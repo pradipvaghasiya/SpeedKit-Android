@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
 import happyfall.speedkit.R;
-
 /**
  * Created by Pradip on 5/13/2015.
  */
@@ -27,6 +26,7 @@ public class SPTitleViewHolder extends SPRecyclerAdapter.ViewHolder{
                 this.textView != null){
             ((Customizor) this.notifier).customizeTextView(this.textView, this);
         }
+
 
     }
 

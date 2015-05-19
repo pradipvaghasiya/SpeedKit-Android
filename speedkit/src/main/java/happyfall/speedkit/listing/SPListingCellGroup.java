@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Project: SpeedKit-Android
  * Created by Pradip on 5/12/2015.
  */
 public class SPListingCellGroup {
@@ -49,7 +50,7 @@ public class SPListingCellGroup {
         }
     }
 
-    //Constructors
+    //region Constructors
     public SPListingCellGroup(int cellLayoutId, List<Object> cellModelList){
         this.cellClassName = null;
         this.cellLayoutId = cellLayoutId;
@@ -113,6 +114,7 @@ public class SPListingCellGroup {
         this.cellType = SPCellType.SubclassCell;
         this.cellCommonModel = cellCommonModel;
     }
+    //endregion
 }
 
 
