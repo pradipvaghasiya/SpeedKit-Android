@@ -6,7 +6,10 @@ import android.widget.TextView;
 
 import com.bignerdranch.android.multiselector.MultiSelector;
 
+import java.util.List;
+
 import happyfall.speedkit.R;
+import happyfall.speedkit.listing.SPListingCellGroup;
 import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
 import happyfall.speedkit.listing.recyclerview.SPViewHolder;
 import happyfall.speedkit.listing.recyclerview.SPViewHolderListener;
@@ -61,4 +64,13 @@ public class SPCheckListViewHolder extends SPViewHolder {
             }
         }
     }
+
+    public static SPListingCellGroup getCellGroupFromCellModels(List<Model> modelList){
+        return new SPListingCellGroup(
+                R.layout.recycler_cell_checklist,
+                SPCheckListViewHolder.class.getName(),
+                modelList);
+
+    }
+
 }

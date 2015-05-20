@@ -1,16 +1,12 @@
 package com.happyfall.speedkitdemo;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SingleSelector;
 
 import happyfall.speedkit.cells.SPCheckListViewHolder;
 import happyfall.speedkit.cells.SPTitleViewHolder;
@@ -21,7 +17,6 @@ import happyfall.speedkit.listing.recyclerview.SPViewHolderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class RecyclerActivity extends AppCompatActivity
         implements SPViewHolderListener, SPCheckListViewHolder.Customizor, SPTitleViewHolder.Customizor{
@@ -35,11 +30,13 @@ public class RecyclerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
+
+        //region Listing Data Creation
         modelArrayList = new ArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1","Check List Cell 2","Check List Cell 3",
                 "Check List Cell 4","Check List Cell 5","Check List Cell 6",
-                "Check List Cell 7","Check List Cell 8","Check List Cell 9","Check List Cell 10 with very very long name to check how it behaves.",
+                "Check List Cell 7","Check List Cell 8","Check List Cell 9","Check List Cell 10",
                 "Check List Cell 11","Check List Cell 12","Check List Cell 13",
                 "Check List Cell 14","Check List Cell 15","Check List Cell 16",
                 "Check List Cell 17","Check List Cell 18","Check List Cell 19","Check List Cell 20" )){
@@ -51,40 +48,24 @@ public class RecyclerActivity extends AppCompatActivity
             modelArrayList.add(cellModel);
         }
 
-        SPListingCellGroup cellGroup = new SPListingCellGroup(
-                R.layout.recycler_cell_checklist,
-                SPCheckListViewHolder.class.getName(),
-                modelArrayList);
+        SPListingCellGroup cellGroup1 = SPCheckListViewHolder.getCellGroupFromCellModels(modelArrayList);
+        SPListingCellGroup cellGroup2 = SPTitleViewHolder.getCellGroupFromCellModels(Arrays.asList("Title 1", "Title 2"));
+        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup1,cellGroup2));
+        //endregion
 
-        SPListingCellGroup cellGroup1 = new SPListingCellGroup(
-                R.layout.recycler_cell_title,
-                SPTitleViewHolder.class.getName(),
-                Arrays.asList("Title 1", "Title 2"));
+        spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
 
-
-        List<SPListingCellGroup> listingCellGroupList = new ArrayList<>();
-        listingCellGroupList.add(cellGroup);
-        listingCellGroupList.add(cellGroup1);
-
-        SPListingData listingData = new SPListingData(listingCellGroupList);
-
-
+        //region RecyclerView Setup
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
-
-
-        MultiSelector multiSelector = new SingleSelector();
-        multiSelector.setSelectable(true);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        spRecyclerAdapter = new SPRecyclerAdapter(listingData,this,multiSelector);
         recyclerView.setAdapter(spRecyclerAdapter);
+        //endregion
 
     }
 
+    //region Cell Callbacks or Customization
     @Override
     public void didSelectItem(View view) {
         int position = recyclerView.getChildLayoutPosition(view);
@@ -99,11 +80,12 @@ public class RecyclerActivity extends AppCompatActivity
 
     @Override
     public void customizeTextView(TextView textView, SPTitleViewHolder viewHolder) {
-        textView.setGravity(Gravity.CENTER);
+        System.out.println("Customise Textview for SPTitleViewHolder");
     }
 
     @Override
     public void customizeTextView(TextView textView, SPCheckListViewHolder spCheckListViewHolder) {
-        //textView.setTextColor(Color.GRAY);
+        System.out.println("Customise Textview for SPCheckListViewHolder");
     }
+    //endregion
 }
