@@ -6,12 +6,4 @@
 /build
 
 .idea/*
-/gradle 
-gradlew 
-gradlew.bat 
-
-/speedkit/gradle
-/speedkit/gradlew
-speedkit/gradlew.bat
-gradle.properties 
 speedkit/build

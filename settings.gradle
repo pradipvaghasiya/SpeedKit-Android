@@ -1,1 +1,2 @@
-include ':speedkit', ':app'
+include ':recyclerview-multiselect', ':speedkit', ':app'
+project(':recyclerview-multiselect').projectDir=new File('/recyclerview-multiselect')

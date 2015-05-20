@@ -22,13 +22,17 @@ android {
 
 repositories{
     flatDir{
-        dirs '../speedkit/build/outputs/aar'
+        dirs '../speedkit/build/outputs/aar','../speedkit/build/intermediates/exploded-aar'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile(group: 'happyfall.speedkit', name: 'speedkit', version: '0.1', ext: 'aar')
+//    compile(group: 'happyfall.speedkit', name: 'speedkit', version: '0.1', ext: 'aar'){
+//        transitive = true
+//    }
+    compile(name: 'speedkit-debug', ext: 'aar')
+
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile "com.android.support:gridlayout-v7:22.1.1"
     compile "com.android.support:recyclerview-v7:22.1.1"
