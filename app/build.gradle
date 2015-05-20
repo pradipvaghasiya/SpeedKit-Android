@@ -26,7 +26,6 @@ dependencies {
 //    compile(group: 'happyfall.speedkit', name: 'speedkit', version: '0.1', ext: 'aar'){
 //        transitive = true
 //    }
-//    compile(name: 'speedkit-debug', ext: 'aar')
 
     compile project(':speedkit')
 
