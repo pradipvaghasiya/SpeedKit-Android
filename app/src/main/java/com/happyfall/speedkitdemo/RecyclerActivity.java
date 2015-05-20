@@ -9,18 +9,22 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SingleSelector;
+
 import happyfall.speedkit.cells.SPCheckListViewHolder;
 import happyfall.speedkit.cells.SPTitleViewHolder;
 import happyfall.speedkit.listing.SPListingCellGroup;
 import happyfall.speedkit.listing.SPListingData;
 import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
+import happyfall.speedkit.listing.recyclerview.SPViewHolderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class RecyclerActivity extends AppCompatActivity
-        implements SPRecyclerAdapter.ViewHolderDelegate, SPCheckListViewHolder.Customizor, SPTitleViewHolder.Customizor{
+        implements SPViewHolderListener, SPCheckListViewHolder.Customizor, SPTitleViewHolder.Customizor{
 
     RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.Model> modelArrayList;
@@ -71,9 +75,12 @@ public class RecyclerActivity extends AppCompatActivity
         //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
 
 
+        MultiSelector multiSelector = new SingleSelector();
+        multiSelector.setSelectable(true);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
+        spRecyclerAdapter = new SPRecyclerAdapter(listingData,this,multiSelector);
         recyclerView.setAdapter(spRecyclerAdapter);
 
     }
@@ -97,6 +104,6 @@ public class RecyclerActivity extends AppCompatActivity
 
     @Override
     public void customizeTextView(TextView textView, SPCheckListViewHolder spCheckListViewHolder) {
-        textView.setTextColor(Color.GRAY);
+        //textView.setTextColor(Color.GRAY);
     }
 }
