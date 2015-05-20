@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SingleSelector;
+
 import happyfall.speedkit.listing.SPListingCellGroup;
 import happyfall.speedkit.listing.SPListingData;
 
@@ -15,41 +18,27 @@ import java.lang.reflect.Constructor;
  * Created by Pradip on 5/13/2015.
  */
 
-public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.ViewHolder> {
+public class SPRecyclerAdapter extends RecyclerView.Adapter<SPViewHolder> {
     // SPListing Data
     public SPListingData spListingData;
-    ViewHolderDelegate notifier;
+    public MultiSelector multiSelector;
+    SPViewHolderListener listener;
 
-    public SPRecyclerAdapter(SPListingData spListingData, ViewHolderDelegate notifier){
+    public SPRecyclerAdapter(SPListingData spListingData, SPViewHolderListener listener){
         super();
         this.spListingData = spListingData;
-        this.notifier = notifier;
+        this.listener = listener;
+        this.multiSelector = new SingleSelector();
     }
 
-    public interface ViewHolderDelegate {
-        void didSelectItem(View view);
+    public SPRecyclerAdapter(SPListingData spListingData, SPViewHolderListener listener, MultiSelector multiSelector){
+        super();
+        this.spListingData = spListingData;
+        this.listener = listener;
+        this.multiSelector = multiSelector ;
     }
 
-    abstract public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected ViewHolderDelegate notifier;
 
-        public ViewHolder(View itemView, ViewHolderDelegate pDelegate) {
-            super(itemView);
-            this.notifier = pDelegate;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(notifier != null){
-                        notifier.didSelectItem(v);
-                    }
-                }
-            });
-        }
-
-        public abstract void configureCellUsing(Object cellModel);
-
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -57,7 +46,7 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
     }
 
     @Override
-    public SPRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SPViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View listingCell = null;
         SPListingCellGroup cellGRoup = spListingData.spCellGroupList.get(viewType);
 
@@ -76,9 +65,9 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
 
         try {
             Class<?> viewClass = Class.forName(cellGRoup.cellViewHolderClassName);
-            Constructor<?> constructor = viewClass.getConstructor(View.class,ViewHolderDelegate.class);
+            Constructor<?> constructor = viewClass.getConstructor(View.class,SPViewHolderListener.class,MultiSelector.class);
 
-            ViewHolder viewHolder = (ViewHolder)constructor.newInstance(listingCell,this.notifier);
+            SPViewHolder viewHolder = (SPViewHolder)constructor.newInstance(listingCell,this.listener,this.multiSelector);
 
             return viewHolder;
 
@@ -108,7 +97,7 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPRecyclerAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(SPRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(SPViewHolder holder, int position) {
         SPListingData.CellGroupAndCellModelIndexReturnType cellGroupDetail = spListingData.getListingCellGroupWithIndexOfCellModelList(position);
 
         if (cellGroupDetail.spListingCellGroup.cellCommonModel != null){

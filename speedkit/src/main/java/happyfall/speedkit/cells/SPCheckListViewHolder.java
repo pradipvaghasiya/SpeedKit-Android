@@ -4,13 +4,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+
 import happyfall.speedkit.R;
 import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
+import happyfall.speedkit.listing.recyclerview.SPViewHolder;
+import happyfall.speedkit.listing.recyclerview.SPViewHolderListener;
 
 /**
  * Created by Pradip on 5/15/2015.
  */
-public class SPCheckListViewHolder extends SPRecyclerAdapter.ViewHolder {
+public class SPCheckListViewHolder extends SPViewHolder {
     TextView textView;
     ImageView imageView;
 
@@ -23,15 +27,15 @@ public class SPCheckListViewHolder extends SPRecyclerAdapter.ViewHolder {
         public boolean isSelected;
     }
 
-    public SPCheckListViewHolder(View v, SPRecyclerAdapter.ViewHolderDelegate delegate) {
-        super(v,delegate);
+    public SPCheckListViewHolder(View v, SPViewHolderListener listener,MultiSelector multiSelector) {
+        super(v,listener,multiSelector);
         System.out.println("SPCheckListViewHolder View Holder Created");
         this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);
         this.imageView = (ImageView)v.findViewById(R.id.SPCheckList_ImageView);
 
-        if (this.notifier instanceof Customizor &&
+        if (this.listener instanceof Customizor &&
                 this.textView != null){
-            ((Customizor) this.notifier).customizeTextView(this.textView, this);
+            ((Customizor) this.listener).customizeTextView(this.textView, this);
         }
     }
 
