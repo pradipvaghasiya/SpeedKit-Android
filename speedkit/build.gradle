@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 def version_code = 1
 def version_name = '0.1'
 
+def isSnapshot = version.endsWith('-SNAPSHOT')
+
 ext {
     PUBLISH_GROUP_ID = 'happyfall.speedkit'
     PUBLISH_ARTIFACT_ID = 'speedkit'
@@ -24,17 +26,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-//            libraryVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def file = output.outputFile
-//
-//                    if (file.name.contains('release')){
-//					     output.outputFile = new File(file.parent, file.name.replace(".aar", "-" + defaultConfig.versionName + ".aar"))
-//					}
-//                }
-//            }
-
         }
     }
 }
@@ -43,11 +34,107 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.4' //version required
 }
 
-//To publish to JCenter
-///apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+//************ Maven Center Upload   ****************//
 
-apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
+//task androidJavadocs(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+
+//task androidJavadocsJar(type: Jar, dependsOn: Javadoc) {
+//    classifier = 'javadoc'
+//    from androidJavadocs.destinationDir
+//}
+//
+//task androidSourcesJar(type: Jar) {
+//    classifier = 'sources'
+//    from android.sourceSets.main.java.srcDirs
+//}
+//
+//artifacts{
+//    archives androidSourcesJar
+//    archives androidJavadocsJar
+//}
+
+
+signing {
+    required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
+
+    sign configurations.archives
+}
+
+
+group = "com.speedui"
+archivesBaseName = "speedui-android"
+version = "0.1"
+
+def ossrhUsername = hasProperty('ossrhUsername') ?
+        getProperty('ossrhUsername') :
+        'dummyUsername'
+def ossrhPassword = hasProperty('ossrhPassword') ?
+        getProperty('ossrhPassword') :
+        'dummyPassword'
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'SpeedUI Android'
+                packaging 'aar'
+
+                description 'Speeds up Android UI Development and enforces developer to follow MVMVC (Model-View Model-View-Controller) design pattern for better re usability and maintainability.'
+
+                url 'http://www.speedui.com'
+
+                scm {
+                    url 'https://github.com/pradipvaghasiya/SpeedKit-Android'
+                    connection 'https://github.com/pradipvaghasiya/SpeedKit-Android.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'http://opensource.org/licenses/MIT'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'pradipvaghasiya'
+                        name 'Pradip Vaghasiya'
+                        email 'pradip.vaghasiya@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+android.libraryVariants.all { variant ->
+    task("generate${variant.name.substring(0,1).toUpperCase() + variant.name.substring(1)}Javadoc", type: Javadoc) {
+        source = variant.javaCompile.source
+        def androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+
+        classpath = files(variant.javaCompile.classpath.files, androidJar)
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference","${android.sdkDirectory}/docs/reference"
+        }
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+}
 
 dependencies {
 //    compile 'com.android.support:recyclerview-v7:22.1.1'
