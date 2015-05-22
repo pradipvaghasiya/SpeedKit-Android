@@ -13,21 +13,28 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
+repositories{
+    maven {
+        url 'http://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    compile(group: 'happyfall.speedkit', name: 'speedkit', version: '0.1', ext: 'aar'){
-//        transitive = true
-//    }
 
-    compile project(':speedkit')
+    //compile project(':speedkit')
+    compile ('com.speedui.android:uiautomation:0.2-SNAPSHOT')
 
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile "com.android.support:gridlayout-v7:22.1.1"
