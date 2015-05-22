@@ -6,6 +6,7 @@
 /build
 
 .idea/*
-speedkit/build
+uiautomation/build
 
 gradle.properties
+
