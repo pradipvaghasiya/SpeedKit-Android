@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.recyclerview;
+package com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder;
 
 import android.view.View;
 

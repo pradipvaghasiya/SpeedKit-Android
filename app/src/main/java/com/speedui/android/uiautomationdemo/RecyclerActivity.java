@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.speedui.android.uiautomation.recyclerviewcells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.recyclerviewcells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
-import com.speedui.android.uiautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.recyclerview.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.recyclerview.SPViewHolderListener;
+
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;

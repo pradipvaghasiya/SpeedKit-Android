@@ -3,6 +3,9 @@ apply plugin: 'com.android.library'
 def version_code = 1
 def version_name = '0.1'
 
+group  "com.speedui.android"
+archivesBaseName = "uiautomation"
+version  "0.2-SNAPSHOT"
 
 android {
 
@@ -52,9 +55,6 @@ apply plugin: 'signing'
 //    archives androidJavadocsJar
 //}
 
-group  "com.speedui.android"
-archivesBaseName = "uiautomation"
-version  "0.2-SNAPSHOT"
 
 def isSnapshot = version.endsWith('-SNAPSHOT')
 
