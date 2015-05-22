@@ -21,7 +21,7 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingD
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
-import java.util.Arrays;
+import java.util.List;
 
 
 abstract public class SPDrawerActivity extends AppCompatActivity implements SPViewHolderListener{
@@ -36,8 +36,7 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
         setContentView(R.layout.activity_spdrawer);
 
         // SPRecycler Adapter Setup
-        SPListingCellGroup drawerCellGroup = this.getCellGroupForDrawer();
-        SPListingData listingData = new SPListingData(Arrays.asList(drawerCellGroup));
+        SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
         MultiSelector selector = new SingleSelector();
         selector.setSelectable(true);
         SPRecyclerAdapter spRecyclerAdapter = new SPRecyclerAdapter(listingData,this,selector);
@@ -72,7 +71,7 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
     }
 
-    protected abstract SPListingCellGroup getCellGroupForDrawer();
+    protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
 
 
     @Override

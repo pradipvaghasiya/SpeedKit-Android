@@ -6,6 +6,7 @@ import android.net.Uri;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.navigationdrawer.SPDrawerActivity;
@@ -17,8 +18,8 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingC
 public class DrawerActivity extends SPDrawerActivity implements CellsListFragment.OnFragmentInteractionListener {
 
     @Override
-    protected SPListingCellGroup getCellGroupForDrawer() {
-        return SPTitleViewHolder.getCellGroupFromCellModels(Arrays.asList("Menu 1", "Menu 2"));
+    protected List<SPListingCellGroup> getCellGroupListForDrawer() {
+        return Arrays.asList(SPTitleViewHolder.getCellGroupFromCellModels(Arrays.asList("Menu 1", "Menu 2")));
     }
 
     @Override
