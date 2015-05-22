@@ -33,8 +33,8 @@ repositories{
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    //compile project(':speedkit')
-    compile ('com.speedui.android:uiautomation:0.2-SNAPSHOT')
+    compile project(':speedkit')
+//    compile ('com.speedui.android:uiautomation:0.2-SNAPSHOT')
 
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile "com.android.support:gridlayout-v7:22.1.1"

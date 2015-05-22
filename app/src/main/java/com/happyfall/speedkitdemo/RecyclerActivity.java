@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import happyfall.speedkit.cells.SPCheckListViewHolder;
-import happyfall.speedkit.cells.SPTitleViewHolder;
-import happyfall.speedkit.listing.SPListingCellGroup;
-import happyfall.speedkit.listing.SPListingData;
-import happyfall.speedkit.listing.recyclerview.SPRecyclerAdapter;
-import happyfall.speedkit.listing.recyclerview.SPViewHolderListener;
+import com.speedui.android.uiautomation.recyclerviewcells.SPCheckListViewHolder;
+import com.speedui.android.uiautomation.recyclerviewcells.SPTitleViewHolder;
+import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
+import com.speedui.android.uiautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.recyclerview.SPRecyclerAdapter;
+import com.speedui.android.uiautomation.recyclerview.SPViewHolderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,8 +67,7 @@ public class RecyclerActivity extends AppCompatActivity
 
     //region Cell Callbacks or Customization
     @Override
-    public void didSelectItem(View view) {
-        int position = recyclerView.getChildLayoutPosition(view);
+    public void didSelectItem(View view, int position) {
 
         if (modelArrayList.size()>position){
             modelArrayList.get(position).isSelected = !modelArrayList.get(position).isSelected;
