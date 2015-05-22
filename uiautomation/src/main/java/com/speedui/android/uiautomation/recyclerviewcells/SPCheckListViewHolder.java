@@ -8,7 +8,7 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 
 import java.util.List;
 
-import happyfall.speedkit.R;
+import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
 
 import com.speedui.android.uiautomation.recyclerview.SPViewHolder;

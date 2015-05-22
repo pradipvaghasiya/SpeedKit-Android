@@ -15,7 +15,7 @@ import android.view.View;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SingleSelector;
 
-import happyfall.speedkit.R;
+import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.recyclerview.SPRecyclerAdapter;

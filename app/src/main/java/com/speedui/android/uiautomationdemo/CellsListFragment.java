@@ -1,4 +1,4 @@
-package com.happyfall.speedkitdemo;
+package com.speedui.android.uiautomationdemo;
 
 import android.app.Activity;
 import android.net.Uri;

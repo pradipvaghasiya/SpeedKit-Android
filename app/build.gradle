@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.happyfall.speedkitdemo"
+        applicationId "com.speedui.android.uiautomationdemo"
         minSdkVersion 11
         targetSdkVersion 22
         versionCode 1
@@ -33,7 +33,7 @@ repositories{
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':speedkit')
+    compile project(':uiautomation')
 //    compile ('com.speedui.android:uiautomation:0.2-SNAPSHOT')
 
     compile 'com.android.support:appcompat-v7:22.1.1'

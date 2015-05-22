@@ -1,4 +1,4 @@
-package com.happyfall.speedkitdemo;
+package com.speedui.android.uiautomationdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
