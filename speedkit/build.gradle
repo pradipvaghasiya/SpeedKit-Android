@@ -3,13 +3,6 @@ apply plugin: 'com.android.library'
 def version_code = 1
 def version_name = '0.1'
 
-def isSnapshot = version.endsWith('-SNAPSHOT')
-
-ext {
-    PUBLISH_GROUP_ID = 'happyfall.speedkit'
-    PUBLISH_ARTIFACT_ID = 'speedkit'
-    PUBLISH_VERSION = version_name
-}
 
 android {
 
@@ -43,7 +36,7 @@ apply plugin: 'signing'
 //    source = android.sourceSets.main.java.srcDirs
 //    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 //}
-
+//
 //task androidJavadocsJar(type: Jar, dependsOn: Javadoc) {
 //    classifier = 'javadoc'
 //    from androidJavadocs.destinationDir
@@ -59,6 +52,17 @@ apply plugin: 'signing'
 //    archives androidJavadocsJar
 //}
 
+group  "com.speedui.android"
+archivesBaseName = "uiautomation"
+version  "0.2-SNAPSHOT"
+
+def isSnapshot = version.endsWith('-SNAPSHOT')
+
+assert project.hasProperty("ossrhUsername")
+assert project.hasProperty("ossrhPassword")
+
+def ossrhUsername = getProperty('ossrhUsername')
+def ossrhPassword = getProperty('ossrhPassword')
 
 signing {
     required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
@@ -66,25 +70,16 @@ signing {
     sign configurations.archives
 }
 
-
-group = "com.speedui"
-archivesBaseName = "speedui-android"
-version = "0.1"
-
-def ossrhUsername = hasProperty('ossrhUsername') ?
-        getProperty('ossrhUsername') :
-        'dummyUsername'
-def ossrhPassword = hasProperty('ossrhPassword') ?
-        getProperty('ossrhPassword') :
-        'dummyPassword'
-
-
 uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
@@ -98,7 +93,7 @@ uploadArchives {
 
                 scm {
                     url 'https://github.com/pradipvaghasiya/SpeedKit-Android'
-                    connection 'https://github.com/pradipvaghasiya/SpeedKit-Android.git'
+                    connection 'scm:git:https://github.com/pradipvaghasiya/SpeedKit-Android.git'
                 }
 
                 licenses {
@@ -136,8 +131,12 @@ android.libraryVariants.all { variant ->
     }
 }
 
-dependencies {
-//    compile 'com.android.support:recyclerview-v7:22.1.1'
-    compile project(':recyclerview-multiselect')
+repositories{
+    maven {
+        url 'http://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
 
+dependencies {
+    compile ('com.speedui.android:recyclerview-multiselect:0.1-SNAPSHOT')
 }
