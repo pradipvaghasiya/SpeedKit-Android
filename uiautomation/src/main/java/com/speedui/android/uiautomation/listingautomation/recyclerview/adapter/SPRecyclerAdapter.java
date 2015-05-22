@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.recyclerview;
+package com.speedui.android.uiautomation.listingautomation.recyclerview.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SingleSelector;
 
-import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
-import com.speedui.android.uiautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
 import java.lang.reflect.Constructor;
 

@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.listingdata;
+package com.speedui.android.uiautomation.listingautomation.listingdata;
 
 import java.util.List;
 

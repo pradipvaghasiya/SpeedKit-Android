@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.gridview;
+package com.speedui.android.uiautomation.listingautomation.gridview.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.speedui.android.uiautomation.listingdata.SPListingCellInterface;
-import com.speedui.android.uiautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellInterface;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 
 import java.lang.reflect.Constructor;
 

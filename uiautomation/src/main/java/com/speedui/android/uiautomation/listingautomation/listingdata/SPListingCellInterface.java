@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.listingdata;
+package com.speedui.android.uiautomation.listingautomation.listingdata;
 
 /**
  * Created by Pradip on 5/12/2015.

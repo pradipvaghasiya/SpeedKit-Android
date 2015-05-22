@@ -1,6 +1,4 @@
-package com.speedui.android.uiautomation.listingdata;
-
-import android.view.View;
+package com.speedui.android.uiautomation.listingautomation.listingdata;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,9 +7,9 @@ import android.net.Uri;
 
 import java.util.Arrays;
 
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.navigationdrawer.SPDrawerActivity;
-import com.speedui.android.uiautomation.recyclerviewcells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingdata.SPListingCellGroup;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 
 /**
  * Created by pradipvaghasiya on 22/05/15.

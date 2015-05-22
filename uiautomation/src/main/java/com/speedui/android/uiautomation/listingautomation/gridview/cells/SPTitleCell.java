@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.gridviewcells;
+package com.speedui.android.uiautomation.listingautomation.gridview.cells;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.speedui.android.uiautomation.listingdata.SPListingCellInterface;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellInterface;
 
 
 /**
