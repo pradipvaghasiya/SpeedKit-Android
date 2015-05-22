@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/SpeedKit-Android.iml" filepath="$PROJECT_DIR$/SpeedKit-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/recyclerview-multiselect/recyclerview-multiselect/recyclerview-multiselect.iml" filepath="$PROJECT_DIR$/recyclerview-multiselect/recyclerview-multiselect/recyclerview-multiselect.iml" />
-      <module fileurl="file://$PROJECT_DIR$/speedkit/speedkit.iml" filepath="$PROJECT_DIR$/speedkit/speedkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uiautomation/uiautomation.iml" filepath="$PROJECT_DIR$/uiautomation/uiautomation.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:padding="10dp"
+        android:id="@+id/SPTitleViewHolder_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recycler Cell"
+        android:textSize="17sp"/>
+
+    <include layout="@layout/cell_separator"/>
+
+</LinearLayout><!-- From: file:/Users/pradipvaghasiya/1_Work/3_Android/Frameworks/SpeedKit-Android/uiautomation/src/main/res/layout/recycler_cell_title.xml -->

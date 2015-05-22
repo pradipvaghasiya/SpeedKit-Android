@@ -1,0 +1,9 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1px"
+    android:background="@android:color/darker_gray"
+    android:layout_marginLeft="10dp"
+    android:layout_marginStart="10dp"/>
+</merge>
+<!-- From: file:/Users/pradipvaghasiya/1_Work/3_Android/Frameworks/SpeedKit-Android/uiautomation/src/main/res/layout/cell_separator.xml -->
