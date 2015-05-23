@@ -102,9 +102,9 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPViewHolder> {
     public void onBindViewHolder(SPViewHolder holder, int position) {
         SPListingData.CellGroupAndCellModelIndexReturnType cellGroupDetail = spListingData.getListingCellGroupWithIndexOfCellModelList(position);
 
-        if (cellGroupDetail.spListingCellGroup.cellCommonModel != null){
-            holder.configureCellUsing(cellGroupDetail.spListingCellGroup.cellCommonModel);
-        }
+//        if (cellGroupDetail.spListingCellGroup.cellCommonModel != null){
+//            holder.configureCellUsing(cellGroupDetail.spListingCellGroup.cellCommonModel);
+//        }
 
         if (cellGroupDetail.spListingCellGroup.cellModelList.size() > cellGroupDetail.indexOfCellModelList &&
                 cellGroupDetail.indexOfCellModelList >= 0){

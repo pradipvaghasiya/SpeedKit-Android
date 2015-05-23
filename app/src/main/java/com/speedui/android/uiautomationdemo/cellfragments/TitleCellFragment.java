@@ -14,7 +14,7 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.S
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomizor;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
@@ -27,10 +27,10 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends Fragment implements SPViewHolderListener, SPViewHolderCustomizor {
+public class TitleCellFragment extends Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
 
     RecyclerView recyclerView;
-    ArrayList<SPCheckListViewHolder.Model> modelArrayList;
+    ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
 
     public TitleCellFragment() {
@@ -52,7 +52,7 @@ public class TitleCellFragment extends Fragment implements SPViewHolderListener,
 
     void setupRecyclerView() {
         //region Listing Data Creation
-        modelArrayList = new ArrayList<>();
+        viewModelArrayList = new ArrayList<>();
 
         SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(Arrays.asList("Title 1", "Title 2", "Title 2"));
         SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
@@ -76,7 +76,7 @@ public class TitleCellFragment extends Fragment implements SPViewHolderListener,
 
 
     @Override
-    public void customizeViewHolder(SPViewHolder viewHolder) {
+    public void customiseViewHolder(SPViewHolder viewHolder) {
         if (viewHolder instanceof SPTitleViewHolder){
             SPTitleViewHolder titleViewHolder = (SPTitleViewHolder)viewHolder;
             titleViewHolder.dividerLine.setVisibility(View.INVISIBLE);
