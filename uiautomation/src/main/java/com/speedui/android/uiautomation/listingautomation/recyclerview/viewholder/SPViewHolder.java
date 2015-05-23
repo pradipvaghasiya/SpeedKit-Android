@@ -24,7 +24,6 @@ abstract public class SPViewHolder extends SwappingHolder implements View.OnClic
         itemView.setOnClickListener(this);
 
         this.setDefaultDrawable();
-
     }
 
     public void setDefaultDrawable(){
@@ -54,4 +53,9 @@ abstract public class SPViewHolder extends SwappingHolder implements View.OnClic
         listener.didSelectItem(v,getAdapterPosition());
     }
 
+    protected void customiseViewHolderIfRequired(){
+        if (this.listener instanceof SPViewHolderCustomizor){
+            ((SPViewHolderCustomizor) this.listener).customizeViewHolder(this);
+        }
+    }
 }

@@ -16,10 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.speedui.android.uiautomationdemo.RecyclerActivity"
-            android:label="@string/title_activity_recycler" >
-        </activity>
     </application>
 
 </manifest>

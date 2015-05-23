@@ -10,6 +10,7 @@ import java.util.List;
 import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomizor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
 /**
@@ -18,21 +19,17 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 public class SPTitleViewHolder extends SPViewHolder {
     public static final String CLASS_NAME = "SPTitleViewHolder";
 
-    TextView textView;
+    public TextView textView;
+    public View dividerLine;
 
-    public interface Customizor{
-        void customizeTextView(TextView textView, SPTitleViewHolder viewHolder);
-    }
-
-    public SPTitleViewHolder(View v,SPViewHolderListener delegate,MultiSelector multiSelector) {
-        super(v,delegate,multiSelector);
+    public SPTitleViewHolder(View itemView,SPViewHolderListener delegate,MultiSelector multiSelector) {
+        super(itemView, delegate, multiSelector);
         System.out.println("SPTitleViewHolder View Holder Created");
-        this.textView = (TextView)v.findViewById(R.id.SPTitleViewHolder_TextView);
 
-        if (this.listener instanceof Customizor &&
-                this.textView != null){
-            ((Customizor) this.listener).customizeTextView(this.textView, this);
-        }
+        this.textView = (TextView)itemView.findViewById(R.id.SPTitleViewHolder_TextView);
+        this.dividerLine = itemView.findViewById(R.id.cell_divider);
+
+        this.customiseViewHolderIfRequired();
     }
 
     @Override
