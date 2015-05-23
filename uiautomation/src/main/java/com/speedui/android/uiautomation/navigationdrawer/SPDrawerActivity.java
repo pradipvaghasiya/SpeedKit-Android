@@ -99,10 +99,14 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
     @Override
     public void didSelectItem(View view, int position) {
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.spdrawer_content_frame,this.getFragmentAtPosition(position))
-                .commit();
+        Fragment fragment = this.getFragmentAtPosition(position);
+
+        if (fragment != null){
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.spdrawer_content_frame,this.getFragmentAtPosition(position))
+                    .commit();
+        }
 
         drawerLayout.closeDrawer(drawerRecyclerView);
     }
