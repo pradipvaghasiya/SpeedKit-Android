@@ -12,18 +12,15 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomizor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
 /**
  * Created by Pradip on 5/15/2015.
  */
 public class SPCheckListViewHolder extends SPViewHolder {
-    TextView textView;
-    ImageView imageView;
-
-    public interface Customizor{
-        void customizeTextView(TextView textView, SPCheckListViewHolder viewHolder);
-    }
+    public TextView textView;
+    public ImageView imageView;
 
     public static class Model{
         public String titleText;
@@ -33,13 +30,11 @@ public class SPCheckListViewHolder extends SPViewHolder {
     public SPCheckListViewHolder(View v, SPViewHolderListener listener,MultiSelector multiSelector) {
         super(v,listener,multiSelector);
         System.out.println("SPCheckListViewHolder View Holder Created");
+
         this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);
         this.imageView = (ImageView)v.findViewById(R.id.SPCheckList_ImageView);
 
-        if (this.listener instanceof Customizor &&
-                this.textView != null){
-            ((Customizor) this.listener).customizeTextView(this.textView, this);
-        }
+        this.customiseViewHolderIfRequired();
     }
 
     @Override
