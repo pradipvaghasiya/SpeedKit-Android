@@ -24,7 +24,7 @@ public class DrawerActivity extends SPDrawerActivity implements CellsListFragmen
 
     @Override
     protected Fragment getFragmentAtPosition(int position) {
-        return CellsListFragment.newInstance(position);
+        return null;
     }
 
 

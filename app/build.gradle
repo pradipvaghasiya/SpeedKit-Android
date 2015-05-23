@@ -24,17 +24,17 @@ android {
 
 }
 
-repositories{
-    maven {
-        url 'http://oss.sonatype.org/content/repositories/snapshots'
-    }
-}
+//repositories{
+//    maven {
+//        url 'http://oss.sonatype.org/content/repositories/snapshots'
+//    }
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile project(':uiautomation')
-    //compile ('com.speedui.android:uiautomation:0.2-SNAPSHOT')
+    //compile ('com.speedui.android:uiautomation:0.2')
 
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile "com.android.support:gridlayout-v7:22.1.1"
