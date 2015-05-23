@@ -5,7 +5,7 @@ def version_name = '0.1'
 
 group  "com.speedui.android"
 archivesBaseName = "uiautomation"
-version  "0.2-SNAPSHOT"
+version  "0.2"
 
 android {
 
@@ -34,27 +34,6 @@ task wrapper(type: Wrapper) {
 
 apply plugin: 'maven'
 apply plugin: 'signing'
-
-//task androidJavadocs(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
-//
-//task androidJavadocsJar(type: Jar, dependsOn: Javadoc) {
-//    classifier = 'javadoc'
-//    from androidJavadocs.destinationDir
-//}
-//
-//task androidSourcesJar(type: Jar) {
-//    classifier = 'sources'
-//    from android.sourceSets.main.java.srcDirs
-//}
-//
-//artifacts{
-//    archives androidSourcesJar
-//    archives androidJavadocsJar
-//}
-
 
 def isSnapshot = version.endsWith('-SNAPSHOT')
 
@@ -116,6 +95,7 @@ uploadArchives {
     }
 }
 
+
 android.libraryVariants.all { variant ->
     task("generate${variant.name.substring(0,1).toUpperCase() + variant.name.substring(1)}Javadoc", type: Javadoc) {
         source = variant.javaCompile.source
@@ -125,18 +105,14 @@ android.libraryVariants.all { variant ->
         options {
             links "http://docs.oracle.com/javase/7/docs/api/"
             linksOffline "http://d.android.com/reference","${android.sdkDirectory}/docs/reference"
+            linksOffline "https://bignerdranch.github.io/recyclerview-multiselect/javadocs/", "/Users/pradipvaghasiya/1_Work/3_Android/Frameworks/UIAutomation-Android/recyclerview-multiselect/recyclerview-multiselect/build/docs/javadoc"
+
         }
         exclude '**/BuildConfig.java'
         exclude '**/R.java'
     }
 }
 
-repositories{
-    maven {
-        url 'http://oss.sonatype.org/content/repositories/snapshots'
-    }
-}
-
 dependencies {
-    compile ('com.speedui.android:recyclerview-multiselect:0.1-SNAPSHOT')
+    compile 'com.speedui.android:recyclerview-multiselect:0.1'
 }
