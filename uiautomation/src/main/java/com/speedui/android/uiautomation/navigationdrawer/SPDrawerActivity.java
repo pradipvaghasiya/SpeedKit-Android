@@ -71,7 +71,6 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
     }
 
-    protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
 
 
     @Override
@@ -110,6 +109,8 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
         drawerLayout.closeDrawer(drawerRecyclerView);
     }
+
+    protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
 
     protected abstract Fragment getFragmentAtPosition(int position);
 
