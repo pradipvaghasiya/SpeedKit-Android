@@ -1,6 +1,5 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +22,11 @@ import java.util.Arrays;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link android.support.v4.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
+public class TitleCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
 
     RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;

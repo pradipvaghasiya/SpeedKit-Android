@@ -3,6 +3,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="actionBarStyle">@style/AppActionBar</item>
+
     </style>
 
     <style name="AppActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
