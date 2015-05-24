@@ -1,9 +1,6 @@
 package com.speedui.android.uiautomationdemo;
 
 
-import android.app.Fragment;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +9,14 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPT
 import com.speedui.android.uiautomation.navigationdrawer.SPDrawerActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomationdemo.cellfragments.ChecklistCellFragment;
+import com.speedui.android.uiautomationdemo.cellfragments.SlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.cellfragments.TitleCellFragment;
 
 /**
  * Created by pradipvaghasiya on 22/05/15.
  */
 public class DrawerActivity extends SPDrawerActivity{
-    private static List<String> MENU_LIST = Arrays.asList("Title Cell","Check List Cell");
+    private static List<String> MENU_LIST = Arrays.asList("Title Cell","Check List Cell","Sliding Tabs");
 
     @Override
     protected List<SPListingCellGroup> getCellGroupListForDrawer() {
@@ -26,7 +24,7 @@ public class DrawerActivity extends SPDrawerActivity{
     }
 
     @Override
-    protected Fragment getFragmentAtPosition(int position) {
+    protected android.support.v4.app.Fragment getFragmentAtPosition(int position) {
 
         try {
             getSupportActionBar().setTitle(MENU_LIST.get(position));
@@ -40,7 +38,8 @@ public class DrawerActivity extends SPDrawerActivity{
                 return new TitleCellFragment();
             case 1:
                 return new ChecklistCellFragment();
-
+            case 2:
+                return new SlidingTabsFragment();
             default:
                 return null;
         }
