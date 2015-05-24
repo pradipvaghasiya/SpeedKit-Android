@@ -1,9 +1,8 @@
 package com.speedui.android.uiautomation.navigationdrawer;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -101,7 +100,7 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
         Fragment fragment = this.getFragmentAtPosition(position);
 
         if (fragment != null){
-            FragmentManager fragmentManager = getFragmentManager();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.spdrawer_content_frame,this.getFragmentAtPosition(position))
                     .commit();
@@ -112,6 +111,6 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
     protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
 
-    protected abstract Fragment getFragmentAtPosition(int position);
+    protected abstract android.support.v4.app.Fragment getFragmentAtPosition(int position);
 
 }
