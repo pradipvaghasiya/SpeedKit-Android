@@ -12,7 +12,6 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomizor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 
 /**
@@ -22,7 +21,7 @@ public class SPCheckListViewHolder extends SPViewHolder {
     public TextView textView;
     public ImageView imageView;
 
-    public static class Model{
+    public static class ViewModel {
         public String titleText;
         public boolean isSelected;
     }
@@ -41,17 +40,17 @@ public class SPCheckListViewHolder extends SPViewHolder {
     public void configureCellUsing(Object cellModel) {
 
         // Check if the model is my model.
-        if (cellModel instanceof Model){
-            Model myModel = ((Model) cellModel);
+        if (cellModel instanceof ViewModel){
+            ViewModel myViewModel = ((ViewModel) cellModel);
 
             // Set the title Text
             if (this.textView != null){
-                this.textView.setText(myModel.titleText);
+                this.textView.setText(myViewModel.titleText);
             }
 
             // Hide selection image if not selected and vice versa
             if (this.imageView != null){
-                if (myModel.isSelected) {
+                if (myViewModel.isSelected) {
                     this.imageView.setVisibility(View.VISIBLE);
                 }else{
                     this.imageView.setVisibility(View.INVISIBLE);
@@ -60,11 +59,11 @@ public class SPCheckListViewHolder extends SPViewHolder {
         }
     }
 
-    public static SPListingCellGroup getCellGroupFromCellModels(List<Model> modelList){
+    public static SPListingCellGroup getCellGroupFromCellModels(List<ViewModel> viewModelList){
         return new SPListingCellGroup(
                 R.layout.recycler_cell_checklist,
                 SPCheckListViewHolder.class.getName(),
-                modelList);
+                viewModelList);
 
     }
 

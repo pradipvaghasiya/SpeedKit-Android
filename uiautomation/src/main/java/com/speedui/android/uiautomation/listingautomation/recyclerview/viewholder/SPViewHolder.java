@@ -54,8 +54,8 @@ abstract public class SPViewHolder extends SwappingHolder implements View.OnClic
     }
 
     protected void customiseViewHolderIfRequired(){
-        if (this.listener instanceof SPViewHolderCustomizor){
-            ((SPViewHolderCustomizor) this.listener).customizeViewHolder(this);
+        if (this.listener instanceof SPViewHolderCustomisor){
+            ((SPViewHolderCustomisor) this.listener).customiseViewHolder(this);
         }
     }
 }

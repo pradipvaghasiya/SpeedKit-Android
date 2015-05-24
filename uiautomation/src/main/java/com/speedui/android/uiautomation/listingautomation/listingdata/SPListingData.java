@@ -16,7 +16,7 @@ final public class SPListingData {
     public int getTotalCellCount(){
         int cellCount = 0;
         for (SPListingCellGroup cellGroup : spCellGroupList){
-            cellCount += cellGroup.cellCount;
+            cellCount += cellGroup.getCellCount();
         }
         return cellCount;
     }
@@ -32,14 +32,14 @@ final public class SPListingData {
         int startIndexOfCellFound  = 0;
         int totalCellCountParsedFromCellGroupArray  = 0;
         for(SPListingCellGroup cellGroup : this.spCellGroupList){
-            totalCellCountParsedFromCellGroupArray += cellGroup.cellCount;
+            totalCellCountParsedFromCellGroupArray += cellGroup.getCellCount();
             if (index < totalCellCountParsedFromCellGroupArray){
                 returnType.spListingCellGroup = cellGroup;
                 returnType.indexOfCellModelList = index - startIndexOfCellFound;
                 break;
             }
 
-            startIndexOfCellFound += startIndexOfCellFound + cellGroup.cellCount;
+            startIndexOfCellFound += startIndexOfCellFound + cellGroup.getCellCount();
         }
         return returnType;
     }
@@ -48,7 +48,7 @@ final public class SPListingData {
         int startIndexOfCellGroup  = 0;
         int totalIndexConvered = 0;
         for(SPListingCellGroup cellGroup : this.spCellGroupList){
-            totalIndexConvered += cellGroup.cellCount;
+            totalIndexConvered += cellGroup.getCellCount();
             if (indexOfListView < totalIndexConvered){
                 return startIndexOfCellGroup;
             }

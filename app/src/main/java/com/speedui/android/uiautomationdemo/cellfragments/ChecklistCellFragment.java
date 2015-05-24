@@ -1,6 +1,5 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingC
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
@@ -29,7 +27,7 @@ import java.util.Arrays;
 public class ChecklistCellFragment extends Fragment implements SPViewHolderListener {
 
     RecyclerView recyclerView;
-    ArrayList<SPCheckListViewHolder.Model> modelArrayList;
+    ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
 
     public ChecklistCellFragment() {
@@ -51,18 +49,18 @@ public class ChecklistCellFragment extends Fragment implements SPViewHolderListe
 
     void setupRecyclerView(){
         //region Listing Data Creation
-        modelArrayList = new ArrayList<>();
+        viewModelArrayList = new ArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
 
-            SPCheckListViewHolder.Model cellModel = new SPCheckListViewHolder.Model();
-            cellModel.titleText = titleText;
-            cellModel.isSelected = true;
+            SPCheckListViewHolder.ViewModel cellViewModel = new SPCheckListViewHolder.ViewModel();
+            cellViewModel.titleText = titleText;
+            cellViewModel.isSelected = true;
 
-            modelArrayList.add(cellModel);
+            viewModelArrayList.add(cellViewModel);
         }
 
-        SPListingCellGroup cellGroup = SPCheckListViewHolder.getCellGroupFromCellModels(modelArrayList);
+        SPListingCellGroup cellGroup = SPCheckListViewHolder.getCellGroupFromCellModels(viewModelArrayList);
         SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
         //endregion
 
@@ -82,8 +80,8 @@ public class ChecklistCellFragment extends Fragment implements SPViewHolderListe
     @Override
     public void didSelectItem(View view, int position) {
 
-        if (modelArrayList.size()>position){
-            modelArrayList.get(position).isSelected = !modelArrayList.get(position).isSelected;
+        if (viewModelArrayList.size()>position){
+            viewModelArrayList.get(position).isSelected = !viewModelArrayList.get(position).isSelected;
             spRecyclerAdapter.notifyItemChanged(position);
         }
 
