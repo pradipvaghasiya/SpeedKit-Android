@@ -51,9 +51,9 @@ public class SPGridAdapter extends BaseAdapter {
             }
         }
 
-        if (cellGroupDetail.spListingCellGroup.cellCommonModel != null){
-            listingCell.configureCellUsing(cellGroupDetail.spListingCellGroup.cellCommonModel);
-        }
+//        if (cellGroupDetail.spListingCellGroup.cellCommonModel != null){
+//            listingCell.configureCellUsing(cellGroupDetail.spListingCellGroup.cellCommonModel);
+//        }
 
         if (cellGroupDetail.spListingCellGroup.cellModelList.size() > cellGroupDetail.indexOfCellModelList &&
                 cellGroupDetail.indexOfCellModelList >= 0){
