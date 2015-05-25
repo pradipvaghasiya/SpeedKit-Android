@@ -37,8 +37,8 @@ apply plugin: 'signing'
 
 def isSnapshot = version.endsWith('-SNAPSHOT')
 
-assert project.hasProperty("ossrhUsername")
-assert project.hasProperty("ossrhPassword")
+//assert project.hasProperty("ossrhUsername")
+//assert project.hasProperty("ossrhPassword")
 
 def ossrhUsername = getProperty('ossrhUsername')
 def ossrhPassword = getProperty('ossrhPassword')
