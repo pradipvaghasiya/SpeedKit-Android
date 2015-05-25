@@ -29,7 +29,7 @@ public class SlidingTabsFragment extends android.support.v4.app.Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewPager = (ViewPager)view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new SamplePagerAdapter(getActivity().getSupportFragmentManager(), Arrays.asList("Title Cell", "Checklist Cell")));
+        viewPager.setAdapter(new SamplePagerAdapter(getChildFragmentManager(), Arrays.asList("Title Cell", "Checklist Cell")));
 
         slidingTabLayout = (SlidingTabLayout)view.findViewById(R.id.sliding_tabs);
         slidingTabLayout.setViewPager(viewPager);
