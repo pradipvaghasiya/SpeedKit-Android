@@ -3,6 +3,7 @@ package com.speedui.android.uiautomationdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,11 @@ import com.speedui.android.uiautomationdemo.cellfragments.TitleCellFragment;
  */
 public class DrawerActivity extends SPDrawerActivity{
     private static List<String> MENU_LIST = Arrays.asList("Title Cell","Check List Cell","Sliding Tabs");
+
+    public DrawerActivity(){
+        this.isActionBarOvelay = true;
+    }
+
 
     @Override
     protected List<SPListingCellGroup> getCellGroupListForDrawer() {
