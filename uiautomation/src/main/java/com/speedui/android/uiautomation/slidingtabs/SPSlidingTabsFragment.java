@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     protected SlidingTabLayout slidingTabLayout;
     private List<String> pageTitles;
     private ViewPager viewPager;
+    protected boolean isActionBarOverLay;
 
     public SPSlidingTabsFragment(){
 
@@ -39,6 +41,15 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
 
         slidingTabLayout = (SlidingTabLayout)view.findViewById(R.id.sliding_tabs);
         slidingTabLayout.setViewPager(viewPager);
+
+        if (isActionBarOverLay){
+            TypedValue typedValue = new TypedValue();
+            if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize,typedValue, true))
+            {
+                int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
+                view.setPadding(0,actionBarHeight,0,0);
+            }
+        }
     }
 
     public abstract List<String> getTabTitles();

@@ -53,7 +53,15 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
         //region Listing Data Creation
         viewModelArrayList = new ArrayList<>();
 
-        SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(Arrays.asList("Title 1", "Title 2", "Title 2"));
+        SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(
+                Arrays.asList("Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell"));
+
         SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
         //endregion
 
