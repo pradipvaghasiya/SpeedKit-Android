@@ -25,7 +25,7 @@ import java.util.Arrays;
  */
 public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener {
 
-    RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
 
