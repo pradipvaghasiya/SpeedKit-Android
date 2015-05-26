@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,8 +27,11 @@ import java.util.List;
 abstract public class SPDrawerActivity extends AppCompatActivity implements SPViewHolderListener{
 
     DrawerLayout drawerLayout;
-    RecyclerView drawerRecyclerView;
     ActionBarDrawerToggle actionBarDrawerToggle;
+
+    protected RecyclerView drawerRecyclerView;
+    protected boolean isActionBarOvelay;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,17 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
         drawerRecyclerView.setHasFixedSize(true);
         drawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         drawerRecyclerView.setAdapter(spRecyclerAdapter);
+
+
+        //Set the Recyclerview padding id Overlay actionbar
+        if (isActionBarOvelay){
+            TypedValue typedValue = new TypedValue();
+            if (getTheme().resolveAttribute(R.attr.actionBarSize,typedValue, true))
+            {
+                int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
+                this.drawerRecyclerView.setPadding(0,actionBarHeight,0,0);
+            }
+        }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.spdrawer_layout);
 

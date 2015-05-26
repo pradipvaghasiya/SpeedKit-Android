@@ -11,7 +11,11 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingC
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPEmptyViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
 
 import java.util.ArrayList;
@@ -23,11 +27,12 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener {
+public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener,SPViewHolderCustomisor {
 
-    RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
+    SPSlidingTabsFragment parentFragment;
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -41,6 +46,13 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
         recyclerView = (RecyclerView)fragmentView.findViewById(R.id.recyclerView);
 
         this.setupRecyclerView();
+
+        try {
+            parentFragment = (SPSlidingTabsFragment)getParentFragment();
+        } catch (Exception e) {
+            System.out.println("Ignore id parent is not sliding layout.");
+        }
+
 
         // Inflate the layout for this fragment
         return fragmentView;
@@ -59,8 +71,9 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
             viewModelArrayList.add(cellViewModel);
         }
 
+        SPListingCellGroup emptyRowCellGroup = SPEmptyViewHolder.getCellGroupFromCellModels(Arrays.asList("HEADER"));
         SPListingCellGroup cellGroup = SPCheckListViewHolder.getCellGroupFromCellModels(viewModelArrayList);
-        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
+        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
         //endregion
 
         spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
@@ -85,5 +98,18 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
         }
 
         System.out.println("Item DidSelect At : " + position);
+    }
+
+    @Override
+    public void customiseViewHolder(SPViewHolder viewHolder) {
+        if (viewHolder instanceof SPEmptyViewHolder) {
+            ViewGroup.LayoutParams params =  ((SPEmptyViewHolder) viewHolder).emptyView.getLayoutParams();
+            if (parentFragment != null){
+                params.height = 112 + 80;
+            }else{
+                params.height = 112;
+            }
+            ((SPEmptyViewHolder) viewHolder).emptyView.setLayoutParams(params);
+        }
     }
 }
