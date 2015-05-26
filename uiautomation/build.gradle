@@ -37,11 +37,12 @@ apply plugin: 'signing'
 
 def isSnapshot = version.endsWith('-SNAPSHOT')
 
-assert project.hasProperty("ossrhUsername")
-assert project.hasProperty("ossrhPassword")
-
-def ossrhUsername = getProperty('ossrhUsername')
-def ossrhPassword = getProperty('ossrhPassword')
+def ossrhUsername = hasProperty('ossrhUsername') ?
+        getProperty('ossrhUsername') :
+        'dummyUsername'
+def ossrhPassword = hasProperty('ossrhPassword') ?
+        getProperty('ossrhPassword') :
+        'dummyPassword'
 
 signing {
     required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }

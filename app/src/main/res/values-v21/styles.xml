@@ -7,7 +7,7 @@
     </style>
 
     <style name="AppActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="elevation">2dp</item>
+        <item name="elevation">0dp</item>
     </style>
 
 </resources>
