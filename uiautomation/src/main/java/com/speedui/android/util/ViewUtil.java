@@ -9,6 +9,13 @@ import android.view.ViewGroup;
  */
 public class ViewUtil {
 
+    public static void setWidthForView (View view,
+                                         int widthInPixels){
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = widthInPixels;
+        view.setLayoutParams(layoutParams);
+    }
+
     public static void setHeightForView (View view,
                                          int heightInPixels){
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();

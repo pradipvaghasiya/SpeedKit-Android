@@ -94,13 +94,15 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     //region Cell Callbacks or Customization
     @Override
     public void didSelectItem(View view, int position) {
+        int checklistPosition = position - 1;  //Offset to cover header view row.
 
-        if (viewModelArrayList.size()>position){
-            viewModelArrayList.get(position).isSelected = !viewModelArrayList.get(position).isSelected;
+        if (checklistPosition >= 0 &&
+                viewModelArrayList.size()> checklistPosition){
+            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
             spRecyclerAdapter.notifyItemChanged(position);
         }
 
-        System.out.println("Item DidSelect At : " + position);
+        System.out.println("Item DidSelect At : " + position );
     }
 
     @Override

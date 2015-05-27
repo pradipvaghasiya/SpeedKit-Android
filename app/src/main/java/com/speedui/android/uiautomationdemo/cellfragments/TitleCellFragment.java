@@ -37,7 +37,7 @@ import java.util.Arrays;
  */
 public class TitleCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
 
-    public RecyclerView recyclerView;
+    RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
