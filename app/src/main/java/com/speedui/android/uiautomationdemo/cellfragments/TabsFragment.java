@@ -1,11 +1,9 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 
 import android.view.View;
 
@@ -56,7 +54,7 @@ public class TabsFragment extends SPSlidingTabsFragment{
 
             @Override
             public void onPageSelected(int position) {
-                showActionBar();
+                showActionBarAndMoveSlidingTabsBelowIt();
             }
 
             @Override
