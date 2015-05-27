@@ -26,6 +26,8 @@ public class TabsFragment extends SPSlidingTabsFragment{
 
     public TabsFragment(){
         this.isActionBarOverLay = true;
+        this.titleCellFragment = new TitleCellFragment();
+        this.checklistCellFragment = new ChecklistCellFragment();
     }
 
     @Override
@@ -46,26 +48,22 @@ public class TabsFragment extends SPSlidingTabsFragment{
             }
         });
 
-    }
+        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+            }
 
-    public TitleCellFragment getTitleCellFragment() {
-        if (this.titleCellFragment == null){
-            this.titleCellFragment = new TitleCellFragment();
-        }
-        return this.titleCellFragment;
-    }
+            @Override
+            public void onPageSelected(int position) {
+                showActionBar();
+            }
 
-    public ChecklistCellFragment getChecklistCellFragment() {
-        if (this.checklistCellFragment == null){
-            this.checklistCellFragment = new ChecklistCellFragment();
-            //this.checklistCellFragment.recyclerView.addOnScrollListener(scrollListener);
-        }
-        return this.checklistCellFragment;
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -77,9 +75,9 @@ public class TabsFragment extends SPSlidingTabsFragment{
     public Fragment getV4FragmentAt(int position) {
         switch (position){
             case 0:
-                return getTitleCellFragment();
+                return this.titleCellFragment;
             case 1:
-                return getChecklistCellFragment();
+                return this.checklistCellFragment;
             default:
                 return null;
         }
