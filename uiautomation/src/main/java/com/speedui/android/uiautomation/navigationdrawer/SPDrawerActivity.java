@@ -2,6 +2,7 @@ package com.speedui.android.uiautomation.navigationdrawer;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,15 +17,18 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SingleSelector;
 
 import com.speedui.android.uiautomation.R;
+import com.speedui.android.uiautomation.activity.SPActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.util.ActionBarUtil;
 
 import java.util.List;
 
 
-abstract public class SPDrawerActivity extends AppCompatActivity implements SPViewHolderListener{
+abstract public class SPDrawerActivity extends SPActivity implements SPViewHolderListener{
+    private static final int DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS = 200;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -53,12 +57,8 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
         //Set the Recyclerview padding id Overlay actionbar
         if (isActionBarOvelay){
-            TypedValue typedValue = new TypedValue();
-            if (getTheme().resolveAttribute(R.attr.actionBarSize,typedValue, true))
-            {
-                int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
-                this.drawerRecyclerView.setPadding(0,actionBarHeight,0,0);
-            }
+            int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getTheme(), getResources());
+            this.drawerRecyclerView.setPadding(0,actionBarHeight,0,0);
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.spdrawer_layout);
@@ -110,8 +110,19 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
 
 
     @Override
-    public void didSelectItem(View view, int position) {
+    public void didSelectItem(View view, final int position) {
 
+        drawerLayout.closeDrawer(drawerRecyclerView);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                replaceFragments(position);
+            }
+        }, SPDrawerActivity.DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS);
+    }
+
+    private void replaceFragments(int position){
         Fragment fragment = this.getFragmentAtPosition(position);
 
         if (fragment != null){
@@ -121,7 +132,6 @@ abstract public class SPDrawerActivity extends AppCompatActivity implements SPVi
                     .commit();
         }
 
-        drawerLayout.closeDrawer(drawerRecyclerView);
     }
 
     protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();

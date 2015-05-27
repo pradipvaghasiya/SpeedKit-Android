@@ -17,6 +17,9 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
+import com.speedui.android.util.ActionBarUtil;
+import com.speedui.android.util.DeviceUtil;
+import com.speedui.android.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +35,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     public RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
-    SPSlidingTabsFragment parentFragment;
+    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -48,7 +51,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
         this.setupRecyclerView();
 
         try {
-            parentFragment = (SPSlidingTabsFragment)getParentFragment();
+            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
         } catch (Exception e) {
             System.out.println("Ignore id parent is not sliding layout.");
         }
@@ -91,25 +94,28 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     //region Cell Callbacks or Customization
     @Override
     public void didSelectItem(View view, int position) {
+        int checklistPosition = position - 1;  //Offset to cover header view row.
 
-        if (viewModelArrayList.size()>position){
-            viewModelArrayList.get(position).isSelected = !viewModelArrayList.get(position).isSelected;
+        if (checklistPosition >= 0 &&
+                viewModelArrayList.size()> checklistPosition){
+            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
             spRecyclerAdapter.notifyItemChanged(position);
         }
 
-        System.out.println("Item DidSelect At : " + position);
+        System.out.println("Item DidSelect At : " + position );
     }
 
     @Override
     public void customiseViewHolder(SPViewHolder viewHolder) {
         if (viewHolder instanceof SPEmptyViewHolder) {
-            ViewGroup.LayoutParams params =  ((SPEmptyViewHolder) viewHolder).emptyView.getLayoutParams();
-            if (parentFragment != null){
-                params.height = 112 + 80;
-            }else{
-                params.height = 112;
+            int height;
+            if (spSlidingTabsFragmentParent != null) {
+                height = spSlidingTabsFragmentParent.getDefaultHeightInPixelsOfActionBarPlusTabs();
+            } else {
+                height= ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());;
             }
-            ((SPEmptyViewHolder) viewHolder).emptyView.setLayoutParams(params);
+
+            ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
         }
     }
 }
