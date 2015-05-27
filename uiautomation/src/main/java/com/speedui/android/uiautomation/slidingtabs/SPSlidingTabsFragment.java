@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -181,7 +179,6 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
                     newSlidingTabY = actionBarHeight;
                     newActionBarY = 0;
                 }
-
 
                 ObjectAnimator slidingTabAnimator = ObjectAnimator.ofFloat(
                         slidingTabLayout,
