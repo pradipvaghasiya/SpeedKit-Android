@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class AnimationUtil {
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static AnimatorSet animateObjectAnimatorsWithDuration(List<ObjectAnimator> objectAnimators, int durationInMilliSeconds){
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether((ObjectAnimator[]) objectAnimators.toArray());

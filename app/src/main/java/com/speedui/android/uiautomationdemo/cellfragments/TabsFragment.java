@@ -18,14 +18,16 @@ import java.util.List;
  */
 public class TabsFragment extends SPSlidingTabsFragment{
 
-    private List<String> tabTitles = Arrays.asList("Title Cell","Check List Cell");
+    private List<String> tabTitles = Arrays.asList("Title Cell","Check List Cell","Grid Titles");
     private TitleCellFragment titleCellFragment;
     private ChecklistCellFragment checklistCellFragment;
+    private GridFragment gridFragment;
 
     public TabsFragment(){
         this.isActionBarOverLay = true;
         this.titleCellFragment = new TitleCellFragment();
         this.checklistCellFragment = new ChecklistCellFragment();
+        this.gridFragment = new GridFragment();
     }
 
     @Override
@@ -76,6 +78,8 @@ public class TabsFragment extends SPSlidingTabsFragment{
                 return this.titleCellFragment;
             case 1:
                 return this.checklistCellFragment;
+            case 2:
+                return this.gridFragment;
             default:
                 return null;
         }
