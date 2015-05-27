@@ -27,7 +27,7 @@ public class DrawerActivity extends SPDrawerActivity{
     TabsFragment tabsFragment;
 
     public DrawerActivity(){
-        this.isActionBarOvelay = true;
+        //this.isActionBarOverlay = true;
 
         this.titleCellFragment = new TitleCellFragment();
         this.checklistCellFragment = new ChecklistCellFragment();

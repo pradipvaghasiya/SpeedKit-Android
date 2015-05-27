@@ -80,7 +80,7 @@ public class GridFragment extends Fragment implements SPViewHolderListener,SPVie
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell"));
+                        "Title Cell", "Title Cell", "Title Cell Last"));
 
         SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
         //endregion
