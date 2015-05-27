@@ -10,3 +10,5 @@ uiautomation/build
 
 gradle.properties
 
+
+*.iml
