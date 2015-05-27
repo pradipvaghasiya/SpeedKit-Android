@@ -1,16 +1,16 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.common.view.SlidingTabLayout;
+import com.speedui.android.uiautomation.activity.SPActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
@@ -22,6 +22,9 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
 import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
+import com.speedui.android.util.ActionBarUtil;
+import com.speedui.android.util.DeviceUtil;
+import com.speedui.android.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,11 +37,11 @@ import java.util.Arrays;
  */
 public class TitleCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
 
-    public RecyclerView recyclerView;
+    RecyclerView recyclerView;
     ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
-    SPSlidingTabsFragment parentFragment;
+    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -47,24 +50,40 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_cells_list, container, false);
+    }
 
-        View fragmentView = inflater.inflate(R.layout.fragment_cells_list, container, false);
-        recyclerView = (RecyclerView)fragmentView.findViewById(R.id.recyclerView);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         this.setupRecyclerView();
+    }
+
+    void setupRecyclerView() {
+        //Create SPRecycler Adapter
+        spRecyclerAdapter = getRecyclerAdapter();
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(spRecyclerAdapter);
 
         try {
-            parentFragment = (SPSlidingTabsFragment)getParentFragment();
+            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
         } catch (Exception e) {
             System.out.println("Ignore id parent is not sliding layout.");
         }
 
-        // Inflate the layout for this fragment
-        return fragmentView;
+        if (spSlidingTabsFragmentParent != null){
+            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
+        }else if (getActivity() instanceof SPActivity) {
+            ((SPActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
+        }
     }
 
-    void setupRecyclerView() {
-        //region Listing Data Creation
+    private SPRecyclerAdapter getRecyclerAdapter(){
         viewModelArrayList = new ArrayList<>();
 
         SPListingCellGroup emptyRowCellGroup = SPEmptyViewHolder.getCellGroupFromCellModels(Arrays.asList("HEADER"));
@@ -81,51 +100,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
         SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
         //endregion
 
-        spRecyclerAdapter = new SPRecyclerAdapter(listingData, this);
-
-        //region RecyclerView Setup
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(spRecyclerAdapter);
-        //endregion
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int mLastFirstVisibleItem = 0;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                final int currentFirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-
-                if (currentFirstVisibleItem > this.mLastFirstVisibleItem) {
-
-                    // If Parent fragment is not present then hide actionbar directly.
-                    if (parentFragment != null ){
-                        parentFragment.hideActionBar();
-                    }else{
-                        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-                    }
-
-
-                } else if (currentFirstVisibleItem < this.mLastFirstVisibleItem) {
-                    if (parentFragment != null){
-                        parentFragment.showActionBar();
-                    }else{
-                        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-                    }
-                }
-
-                this.mLastFirstVisibleItem = currentFirstVisibleItem;
-            }
-        });
+        return new SPRecyclerAdapter(listingData, this);
 
     }
 
@@ -139,13 +114,15 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     public void customiseViewHolder(SPViewHolder viewHolder) {
 
         if (viewHolder instanceof SPEmptyViewHolder) {
-            ViewGroup.LayoutParams params =  ((SPEmptyViewHolder) viewHolder).emptyView.getLayoutParams();
-            if (parentFragment != null){
-                params.height = 112 + 80;
-            }else{
-                params.height = 112;
+            int height;
+            if (spSlidingTabsFragmentParent != null) {
+                height = spSlidingTabsFragmentParent.getDefaultHeightInPixelsOfActionBarPlusTabs();
+            } else {
+                height= ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());;
             }
-            ((SPEmptyViewHolder) viewHolder).emptyView.setLayoutParams(params);
+
+            ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
         }
     }
+
 }
