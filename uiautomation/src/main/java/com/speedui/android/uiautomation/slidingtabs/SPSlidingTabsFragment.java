@@ -1,8 +1,6 @@
 package com.speedui.android.uiautomation.slidingtabs;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,20 +9,26 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import com.example.android.common.view.SlidingTabLayout;
 import com.speedui.android.uiautomation.R;
+import com.speedui.android.util.ActionBarUtil;
+import com.speedui.android.util.AnimationUtil;
+import com.speedui.android.util.DeviceUtil;
+import com.speedui.android.util.ViewUtil;
 
-import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 
 abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragment {
+    public static final int DEFAULT_TABS_HEIGHT_IN_DP = 40;
+    public static final int DEFAULT_ANIMATION_DURATION_IN_MILLISECONDS = 300;
 
     public SlidingTabLayout slidingTabLayout;
     private List<String> pageTitles;
@@ -32,7 +36,6 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     protected boolean isActionBarOverLay;
     private View rootView;
     public boolean isActionBarHidden = false;
-    public int actionBarPlusSlidingTabHeight = 0;
 
     public SPSlidingTabsFragment(){
 
@@ -41,14 +44,6 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.fragment_sliding_tabs, container, false);
-    }
-
-    public static void setMarginForView (View v, int left, int top, int right, int bottom) {
-        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            p.setMargins(left, top, right, bottom);
-            v.requestLayout();
-        }
     }
 
     @Override
@@ -65,17 +60,13 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
 
         try {
             if (isActionBarOverLay){
-                TypedValue typedValue = new TypedValue();
-                if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize,typedValue, true))
-                {
-                    int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
 
-                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                        SPSlidingTabsFragment.setMarginForView(slidingTabLayout,0,actionBarHeight,0,0);
-                        //view.setPadding(0,slidingTabLayout.getHeight(),0,0);
-                    }else{
-                        view.setPadding(0,actionBarHeight,0,0);
-                    }
+                int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());
+
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    ViewUtil.setMarginForView(slidingTabLayout, 0, actionBarHeight, 0, 0);
+                }else{
+                    view.setPadding(0,actionBarHeight,0,0);
                 }
             }
         }catch (Exception e){
@@ -118,59 +109,46 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
         }
     }
 
-    public void hideActionBar(){
+    public int getDefaultHeightInPixelsOfActionBarPlusTabs(){
+        int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());
+        return actionBarHeight +
+                (int)(DeviceUtil.getDeviceDensity(getResources()) * SPSlidingTabsFragment.DEFAULT_TABS_HEIGHT_IN_DP);
+    }
 
+    public void configureRecyclerViewOnScrollListenerToHideUnHideActionBar(RecyclerView recyclerView){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int previousFirstVisibleItem = 0;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                try {
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+                    final int currentFirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+
+                    if (currentFirstVisibleItem > this.previousFirstVisibleItem) {
+                        hideActionBar();
+
+                    } else if (currentFirstVisibleItem < this.previousFirstVisibleItem) {
+                        showActionBar();
+                    }
+
+                    this.previousFirstVisibleItem = currentFirstVisibleItem;
+                }catch (ClassCastException e){
+                    System.out.println("RecyclerView not using Linear Layout manager. ignoring scroll event.");
+                }
+            }
+        });
+    }
+
+
+    public void hideActionBar(){
         if (isActionBarHidden){
             return;
         }
 
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1){
-
-            if (!isActionBarOverLay){
-                System.out.println("Please set ActionBar as OverLay and set isActionBarOverLay to true");
-                return;
-            }
-
-            try {
-                ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-                TypedValue typedValue = new TypedValue();
-                if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize,typedValue, true))
-                {
-                    int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
-                    System.out.println(rootView.getY());
-//                    slidingTabLayout.animate().translationY(-actionBarHeight);
-//                    actionBar.hide();
-
-
-                    ObjectAnimator slidingTabAnimator = ObjectAnimator.ofFloat(slidingTabLayout, "y", 0);
-                    ObjectAnimator actionBarAnimator = ObjectAnimator.ofFloat(this.getActionBarView(), "y", -actionBarHeight);
-
-                    ObjectAnimator[] objectAnimators = new ObjectAnimator[2];
-                    objectAnimators[0] = slidingTabAnimator;
-                    objectAnimators[1] = actionBarAnimator;
-
-                    AnimatorSet animSetXY = new AnimatorSet();
-                    animSetXY.playTogether(objectAnimators);
-                    animSetXY.setDuration(300);//1sec
-                    animSetXY.start();
-                    isActionBarHidden = true;
-
-                }
-
-            }catch (Exception e){
-                System.out.println("SPSlidingTabsFragment hideActionBar: Check whether fragment is inside the activity which contains Action Bar.");
-            }
-        }else{
-            System.out.println("ViewPropertyAnimator only available in API 12 or above. Ignoring your call.");
-        }
-
-    }
-
-    public View getActionBarView() {
-        Window window = getActivity().getWindow();
-        View v = window.getDecorView();
-        return v.findViewById(R.id.action_bar_container);
+        this.hideUnHideActionBar(true);
     }
 
     public void showActionBar(){
@@ -178,39 +156,52 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
             return;
         }
 
+        this.hideUnHideActionBar(false);
+    }
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1){
+    private void hideUnHideActionBar(boolean hide){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+
             if (!isActionBarOverLay){
                 System.out.println("Please set ActionBar as OverLay and set isActionBarOverLay to true");
                 return;
             }
 
             try {
-                ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//                slidingTabLayout.animate().translationY(0);
-//                actionBar.show();
+                int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());
 
-                ObjectAnimator slidingTabAnimator = ObjectAnimator.ofFloat(slidingTabLayout, "y", 112);
-                ObjectAnimator actionBarAnimator = ObjectAnimator.ofFloat(this.getActionBarView(), "y", 0);
+                int newSlidingTabY, newActionBarY;
+                if (hide){
+                    newSlidingTabY = 0;
+                    newActionBarY = -actionBarHeight;
+                }else{
+                    newSlidingTabY = actionBarHeight;
+                    newActionBarY = 0;
+                }
 
-                ObjectAnimator[] objectAnimators = new ObjectAnimator[2];
-                objectAnimators[0] = slidingTabAnimator;
-                objectAnimators[1] = actionBarAnimator;
 
-                AnimatorSet animSetXY = new AnimatorSet();
-                animSetXY.playTogether(objectAnimators);
-                animSetXY.setDuration(300);//1sec
-                animSetXY.start();
+                ObjectAnimator slidingTabAnimator = ObjectAnimator.ofFloat(
+                        slidingTabLayout,
+                        "y",
+                        newSlidingTabY);
 
-                isActionBarHidden = false;
+                ObjectAnimator actionBarAnimator = ObjectAnimator.ofFloat(
+                        ActionBarUtil.getActionBarView(getActivity()),
+                        "y",
+                        newActionBarY);
+
+                AnimationUtil.animateObjectAnimatorsWithDuration(
+                        Arrays.asList(slidingTabAnimator,actionBarAnimator),
+                        SPSlidingTabsFragment.DEFAULT_ANIMATION_DURATION_IN_MILLISECONDS);
+
+                isActionBarHidden = hide;
 
             }catch (Exception e){
-                System.out.println("SPSlidingTabsFragment hideActionBar: Check whether fragment is inside the activity which contains Action Bar.");
+                System.out.println("SPSlidingTabsFragment hideActionBar: Check whether fragment is inside the AppCompatActivity which contains Action Bar.");
             }
         }else{
             System.out.println("ViewPropertyAnimator only available in API 12 or above. Ignoring your call.");
         }
-
     }
 
 }
