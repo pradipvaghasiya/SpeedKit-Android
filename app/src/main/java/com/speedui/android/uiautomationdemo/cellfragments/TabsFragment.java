@@ -24,7 +24,7 @@ public class TabsFragment extends SPSlidingTabsFragment{
     private GridFragment gridFragment;
 
     public TabsFragment(){
-        this.isActionBarOverLay = true;
+        //this.isActionBarOverlay = true;
         this.titleCellFragment = new TitleCellFragment();
         this.checklistCellFragment = new ChecklistCellFragment();
         this.gridFragment = new GridFragment();

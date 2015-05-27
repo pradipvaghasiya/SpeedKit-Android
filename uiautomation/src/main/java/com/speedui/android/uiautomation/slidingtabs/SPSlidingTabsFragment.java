@@ -1,7 +1,6 @@
 package com.speedui.android.uiautomation.slidingtabs;
 
 import android.animation.ObjectAnimator;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.android.common.view.SlidingTabLayout;
 import com.speedui.android.uiautomation.R;
@@ -31,7 +31,7 @@ import java.util.List;
  * <p>If you require animation support for hiding actionbar and moving sliding tabs on
  * top,
  * <p>1. Use Overlay action bar for Activity in which this fragment will be added.</p>
- * <p>2. In your subclass's default constructor you need to set {@link #isActionBarOverLay} to true.</p>
+ * <p>2. In your subclass's default constructor you need to set {@link #isActionBarOverlay} to true.</p>
  * <p>3. Listen to scroll event of your scroll view and call {@link #hideActionBarAndMoveSlidingTabsOnTop()} and
  * {@link #showActionBarAndMoveSlidingTabsBelowIt()} based on requirement.</p>
  * <p>**Note** If you are using recycler view which has {@link LinearLayoutManager} or {@link android.support.v7.widget.GridLayoutManager}
@@ -57,7 +57,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     /**
      * Used by subclass to indicate whether Action Bar is overlaid on Activity.
      */
-    protected boolean isActionBarOverLay;
+    protected boolean isActionBarOverlay;
 
 
     /**
@@ -136,14 +136,18 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
      */
     private void adjustLayoutInCaseOfOverlayActionBar(View view){
         try {
-            if (isActionBarOverLay){
+            if (isActionBarOverlay){
 
                 int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());
                  ViewUtil.setMarginForView(slidingTabLayout, 0, actionBarHeight, 0, 0);
 
+            }else{
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewPager.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.BELOW,R.id.sliding_tabs);
+
             }
         }catch (Exception e){
-            System.out.println("SPSlidingTabsFragment onViewCreated isActionBarOverLay: Check whether fragment is inside the activity which contains Action Bar.");
+            System.out.println("SPSlidingTabsFragment onViewCreated isActionBarOverlay: Check whether fragment is inside the activity which contains Action Bar.");
         }
     }
 
@@ -225,6 +229,11 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
      * @param recyclerView For which OnScrollListener needs to be added.
      */
     public void configureRecyclerViewOnScrollListenerToHideUnHideActionBar(RecyclerView recyclerView){
+        if (!isActionBarOverlay){
+            System.out.println("Please set ActionBar as OverLay and set isActionBarOverlay to true");
+            return;
+        }
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int previousFirstVisibleItem = 0;
 
@@ -282,8 +291,8 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
      */
     private void animateActionBarAndSlidingTabs(boolean hide){
 
-        if (!isActionBarOverLay){
-            System.out.println("Please set ActionBar as OverLay and set isActionBarOverLay to true");
+        if (!isActionBarOverlay){
+            System.out.println("Please set ActionBar as OverLay and set isActionBarOverlay to true");
             return;
         }
 

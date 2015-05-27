@@ -93,9 +93,9 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell"));
+                        "Title Cell", "Title Cell", "Title Cell Last"));
 
-        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
+        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
         //endregion
 
         return new SPRecyclerAdapter(listingData, this);

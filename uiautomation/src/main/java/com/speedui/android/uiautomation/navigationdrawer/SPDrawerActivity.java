@@ -6,10 +6,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,7 +32,6 @@ abstract public class SPDrawerActivity extends SPActivity implements SPViewHolde
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     protected RecyclerView drawerRecyclerView;
-    protected boolean isActionBarOvelay;
 
 
     @Override
@@ -56,7 +53,7 @@ abstract public class SPDrawerActivity extends SPActivity implements SPViewHolde
 
 
         //Set the Recyclerview padding id Overlay actionbar
-        if (isActionBarOvelay){
+        if (isActionBarOverlay){
             int actionBarHeight = ActionBarUtil.getActionBarHeightInPixels(getTheme(), getResources());
             this.drawerRecyclerView.setPadding(0,actionBarHeight,0,0);
         }
