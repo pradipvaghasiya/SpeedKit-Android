@@ -59,11 +59,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-
         this.setupRecyclerView();
-
-
-
     }
 
     void setupRecyclerView() {

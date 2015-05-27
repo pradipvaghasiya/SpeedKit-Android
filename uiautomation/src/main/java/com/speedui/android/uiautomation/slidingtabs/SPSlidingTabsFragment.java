@@ -34,7 +34,6 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     private List<String> pageTitles;
     private ViewPager viewPager;
     protected boolean isActionBarOverLay;
-    private View rootView;
     public boolean isActionBarHidden = false;
 
     public SPSlidingTabsFragment(){
@@ -50,14 +49,19 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rootView = view.findViewById(R.id.sliding_tabs_fragment_layout);
-
+        // Configure View Pager
         viewPager = (ViewPager)view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new SPSlidingTabsAdapter(getChildFragmentManager(),this.getTabTitles()));
 
+        // Configure Sliding Tabs
         slidingTabLayout = (SlidingTabLayout)view.findViewById(R.id.sliding_tabs);
         slidingTabLayout.setViewPager(viewPager);
 
+        this.adjustLayoutInCaseOfOverlayActionBar(view);
+
+    }
+
+    private void adjustLayoutInCaseOfOverlayActionBar(View view){
         try {
             if (isActionBarOverLay){
 
@@ -72,11 +76,10 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
         }catch (Exception e){
             System.out.println("SPSlidingTabsFragment onViewCreated isActionBarOverLay: Check whether fragment is inside the activity which contains Action Bar.");
         }
-
     }
 
+    // Subclass must implement below method to configure the Sliding Tabs Fragment.
     public abstract List<String> getTabTitles();
-
     public abstract Fragment getV4FragmentAt(int position);
 
 
@@ -200,7 +203,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
                 System.out.println("SPSlidingTabsFragment hideActionBar: Check whether fragment is inside the AppCompatActivity which contains Action Bar.");
             }
         }else{
-            System.out.println("ViewPropertyAnimator only available in API 12 or above. Ignoring your call.");
+            System.out.println("ObjectAnimator only available in API 11 or above. Ignoring your call.");
         }
     }
 
