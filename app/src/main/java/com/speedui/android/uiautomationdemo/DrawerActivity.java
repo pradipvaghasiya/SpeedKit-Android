@@ -22,8 +22,16 @@ import com.speedui.android.uiautomationdemo.cellfragments.TitleCellFragment;
 public class DrawerActivity extends SPDrawerActivity{
     private static List<String> MENU_LIST = Arrays.asList("Title Cell","Check List Cell","Sliding Tabs");
 
+    TitleCellFragment titleCellFragment;
+    ChecklistCellFragment checklistCellFragment;
+    TabsFragment tabsFragment;
+
     public DrawerActivity(){
         this.isActionBarOvelay = true;
+
+        this.titleCellFragment = new TitleCellFragment();
+        this.checklistCellFragment = new ChecklistCellFragment();
+        this.tabsFragment = new TabsFragment();
     }
 
 
@@ -34,6 +42,7 @@ public class DrawerActivity extends SPDrawerActivity{
 
     @Override
     protected Fragment getFragmentAtPosition(int position) {
+
         try {
             getSupportActionBar().setTitle(MENU_LIST.get(position));
         }catch (Exception e){
@@ -43,11 +52,11 @@ public class DrawerActivity extends SPDrawerActivity{
 
         switch (position){
             case 0:
-                return new TitleCellFragment();
+                return this.titleCellFragment;
             case 1:
-                return new ChecklistCellFragment();
+                return this.checklistCellFragment;
             case 2:
-                return new TabsFragment();
+                return this.tabsFragment;
             default:
                 return null;
         }
