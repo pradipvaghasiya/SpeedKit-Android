@@ -4,7 +4,6 @@ package ${packageName};
 import android.view.View;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import java.util.List;
-import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
@@ -15,8 +14,8 @@ public class ${viewHolderClass} extends SPViewHolder {
         // Declare View Model Properties here...
     }
     
-    public ${viewHolderClass}(View v, SPViewHolderListener listener,MultiSelector multiSelector) {
-        super(v,listener,multiSelector);
+    public ${viewHolderClass}(View cellView, SPViewHolderListener listener,MultiSelector multiSelector) {
+        super(cellView,listener,multiSelector);
         System.out.println("${viewHolderClass} View Holder Created");
 
         // Create view references using itemView.findViewById here...
