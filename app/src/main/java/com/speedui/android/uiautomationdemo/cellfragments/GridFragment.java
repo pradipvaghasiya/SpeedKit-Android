@@ -1,13 +1,14 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.activity.SPAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
@@ -21,60 +22,54 @@ import com.speedui.android.uiautomationdemo.R;
 import com.speedui.android.util.ActionBarUtil;
 import com.speedui.android.util.ViewUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
+ * Created by pradipvaghasiya on 27/05/15.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
+public class GridFragment extends Fragment implements SPViewHolderListener,SPViewHolderCustomisor{
 
     RecyclerView recyclerView;
-    SPRecyclerAdapter spRecyclerAdapter;
-    LinearLayoutManager linearLayoutManager;
     SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
-    public TitleCellFragment() {
-        // Required empty public constructor
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_cells_list,container,false);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cells_list, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-        this.setupRecyclerView();
-    }
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-    void setupRecyclerView() {
-        //Create SPRecycler Adapter
-        spRecyclerAdapter = getRecyclerAdapter();
+        recyclerView.setAdapter(getRecyclerAdapter());
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(spRecyclerAdapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) return 2;
+
+                return 1;
+            }
+        });
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+
 
         try {
             spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
+            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
+
         } catch (Exception e) {
             System.out.println("Ignore id parent is not sliding layout.");
         }
 
-        if (spSlidingTabsFragmentParent != null){
-            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }else if (getActivity() instanceof SPAppCompactActivity) {
-            ((SPAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }
     }
+
 
     private SPRecyclerAdapter getRecyclerAdapter(){
 
@@ -82,6 +77,13 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
         SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(
                 Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell", "Title Cell",
+                        "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell",
@@ -97,12 +99,6 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     }
 
     @Override
-    public void didSelectItem(View view, int position) {
-
-    }
-
-
-    @Override
     public void customiseViewHolder(SPViewHolder viewHolder) {
 
         if (viewHolder instanceof SPEmptyViewHolder) {
@@ -114,7 +110,13 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
             }
 
             ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
+        }else  if (viewHolder instanceof SPTitleViewHolder){
+            ((SPTitleViewHolder) viewHolder).dividerLine.setVisibility(View.INVISIBLE);
         }
     }
 
+    @Override
+    public void didSelectItem(View view, int position) {
+
+    }
 }
