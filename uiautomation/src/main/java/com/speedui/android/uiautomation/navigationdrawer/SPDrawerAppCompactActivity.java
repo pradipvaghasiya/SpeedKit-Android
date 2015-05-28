@@ -15,7 +15,7 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SingleSelector;
 
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.activity.SPActivity;
+import com.speedui.android.uiautomation.activity.SPAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
@@ -25,7 +25,7 @@ import com.speedui.android.util.ActionBarUtil;
 import java.util.List;
 
 
-abstract public class SPDrawerActivity extends SPActivity implements SPViewHolderListener{
+abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity implements SPViewHolderListener{
     private static final int DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS = 200;
 
     DrawerLayout drawerLayout;
@@ -116,7 +116,7 @@ abstract public class SPDrawerActivity extends SPActivity implements SPViewHolde
             public void run() {
                 replaceFragments(position);
             }
-        }, SPDrawerActivity.DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS);
+        }, SPDrawerAppCompactActivity.DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS);
     }
 
     private void replaceFragments(int position){

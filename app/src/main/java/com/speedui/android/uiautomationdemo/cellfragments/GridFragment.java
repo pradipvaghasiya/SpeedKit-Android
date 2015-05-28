@@ -48,6 +48,15 @@ public class GridFragment extends Fragment implements SPViewHolderListener,SPVie
         recyclerView.setAdapter(getRecyclerAdapter());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) return 2;
+
+                return 1;
+            }
+        });
+
         recyclerView.setLayoutManager(gridLayoutManager);
 
 

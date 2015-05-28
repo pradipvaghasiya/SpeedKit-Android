@@ -1,20 +1,16 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.activity.SPActivity;
+import com.speedui.android.uiautomation.activity.SPAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPEmptyViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
@@ -23,10 +19,8 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
 import com.speedui.android.util.ActionBarUtil;
-import com.speedui.android.util.DeviceUtil;
 import com.speedui.android.util.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -77,8 +71,8 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
         if (spSlidingTabsFragmentParent != null){
             spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }else if (getActivity() instanceof SPActivity) {
-            ((SPActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
+        }else if (getActivity() instanceof SPAppCompactActivity) {
+            ((SPAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
         }
     }
 
@@ -95,7 +89,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
                         "Title Cell", "Title Cell", "Title Cell",
                         "Title Cell", "Title Cell", "Title Cell Last"));
 
-        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
+        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
         //endregion
 
         return new SPRecyclerAdapter(listingData, this);
