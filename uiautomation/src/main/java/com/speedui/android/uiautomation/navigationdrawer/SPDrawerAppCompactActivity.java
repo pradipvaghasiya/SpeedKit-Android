@@ -125,7 +125,7 @@ abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity im
         if (fragment != null){
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.spdrawer_content_frame,this.getFragmentAtPosition(position))
+                    .replace(R.id.spdrawer_content_frame,fragment)
                     .commit();
         }
 
