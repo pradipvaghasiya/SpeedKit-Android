@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.slidingtabs;
+package com.speedui.android.uiautomation.actionbar.slidingtabs;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
@@ -107,7 +107,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
 
     /**
      * <p>Gets ViewPager from Layout and sets its adapter
-     * {@link com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment.SPSlidingTabsAdapter}</p>
+     * {@link com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment.SPSlidingTabsAdapter}</p>
      *
      * @param view Layoutview for this fragment.
      */
@@ -169,7 +169,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
 
 
     /**
-     * <p>SPSlidingTabsAdapter is FragmentPagerAdapter which will be used to generate
+     * <p>TabLayoutPagerAdapter is FragmentPagerAdapter which will be used to generate
      * {@link SPSlidingTabsFragment} fragment which contains
      * Sliding Tabs.</p>
      *

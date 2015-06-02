@@ -11,11 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SingleSelector;
-
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.activity.SPAppCompactActivity;
+import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
@@ -25,7 +22,7 @@ import com.speedui.android.util.ActionBarUtil;
 import java.util.List;
 
 
-abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity implements SPViewHolderListener{
+abstract public class SPDrawerWithActionBarAppCompactActivity extends SPActionBarAppCompactActivity implements SPViewHolderListener{
     private static final int DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS = 200;
 
     DrawerLayout drawerLayout;
@@ -41,9 +38,7 @@ abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity im
 
         // SPRecycler Adapter Setup
         SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
-        MultiSelector selector = new SingleSelector();
-        selector.setSelectable(true);
-        SPRecyclerAdapter spRecyclerAdapter = new SPRecyclerAdapter(listingData,this,selector);
+        SPRecyclerAdapter spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.spdrawer_recyclerview_drawer);
@@ -116,7 +111,7 @@ abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity im
             public void run() {
                 replaceFragments(position);
             }
-        }, SPDrawerAppCompactActivity.DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS);
+        }, SPDrawerWithActionBarAppCompactActivity.DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS);
     }
 
     private void replaceFragments(int position){
@@ -125,7 +120,7 @@ abstract public class SPDrawerAppCompactActivity extends SPAppCompactActivity im
         if (fragment != null){
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.spdrawer_content_frame,this.getFragmentAtPosition(position))
+                    .replace(R.id.spdrawer_content_frame,fragment)
                     .commit();
         }
 
