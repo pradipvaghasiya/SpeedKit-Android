@@ -21,7 +21,7 @@ public class SPTitleViewHolder extends SPViewHolder {
 
     public SPTitleViewHolder(View itemView,SPViewHolderListener delegate) {
         super(itemView, delegate);
-        System.out.println("SPTitleViewHolder View Holder Created");
+        //System.out.println("SPTitleViewHolder View Holder Created");
 
         this.textView = (TextView)itemView.findViewById(R.id.SPTitleViewHolder_TextView);
         this.dividerLine = itemView.findViewById(R.id.cell_divider);

@@ -13,7 +13,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawer_recyclerview_drawer"
-        android:layout_width="260dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white90"/>

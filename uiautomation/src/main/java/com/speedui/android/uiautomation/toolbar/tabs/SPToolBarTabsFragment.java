@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.slidingtabs;
+package com.speedui.android.uiautomation.toolbar.tabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,13 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.R;
+import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
 
 import java.util.List;
 
@@ -21,10 +22,9 @@ import java.util.List;
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public abstract class ToolBarWithTabsFragment extends Fragment {
+public abstract class SPToolBarTabsFragment extends SPToolBarFragment {
     private ViewPager viewPager;
     protected TabLayout tabLayout;
-    protected Toolbar toolbar;
 
     @Nullable
     @Override
@@ -37,11 +37,21 @@ public abstract class ToolBarWithTabsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Configure View Pager
+        this.setupToolbar(view);
+
+        // Configure View Pager
         this.setupViewPager(view);
 
         // Configure Sliding Tabs
         this.setupTabLayout(view);
 
+        if (this.fragmentLifeCycleListener != null){
+            this.fragmentLifeCycleListener.onViewCreated(this);
+        }
+    }
+
+    private void setupToolbar(View view){
+        this.toolbar = (Toolbar) view.findViewById(R.id.toolbar_tabs_toolbar);
     }
 
     /**
