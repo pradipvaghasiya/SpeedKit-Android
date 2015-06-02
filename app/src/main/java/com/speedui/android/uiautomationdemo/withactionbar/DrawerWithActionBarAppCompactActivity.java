@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomationdemo;
+package com.speedui.android.uiautomationdemo.withactionbar;
 
 
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.navigationdrawer.SPDrawerAppCompactActivity;
+import com.speedui.android.uiautomation.navigationdrawer.SPDrawerWithActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomationdemo.cellfragments.ChecklistCellFragment;
 import com.speedui.android.uiautomationdemo.cellfragments.TabsFragment;
@@ -16,14 +16,14 @@ import com.speedui.android.uiautomationdemo.cellfragments.TitleCellFragment;
 /**
  * Created by pradipvaghasiya on 22/05/15.
  */
-public class DrawerAppCompactActivity extends SPDrawerAppCompactActivity {
+public class DrawerWithActionBarAppCompactActivity extends SPDrawerWithActionBarAppCompactActivity {
     private static List<String> MENU_LIST = Arrays.asList("Title Cell","Check List Cell","Sliding Tabs");
 
     TitleCellFragment titleCellFragment;
     ChecklistCellFragment checklistCellFragment;
     TabsFragment tabsFragment;
 
-    public DrawerAppCompactActivity(){
+    public DrawerWithActionBarAppCompactActivity(){
         this.isActionBarOverlay = true;
 
         this.titleCellFragment = new TitleCellFragment();

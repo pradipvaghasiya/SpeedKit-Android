@@ -3,24 +3,23 @@ package com.speedui.android.uiautomation.listingautomation.recyclerview.viewhold
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SwappingHolder;
+import com.speedui.android.util.ViewUtil;
+
 
 /**
  * Created by pradipvaghasiya on 20/05/15.
  */
 
-abstract public class SPViewHolder extends SwappingHolder implements View.OnClickListener {
+abstract public class SPViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     protected SPViewHolderListener listener;
-    protected MultiSelector multiSelector;
 
-    public SPViewHolder(View itemView, SPViewHolderListener listener, MultiSelector multiSelector) {
-        super(itemView,multiSelector);
+    public SPViewHolder(View itemView, SPViewHolderListener listener) {
+        super(itemView);
         this.listener = listener;
-        this.multiSelector = multiSelector;
         itemView.setOnClickListener(this);
 
         this.setDefaultDrawable();
@@ -37,19 +36,14 @@ abstract public class SPViewHolder extends SwappingHolder implements View.OnClic
         }else{
             selectionDrawable = itemView.getResources().getDrawable(outValue.resourceId);
         }
-        this.setDefaultModeBackgroundDrawable(selectionDrawable);
 
+        ViewUtil.setBackground(itemView,selectionDrawable);
     }
 
     public abstract void configureCellUsing(Object cellModel);
 
     @Override
     public void onClick(View v) {
-        if (this.multiSelector.tapSelection(this)) {
-            // Selection is on, so tapSelection() toggled item selection.
-        } else {
-            // Selection is off; handle normal item click here.
-        }
         listener.didSelectItem(v,getAdapterPosition());
     }
 

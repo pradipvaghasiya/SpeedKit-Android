@@ -169,7 +169,7 @@ abstract public class SPSlidingTabsFragment extends android.support.v4.app.Fragm
 
 
     /**
-     * <p>SPSlidingTabsAdapter is FragmentPagerAdapter which will be used to generate
+     * <p>TabLayoutPagerAdapter is FragmentPagerAdapter which will be used to generate
      * {@link SPSlidingTabsFragment} fragment which contains
      * Sliding Tabs.</p>
      *

@@ -4,8 +4,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-
 import java.util.List;
 
 import com.speedui.android.uiautomation.R;
@@ -26,8 +24,8 @@ public class SPCheckListViewHolder extends SPViewHolder {
         public boolean isSelected;
     }
 
-    public SPCheckListViewHolder(View v, SPViewHolderListener listener,MultiSelector multiSelector) {
-        super(v,listener,multiSelector);
+    public SPCheckListViewHolder(View v, SPViewHolderListener listener) {
+        super(v,listener);
         System.out.println("SPCheckListViewHolder View Holder Created");
 
         this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);

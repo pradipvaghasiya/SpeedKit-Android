@@ -1,6 +1,5 @@
 package com.speedui.android.uiautomation.listingautomation.listingdata;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

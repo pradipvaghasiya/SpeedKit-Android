@@ -1,2 +1,1 @@
-include ':recyclerview-multiselect', ':app', ':uiautomation'
-project(':recyclerview-multiselect').projectDir = new File(settingsDir, 'recyclerview-multiselect/recyclerview-multiselect')
+include ':app', ':uiautomation'
