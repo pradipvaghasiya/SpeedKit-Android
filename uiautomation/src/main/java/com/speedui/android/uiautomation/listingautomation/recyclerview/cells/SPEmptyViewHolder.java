@@ -2,8 +2,6 @@ package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
 import android.view.View;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-
 import java.util.List;
 
 import com.speedui.android.uiautomation.R;
@@ -15,9 +13,9 @@ public class SPEmptyViewHolder extends SPViewHolder {
 
     public View emptyView;
 
-    public SPEmptyViewHolder(View itemView, SPViewHolderListener listener, MultiSelector multiSelector) {
-        super(itemView, listener, multiSelector);
-        System.out.println("SPEmptyViewHolder View Holder Created");
+    public SPEmptyViewHolder(View itemView, SPViewHolderListener listener) {
+        super(itemView, listener);
+        //System.out.println("SPEmptyViewHolder View Holder Created");
 
         emptyView = itemView.findViewById(R.id.sp_empty_view);
 

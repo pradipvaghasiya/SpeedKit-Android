@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SingleSelector;
 
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
@@ -23,24 +21,13 @@ import java.lang.reflect.Constructor;
 public class SPRecyclerAdapter extends RecyclerView.Adapter<SPViewHolder> {
     // SPListing Data
     public SPListingData spListingData;
-    public MultiSelector multiSelector;
     SPViewHolderListener listener;
 
     public SPRecyclerAdapter(SPListingData spListingData, SPViewHolderListener listener){
         super();
         this.spListingData = spListingData;
         this.listener = listener;
-        this.multiSelector = new SingleSelector();
     }
-
-    public SPRecyclerAdapter(SPListingData spListingData, SPViewHolderListener listener, MultiSelector multiSelector){
-        super();
-        this.spListingData = spListingData;
-        this.listener = listener;
-        this.multiSelector = multiSelector ;
-    }
-
-
 
     @Override
     public int getItemViewType(int position) {
@@ -67,9 +54,9 @@ public class SPRecyclerAdapter extends RecyclerView.Adapter<SPViewHolder> {
 
         try {
             Class<?> viewClass = Class.forName(cellGRoup.cellViewHolderClassName);
-            Constructor<?> constructor = viewClass.getConstructor(View.class,SPViewHolderListener.class,MultiSelector.class);
+            Constructor<?> constructor = viewClass.getConstructor(View.class,SPViewHolderListener.class);
 
-            SPViewHolder viewHolder = (SPViewHolder)constructor.newInstance(listingCell,this.listener,this.multiSelector);
+            SPViewHolder viewHolder = (SPViewHolder)constructor.newInstance(listingCell,this.listener);
 
             return viewHolder;
 

@@ -3,8 +3,6 @@ package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-
 import java.util.List;
 
 import com.speedui.android.uiautomation.R;
@@ -21,9 +19,9 @@ public class SPTitleViewHolder extends SPViewHolder {
     public TextView textView;
     public View dividerLine;
 
-    public SPTitleViewHolder(View itemView,SPViewHolderListener delegate,MultiSelector multiSelector) {
-        super(itemView, delegate, multiSelector);
-        System.out.println("SPTitleViewHolder View Holder Created");
+    public SPTitleViewHolder(View itemView,SPViewHolderListener delegate) {
+        super(itemView, delegate);
+        //System.out.println("SPTitleViewHolder View Holder Created");
 
         this.textView = (TextView)itemView.findViewById(R.id.SPTitleViewHolder_TextView);
         this.dividerLine = itemView.findViewById(R.id.cell_divider);

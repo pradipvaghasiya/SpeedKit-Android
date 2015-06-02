@@ -1,5 +1,6 @@
 package com.speedui.android.util;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +33,14 @@ public class ViewUtil {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             layoutParams.setMargins(leftMarginInPixels, topMarginInPixels, rightMarginInPixels, bottomMarginInPixels);
+        }
+    }
+
+    public static void setBackground(View view, Drawable drawable){
+        try {
+            view.setBackground(drawable);
+        }catch (NoSuchMethodError e){
+            view.setBackgroundDrawable(drawable);
         }
     }
 

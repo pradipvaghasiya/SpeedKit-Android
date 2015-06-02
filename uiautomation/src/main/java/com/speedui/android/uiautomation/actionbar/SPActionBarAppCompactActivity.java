@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.activity;
+package com.speedui.android.uiautomation.actionbar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
  * Project: UIAutomation-Android
  * Created by Pradip on 5/27/2015.
  */
-public class SPAppCompactActivity extends AppCompatActivity{
+public class SPActionBarAppCompactActivity extends AppCompatActivity{
     protected boolean isActionBarOverlay;
 
     public void configureRecyclerViewOnScrollListenerToHideUnHideActionBar(RecyclerView recyclerView){
@@ -16,7 +16,6 @@ public class SPAppCompactActivity extends AppCompatActivity{
             System.out.println("Please set ActionBar as OverLay and set isActionBarOverlay to true");
             return;
         }
-
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int previousFirstVisibleItem = 0;

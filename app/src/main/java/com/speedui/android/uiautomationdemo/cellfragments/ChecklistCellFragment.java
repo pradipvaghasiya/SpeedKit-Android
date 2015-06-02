@@ -15,10 +15,9 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPE
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
-import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
 import com.speedui.android.util.ActionBarUtil;
-import com.speedui.android.util.DeviceUtil;
 import com.speedui.android.util.ViewUtil;
 
 import java.util.ArrayList;

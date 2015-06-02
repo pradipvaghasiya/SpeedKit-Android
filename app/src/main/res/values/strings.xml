@@ -11,6 +11,7 @@
     <string name="title_activity_temp">temp</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_toolbar">UIAutomation Demo</string>
 
 
 </resources>
