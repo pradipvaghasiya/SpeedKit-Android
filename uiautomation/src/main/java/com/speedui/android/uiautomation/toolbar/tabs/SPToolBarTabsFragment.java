@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public abstract class SPToolBarTabsFragment extends SPToolBarFragment {
 
     /**
      * <p>Gets ViewPager from Layout and sets its adapter
-     * {@link com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment.SPSlidingTabsAdapter}</p>
+     * {@link com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment.SPSlidingTabsAdapter}</p>
      *
      * @param view Layoutview for this fragment.
      */

@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.activity.SPActionBarAppCompactActivity;
+import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
