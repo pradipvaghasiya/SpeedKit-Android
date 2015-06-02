@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.example.android.common.view.SlidingTabLayout;
-import com.speedui.android.uiautomation.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 
 import java.util.Arrays;
 import java.util.List;

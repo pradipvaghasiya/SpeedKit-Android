@@ -1,4 +1,4 @@
-package com.speedui.android.uiautomation.activity;
+package com.speedui.android.uiautomation.toolbar;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -31,7 +30,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
     ActionBarDrawerToggle actionBarDrawerToggle;
     protected RecyclerView drawerRecyclerView;
     protected int selectedMenuPosition = 0;
-    protected boolean isDrawerOverToolBar = false;
+    protected boolean isDrawerOverToolBar = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

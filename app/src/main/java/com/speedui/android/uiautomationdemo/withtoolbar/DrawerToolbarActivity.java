@@ -1,6 +1,6 @@
 package com.speedui.android.uiautomationdemo.withtoolbar;
 
-import com.speedui.android.uiautomation.activity.SPDrawerToolbarActivity;
+import com.speedui.android.uiautomation.toolbar.SPDrawerToolbarActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
