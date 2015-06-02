@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/AppActionBar</item>
-        <item name="android:windowActionBarOverlay">true</item>
-
-        <item name="actionBarStyle">@style/AppActionBar</item>
-        <item name="windowActionBarOverlay">true</item>
-
-    </style>
-
-    <style name="AppActionBar" parent="Widget.AppCompat.ActionBar.Solid">
-        <item name="android:elevation">2dp</item>
-        <item name="android:background">@color/material_blue_grey_800</item>
-        <!--<item name="android:titleTextStyle">@style/MyActionBarTitleText</item>-->
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
 
         <!-- Support library compatibility -->
-        <item name="elevation">2dp</item>
-        <item name="background">@color/material_blue_grey_800</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
+
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="android:actionBarStyle">@style/AppActionBar</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+
+        <!--<item name="actionBarStyle">@style/AppActionBar</item>-->
+        <!--<item name="windowActionBarOverlay">true</item>-->
+
+    <!--</style>-->
+
+    <!--<style name="AppActionBar" parent="Widget.AppCompat.ActionBar.Solid">-->
+        <!--<item name="android:elevation">2dp</item>-->
+        <!--<item name="android:background">@color/material_blue_grey_800</item>-->
+        <!--&lt;!&ndash;<item name="android:titleTextStyle">@style/MyActionBarTitleText</item>&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash; Support library compatibility &ndash;&gt;-->
+        <!--<item name="elevation">2dp</item>-->
+        <!--<item name="background">@color/material_blue_grey_800</item>-->
+
+    <!--</style>-->
 
 
 </resources>

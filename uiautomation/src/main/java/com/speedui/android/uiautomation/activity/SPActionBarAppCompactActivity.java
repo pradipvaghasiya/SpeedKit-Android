@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
  * Project: UIAutomation-Android
  * Created by Pradip on 5/27/2015.
  */
-public class SPAppCompactActivity extends AppCompatActivity{
+public class SPActionBarAppCompactActivity extends AppCompatActivity{
     protected boolean isActionBarOverlay;
 
     public void configureRecyclerViewOnScrollListenerToHideUnHideActionBar(RecyclerView recyclerView){

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.activity.SPAppCompactActivity;
+import com.speedui.android.uiautomation.activity.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
@@ -71,8 +71,8 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
         if (spSlidingTabsFragmentParent != null){
             spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }else if (getActivity() instanceof SPAppCompactActivity) {
-            ((SPAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
+        }else if (getActivity() instanceof SPActionBarAppCompactActivity) {
+            ((SPActionBarAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
         }
     }
 
