@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.android.databinding'
 
 def version_code = 1
 def version_name = '0.2.1'
