@@ -1,8 +1,13 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
-import com.speedui.android.uiautomation.slidingtabs.ToolBarWithTabsFragment;
+import com.speedui.android.uiautomation.toolbar.tabs.SPDarkToolBarTabsFragment;
+import com.speedui.android.uiautomation.toolbar.tabs.SPToolBarTabsFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,11 +16,25 @@ import java.util.List;
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public class ToolbarTabsFragment extends ToolBarWithTabsFragment {
+public class ToolbarTabsFragment extends SPDarkToolBarTabsFragment {
     private List<String> tabTitles = Arrays.asList("Title Cell", "Check List Cell", "Grid Titles");
     private TitleCellFragment titleCellFragment;
     private ChecklistCellFragment checklistCellFragment;
     private GridFragment gridFragment;
+
+    public ToolbarTabsFragment(){
+        this.titleCellFragment = new TitleCellFragment();
+        this.checklistCellFragment = new ChecklistCellFragment();
+        this.gridFragment = new GridFragment();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.toolbar.setTitle("UIAutomation Demo");
+        this.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    }
 
     @Override
     public List<String> getTabTitles() {

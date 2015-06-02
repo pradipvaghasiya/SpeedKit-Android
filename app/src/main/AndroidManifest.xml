@@ -17,7 +17,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity
-            android:name=".withtoolbar.DrawerWithToolBarAppCompactActivity"
+            android:name=".withtoolbar.DrawerToolbarActivity"
             android:label="@string/title_activity_toolbar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

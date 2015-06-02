@@ -26,7 +26,7 @@ public class SPCheckListViewHolder extends SPViewHolder {
 
     public SPCheckListViewHolder(View v, SPViewHolderListener listener) {
         super(v,listener);
-        System.out.println("SPCheckListViewHolder View Holder Created");
+        //System.out.println("SPCheckListViewHolder View Holder Created");
 
         this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);
         this.imageView = (ImageView)v.findViewById(R.id.SPCheckList_ImageView);

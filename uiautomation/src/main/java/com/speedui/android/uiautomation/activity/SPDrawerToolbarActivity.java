@@ -1,43 +1,42 @@
-package com.speedui.android.uiautomationdemo.withtoolbar;
+package com.speedui.android.uiautomation.activity;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
-import com.speedui.android.uiautomationdemo.R;
+import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
+import com.speedui.android.uiautomation.R;
+import com.speedui.android.util.ViewUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
-public abstract class ToolbarActivity extends AppCompatActivity implements SPViewHolderListener {
+public abstract class SPDrawerToolbarActivity extends AppCompatActivity implements
+        SPViewHolderListener,
+        SPToolBarFragment.SPFragmentLifeCycleListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     protected RecyclerView drawerRecyclerView;
     protected int selectedMenuPosition = 0;
+    protected boolean isDrawerOverToolBar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolbar);
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_spdrawer_toolbar);
 
         // SPRecycler Adapter Setup
         SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
@@ -51,30 +50,47 @@ public abstract class ToolbarActivity extends AppCompatActivity implements SPVie
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                com.speedui.android.uiautomation.R.string.spdrawer_open, R.string.spdrawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu();
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu();
-            }
-        };
-
-        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-
+        if (isDrawerOverToolBar){
+            ViewUtil.setMarginForView(drawerRecyclerView,0,0,0,0);
+        }else{
+            drawerLayout.setScrimColor(Color.TRANSPARENT);
+        }
 
         this.didSelectItem(null,selectedMenuPosition);
     }
 
+    protected ActionBarDrawerToggle configureHomeButtonOnToolBar(Toolbar toolbar){
+        if (toolbar != null){
+            setSupportActionBar(toolbar);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+
+            actionBarDrawerToggle = new ActionBarDrawerToggle(
+                    this,
+                    drawerLayout,
+                    com.speedui.android.uiautomation.R.string.spdrawer_open,
+                    com.speedui.android.uiautomation.R.string.spdrawer_close) {
+
+                /** Called when a drawer has settled in a completely open state. */
+                public void onDrawerOpened(View drawerView) {
+                    invalidateOptionsMenu();
+                }
+
+                /** Called when a drawer has settled in a completely closed state. */
+                public void onDrawerClosed(View view) {
+                    invalidateOptionsMenu();
+                }
+            };
+
+            actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+            drawerLayout.setDrawerListener(actionBarDrawerToggle);
+            actionBarDrawerToggle.syncState();
+
+            return actionBarDrawerToggle;
+        }
+        return null;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,12 +99,6 @@ public abstract class ToolbarActivity extends AppCompatActivity implements SPVie
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
     }
 
     @Override
@@ -111,7 +121,8 @@ public abstract class ToolbarActivity extends AppCompatActivity implements SPVie
     }
 
     private void replaceFragments(int position){
-        Fragment fragment = this.getFragmentAtPosition(position);
+        SPToolBarFragment fragment = this.getFragmentAtPosition(position);
+        fragment.fragmentLifeCycleListener = this;
 
         if (fragment != null){
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -119,11 +130,15 @@ public abstract class ToolbarActivity extends AppCompatActivity implements SPVie
                     .replace(R.id.spdrawer_content_frame,fragment)
                     .commit();
         }
+    }
 
+    @Override
+    public void onViewCreated(SPToolBarFragment fragment) {
+        this.configureHomeButtonOnToolBar(fragment.toolbar);
     }
 
     protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
 
-    protected abstract android.support.v4.app.Fragment getFragmentAtPosition(int position);
+    protected abstract SPToolBarFragment getFragmentAtPosition(int position);
 
 }

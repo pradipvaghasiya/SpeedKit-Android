@@ -15,7 +15,7 @@ public class SPEmptyViewHolder extends SPViewHolder {
 
     public SPEmptyViewHolder(View itemView, SPViewHolderListener listener) {
         super(itemView, listener);
-        System.out.println("SPEmptyViewHolder View Holder Created");
+        //System.out.println("SPEmptyViewHolder View Holder Created");
 
         emptyView = itemView.findViewById(R.id.sp_empty_view);
 
