@@ -1,28 +1,35 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder;
 
 import android.content.res.Resources;
+import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.speedui.android.util.ViewUtil;
 
-
 /**
- * Created by pradipvaghasiya on 20/05/15.
+ * Created by pradipvaghasiya on 04/06/15.
  */
+abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    protected SPBindingViewHolderListener listener;
+    protected ViewDataBinding viewDataBinding;
 
-abstract public class SPViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    protected SPViewHolderListener listener;
-
-    public SPViewHolder(View itemView, SPViewHolderListener listener) {
-        super(itemView);
+    public SPBindingViewHolder(ViewDataBinding viewDataBinding,
+                               SPBindingViewHolderListener listener) {
+        super(viewDataBinding.getRoot());
         this.listener = listener;
-        itemView.setOnClickListener(this);
+        this.viewDataBinding = viewDataBinding;
 
+        itemView.setOnClickListener(this);
         this.setDefaultDrawable();
+    }
+
+    public ViewDataBinding getViewDataBinding() {
+        return viewDataBinding;
     }
 
     public void setDefaultDrawable(){
@@ -37,19 +44,20 @@ abstract public class SPViewHolder extends RecyclerView.ViewHolder implements Vi
             selectionDrawable = itemView.getResources().getDrawable(outValue.resourceId);
         }
 
-        ViewUtil.setBackground(itemView,selectionDrawable);
+        ViewUtil.setBackground(itemView, selectionDrawable);
     }
-
-    public abstract void configureCellUsing(Object cellModel);
 
     @Override
     public void onClick(View v) {
-        listener.didSelectItem(v,getAdapterPosition());
+        if (this.listener != null){
+            this.listener.didSelectItem(v,getAdapterPosition());
+        }
     }
 
     protected void customiseViewHolderIfRequired(){
-        if (this.listener instanceof SPViewHolderCustomisor){
-            ((SPViewHolderCustomisor) this.listener).customiseViewHolder(this);
+        if (this.listener != null &&
+                this.listener instanceof SPBindingViewHolderCustomisor){
+            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, getAdapterPosition());
         }
     }
 }

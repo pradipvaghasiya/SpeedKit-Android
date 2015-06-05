@@ -1,35 +1,37 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
+import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
+import com.speedui.android.uiautomation.BR;
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 
 /**
  * Created by Pradip on 5/13/2015.
  */
-public class SPTitleViewHolder extends SPViewHolder {
+public class SPTitleViewHolder extends SPBindingViewHolder {
     public static final String CLASS_NAME = "SPTitleViewHolder";
 
     public TextView textView;
     public View dividerLine;
 
-    public SPTitleViewHolder(View itemView,SPViewHolderListener delegate) {
-        super(itemView, delegate);
-        //System.out.println("SPTitleViewHolder View Holder Created");
-
-        this.textView = (TextView)itemView.findViewById(R.id.SPTitleViewHolder_TextView);
-        this.dividerLine = itemView.findViewById(R.id.cell_divider);
-
-        this.customiseViewHolderIfRequired();
+    public static class ViewModel {
+        public String titleText;
+        public ViewModel(String titleText){
+            this.titleText = titleText;
+        }
     }
 
-    @Override
+
+    public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
+        super(viewDataBinding, listener);
+    }
+
     public void configureCellUsing(Object cellModel) {
         if (cellModel instanceof String) {
             if (this.textView != null) {
@@ -38,10 +40,11 @@ public class SPTitleViewHolder extends SPViewHolder {
         }
     }
 
-    public static SPListingCellGroup getCellGroupFromCellModels(List<String> modelList){
-        return new SPListingCellGroup(
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> modelList){
+        return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_title,
-                SPTitleViewHolder.class.getName(),
+                BR.viewModel,
+                SPTitleViewHolder.class.getConstructors()[0],
                 modelList);
 
     }
