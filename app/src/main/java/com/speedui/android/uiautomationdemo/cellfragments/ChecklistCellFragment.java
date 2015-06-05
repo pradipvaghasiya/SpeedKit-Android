@@ -1,5 +1,6 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
+import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,20 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPEmptyViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
-import com.speedui.android.util.ActionBarUtil;
-import com.speedui.android.util.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -29,12 +24,11 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener,SPViewHolderCustomisor {
+public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     public RecyclerView recyclerView;
-    ArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
-    SPRecyclerAdapter spRecyclerAdapter;
-    SPSlidingTabsFragment spSlidingTabsFragmentParent;
+    ObservableArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
+    SPBindingRecyclerAdapter spRecyclerAdapter;
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -49,11 +43,6 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 
         this.setupRecyclerView();
 
-        try {
-            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
-        } catch (Exception e) {
-            System.out.println("Ignore id parent is not sliding layout.");
-        }
 
 
         // Inflate the layout for this fragment
@@ -62,23 +51,18 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 
     void setupRecyclerView(){
         //region Listing Data Creation
-        viewModelArrayList = new ArrayList<>();
+        viewModelArrayList = new ObservableArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-
-            SPCheckListViewHolder.ViewModel cellViewModel = new SPCheckListViewHolder.ViewModel();
-            cellViewModel.titleText = titleText;
-            cellViewModel.isSelected = true;
-
-            viewModelArrayList.add(cellViewModel);
+            viewModelArrayList.add(new SPCheckListViewHolder.ViewModel(titleText,true));
         }
 
-        SPListingCellGroup emptyRowCellGroup = SPEmptyViewHolder.getCellGroupFromCellModels(Arrays.asList("HEADER"));
-        SPListingCellGroup cellGroup = SPCheckListViewHolder.getCellGroupFromCellModels(viewModelArrayList);
-        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
+
+        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(viewModelArrayList);
+        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
         //endregion
 
-        spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
+        spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
 
         //region RecyclerView Setup
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -93,28 +77,20 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     //region Cell Callbacks or Customization
     @Override
     public void didSelectItem(View view, int position) {
-        int checklistPosition = position - 1;  //Offset to cover header view row.
-
-        if (checklistPosition >= 0 &&
-                viewModelArrayList.size()> checklistPosition){
-            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
-            spRecyclerAdapter.notifyItemChanged(position);
-        }
-
-        System.out.println("Item DidSelect At : " + position );
+//        int checklistPosition = position - 1;  //Offset to cover header view row.
+//
+//        if (checklistPosition >= 0 &&
+//                viewModelArrayList.size()> checklistPosition){
+//            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
+//            spRecyclerAdapter.notifyItemChanged(position);
+//        }
+//
+//        System.out.println("Item DidSelect At : " + position );
     }
 
-    @Override
-    public void customiseViewHolder(SPViewHolder viewHolder) {
-        if (viewHolder instanceof SPEmptyViewHolder) {
-            int height;
-            if (spSlidingTabsFragmentParent != null) {
-                height = spSlidingTabsFragmentParent.getDefaultHeightInPixelsOfActionBarPlusTabs();
-            } else {
-                height= ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());;
-            }
 
-            ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
-        }
+    @Override
+    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
+
     }
 }

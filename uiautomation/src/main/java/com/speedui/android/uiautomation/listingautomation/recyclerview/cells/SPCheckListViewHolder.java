@@ -1,40 +1,65 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
+import com.speedui.android.uiautomation.BR;
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 
 /**
  * Created by Pradip on 5/15/2015.
  */
-public class SPCheckListViewHolder extends SPViewHolder {
+public class SPCheckListViewHolder extends SPBindingViewHolder {
     public TextView textView;
     public ImageView imageView;
 
-    public static class ViewModel {
+    public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
+        super(viewDataBinding, listener);
+    }
+
+    public static class ViewModel extends BaseObservable {
+
+        public ViewModel(String titleText, boolean isSelected){
+            this.titleText = titleText;
+            this.isSelected = isSelected;
+        }
+
         public String titleText;
-        public boolean isSelected;
+
+        @Bindable
+        private boolean isSelected;
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setIsSelected(boolean isSelected) {
+            this.isSelected = isSelected;
+            notifyPropertyChanged(BR.isSelected);
+        }
+
+        public View.OnClickListener getOnClickListener(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setIsSelected(!isSelected);
+                }
+            };
+        }
+
     }
 
-    public SPCheckListViewHolder(View v, SPViewHolderListener listener) {
-        super(v,listener);
-        //System.out.println("SPCheckListViewHolder View Holder Created");
-
-        this.textView = (TextView)v.findViewById(R.id.SPCheckList_TextView);
-        this.imageView = (ImageView)v.findViewById(R.id.SPCheckList_ImageView);
-
-        this.customiseViewHolderIfRequired();
-    }
-
-    @Override
     public void configureCellUsing(Object cellModel) {
 
         // Check if the model is my model.
@@ -57,10 +82,11 @@ public class SPCheckListViewHolder extends SPViewHolder {
         }
     }
 
-    public static SPListingCellGroup getCellGroupFromCellModels(List<ViewModel> viewModelList){
-        return new SPListingCellGroup(
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList){
+        return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_checklist,
-                SPCheckListViewHolder.class.getName(),
+                BR.viewModel,
+                SPCheckListViewHolder.class.getConstructors()[0],
                 viewModelList);
 
     }

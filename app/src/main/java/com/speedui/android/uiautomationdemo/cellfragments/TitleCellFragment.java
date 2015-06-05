@@ -1,5 +1,7 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,18 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPEmptyViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
-import com.speedui.android.util.ActionBarUtil;
-import com.speedui.android.util.ViewUtil;
 
 import java.util.Arrays;
 
@@ -29,12 +26,11 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements SPViewHolderListener, SPViewHolderCustomisor {
-
+public class TitleCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor {
+    ObservableList titleItems;
     RecyclerView recyclerView;
-    SPRecyclerAdapter spRecyclerAdapter;
+    SPBindingRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
-    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -63,58 +59,49 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(spRecyclerAdapter);
 
-        try {
-            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
-        } catch (Exception e) {
-            System.out.println("Ignore id parent is not sliding layout.");
-        }
-
-        if (spSlidingTabsFragmentParent != null){
-            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }else if (getActivity() instanceof SPActionBarAppCompactActivity) {
-            ((SPActionBarAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }
     }
 
-    private SPRecyclerAdapter getRecyclerAdapter(){
+    private SPBindingRecyclerAdapter getRecyclerAdapter(){
+        titleItems = new ObservableArrayList();
+        for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell Last")){
 
-        SPListingCellGroup emptyRowCellGroup = SPEmptyViewHolder.getCellGroupFromCellModels(Arrays.asList("HEADER"));
+            titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
 
-        SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(
-                Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell Last"));
+        }
+        SPListingData.ItemGroup titleItemGroup = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
-        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
+        SPListingData listingData = new SPListingData(Arrays.asList(titleItemGroup));
         //endregion
 
-        return new SPRecyclerAdapter(listingData, this);
+        return new SPBindingRecyclerAdapter(listingData, this);
 
     }
 
     @Override
     public void didSelectItem(View view, int position) {
-
+        try{
+            titleItems.remove(position);
+        }catch (ArrayIndexOutOfBoundsException e){
+            // Ignore
+        }
     }
 
 
     @Override
-    public void customiseViewHolder(SPViewHolder viewHolder) {
+    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
 
-        if (viewHolder instanceof SPEmptyViewHolder) {
-            int height;
-            if (spSlidingTabsFragmentParent != null) {
-                height = spSlidingTabsFragmentParent.getDefaultHeightInPixelsOfActionBarPlusTabs();
-            } else {
-                height= ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());;
-            }
-
-            ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
-        }
     }
-
 }

@@ -13,18 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
-import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.R;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.util.ViewUtil;
 
 import java.util.List;
 
 public abstract class SPDrawerToolbarActivity extends AppCompatActivity implements
-        SPViewHolderListener,
+        SPBindingViewHolderListener,
         SPToolBarFragment.SPFragmentLifeCycleListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -39,7 +37,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
 
         // SPRecycler Adapter Setup
         SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
-        SPRecyclerAdapter spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
+        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.drawer_recyclerview_drawer);
@@ -136,7 +134,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
         this.configureHomeButtonOnToolBar(fragment.toolbar);
     }
 
-    protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
+    protected abstract List<SPListingData.ItemGroup> getCellGroupListForDrawer();
 
     protected abstract SPToolBarFragment getFragmentAtPosition(int position);
 

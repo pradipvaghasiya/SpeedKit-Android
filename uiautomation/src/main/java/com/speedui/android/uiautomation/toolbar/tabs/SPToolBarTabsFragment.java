@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
 
 import java.util.List;

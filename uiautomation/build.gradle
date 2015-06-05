@@ -1,18 +1,19 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.android.databinding'
 
 def version_code = 1
-def version_name = '0.2.1'
+def version_name = '0.3'
 
 group  "com.speedui.android"
 archivesBaseName = "uiautomation"
-version  "0.2.1-SNAPSHOT"
+version  "0.3-SNAPSHOT"
 
 android {
 
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 7
         targetSdkVersion 22
         versionCode version_code
         versionName version_name

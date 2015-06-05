@@ -13,16 +13,15 @@ import android.view.View;
 
 import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.util.ActionBarUtil;
 
 import java.util.List;
 
 
-abstract public class SPDrawerWithActionBarAppCompactActivity extends SPActionBarAppCompactActivity implements SPViewHolderListener{
+abstract public class SPDrawerWithActionBarAppCompactActivity extends SPActionBarAppCompactActivity implements SPBindingViewHolderListener{
     private static final int DEFAULT_DRAWER_CLOSURE_TIME_IN_MILLISECONDS = 200;
 
     DrawerLayout drawerLayout;
@@ -37,8 +36,8 @@ abstract public class SPDrawerWithActionBarAppCompactActivity extends SPActionBa
         setContentView(R.layout.activity_spdrawer);
 
         // SPRecycler Adapter Setup
-        SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
-        SPRecyclerAdapter spRecyclerAdapter = new SPRecyclerAdapter(listingData,this);
+        SPListingData listingData = new SPListingData(this.getItemGroupListForDrawer());
+        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.spdrawer_recyclerview_drawer);
@@ -126,7 +125,7 @@ abstract public class SPDrawerWithActionBarAppCompactActivity extends SPActionBa
 
     }
 
-    protected abstract List<SPListingCellGroup> getCellGroupListForDrawer();
+    protected abstract List<SPListingData.ItemGroup> getItemGroupListForDrawer();
 
     protected abstract android.support.v4.app.Fragment getFragmentAtPosition(int position);
 
