@@ -1,5 +1,7 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,25 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPEmptyViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
-import com.speedui.android.util.ActionBarUtil;
-import com.speedui.android.util.ViewUtil;
 
 import java.util.Arrays;
 
 /**
  * Created by pradipvaghasiya on 27/05/15.
  */
-public class GridFragment extends Fragment implements SPViewHolderListener,SPViewHolderCustomisor{
+public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
     SPSlidingTabsFragment spSlidingTabsFragmentParent;
@@ -70,52 +68,46 @@ public class GridFragment extends Fragment implements SPViewHolderListener,SPVie
     }
 
 
-    private SPRecyclerAdapter getRecyclerAdapter(){
+    private SPBindingRecyclerAdapter getRecyclerAdapter(){
 
-        SPListingCellGroup emptyRowCellGroup = SPEmptyViewHolder.getCellGroupFromCellModels(Arrays.asList("HEADER"));
+        ObservableList titleItems = new ObservableArrayList();
+        for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell",
+                "Title Cell", "Title Cell", "Title Cell Last")){
 
-        SPListingCellGroup cellGroup = SPTitleViewHolder.getCellGroupFromCellModels(
-                Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell",
-                        "Title Cell", "Title Cell", "Title Cell Last"));
 
-        SPListingData listingData = new SPListingData(Arrays.asList(emptyRowCellGroup,cellGroup));
+
+            titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
+
+        }
+
+        SPListingData.ItemGroup cellGroup = SPTitleViewHolder.getItemGroupFromItems(titleItems);
+
+        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
         //endregion
 
-        return new SPRecyclerAdapter(listingData, this);
+        return new SPBindingRecyclerAdapter(listingData, this);
 
-    }
-
-    @Override
-    public void customiseViewHolder(SPViewHolder viewHolder) {
-
-        if (viewHolder instanceof SPEmptyViewHolder) {
-            int height;
-            if (spSlidingTabsFragmentParent != null) {
-                height = spSlidingTabsFragmentParent.getDefaultHeightInPixelsOfActionBarPlusTabs();
-            } else {
-                height= ActionBarUtil.getActionBarHeightInPixels(getActivity().getTheme(), getResources());;
-            }
-
-            ViewUtil.setHeightForView(((SPEmptyViewHolder) viewHolder).emptyView, height);
-        }else  if (viewHolder instanceof SPTitleViewHolder){
-            ((SPTitleViewHolder) viewHolder).dividerLine.setVisibility(View.INVISIBLE);
-        }
     }
 
     @Override
     public void didSelectItem(View view, int position) {
 
+    }
+
+    @Override
+    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
+        ((SPTitleViewHolder) bindingViewHolder).dividerLine.setVisibility(View.INVISIBLE);
     }
 }
