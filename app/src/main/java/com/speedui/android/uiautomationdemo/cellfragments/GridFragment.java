@@ -17,7 +17,6 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPT
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomationdemo.R;
 
 import java.util.Arrays;
@@ -28,7 +27,6 @@ import java.util.Arrays;
 public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
-    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     @Nullable
     @Override
@@ -55,16 +53,6 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
         });
 
         recyclerView.setLayoutManager(gridLayoutManager);
-
-
-        try {
-            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
-            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-
-        } catch (Exception e) {
-            System.out.println("Ignore id parent is not sliding layout.");
-        }
-
     }
 
 

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
@@ -30,7 +29,6 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     public RecyclerView recyclerView;
     ObservableArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
     SPBindingRecyclerAdapter spRecyclerAdapter;
-    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -45,11 +43,6 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 
         this.setupRecyclerView();
 
-        try {
-            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
-        } catch (Exception e) {
-            System.out.println("Ignore id parent is not sliding layout.");
-        }
 
 
         // Inflate the layout for this fragment
@@ -61,12 +54,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
         viewModelArrayList = new ObservableArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-
-            SPCheckListViewHolder.ViewModel cellViewModel = new SPCheckListViewHolder.ViewModel();
-            cellViewModel.titleText = titleText;
-            cellViewModel.isSelected = true;
-
-            viewModelArrayList.add(cellViewModel);
+            viewModelArrayList.add(new SPCheckListViewHolder.ViewModel(titleText,true));
         }
 
 
@@ -89,15 +77,15 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     //region Cell Callbacks or Customization
     @Override
     public void didSelectItem(View view, int position) {
-        int checklistPosition = position - 1;  //Offset to cover header view row.
-
-        if (checklistPosition >= 0 &&
-                viewModelArrayList.size()> checklistPosition){
-            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
-            spRecyclerAdapter.notifyItemChanged(position);
-        }
-
-        System.out.println("Item DidSelect At : " + position );
+//        int checklistPosition = position - 1;  //Offset to cover header view row.
+//
+//        if (checklistPosition >= 0 &&
+//                viewModelArrayList.size()> checklistPosition){
+//            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
+//            spRecyclerAdapter.notifyItemChanged(position);
+//        }
+//
+//        System.out.println("Item DidSelect At : " + position );
     }
 
 
