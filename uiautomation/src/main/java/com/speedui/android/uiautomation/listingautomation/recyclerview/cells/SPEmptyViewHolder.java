@@ -1,28 +1,19 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
-import android.view.View;
-
-import java.util.List;
+import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
 
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingCellGroup;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 
-public class SPEmptyViewHolder extends SPViewHolder {
+public class SPEmptyViewHolder extends SPBindingViewHolder {
 
-    public View emptyView;
-
-    public SPEmptyViewHolder(View itemView, SPViewHolderListener listener) {
-        super(itemView, listener);
-        //System.out.println("SPEmptyViewHolder View Holder Created");
-
-        emptyView = itemView.findViewById(R.id.sp_empty_view);
-
-        this.customiseViewHolderIfRequired();
+    public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
+        super(viewDataBinding, listener);
     }
 
-    @Override
     public void configureCellUsing(Object cellModel) {
 
         // Check if the model is my model.
@@ -31,10 +22,11 @@ public class SPEmptyViewHolder extends SPViewHolder {
         }
     }
 
-    public static SPListingCellGroup getCellGroupFromCellModels(List<String> viewModelList) {
-        return new SPListingCellGroup(
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<String> viewModelList) {
+        return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_empty,
-                SPEmptyViewHolder.class.getName(),
+                0,
+                SPEmptyViewHolder.class.getConstructors()[0],
                 viewModelList);
 
     }
