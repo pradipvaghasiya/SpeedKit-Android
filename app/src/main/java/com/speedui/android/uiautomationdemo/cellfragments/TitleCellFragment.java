@@ -13,7 +13,6 @@ import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.actionbar.slidingtabs.SPSlidingTabsFragment;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
@@ -32,7 +31,6 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     RecyclerView recyclerView;
     SPBindingRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
-    SPSlidingTabsFragment spSlidingTabsFragmentParent;
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -61,17 +59,6 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(spRecyclerAdapter);
 
-        try {
-            spSlidingTabsFragmentParent = (SPSlidingTabsFragment)getParentFragment();
-        } catch (Exception e) {
-            System.out.println("Ignore id parent is not sliding layout.");
-        }
-
-        if (spSlidingTabsFragmentParent != null){
-            spSlidingTabsFragmentParent.configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }else if (getActivity() instanceof SPActionBarAppCompactActivity) {
-            ((SPActionBarAppCompactActivity) getActivity()).configureRecyclerViewOnScrollListenerToHideUnHideActionBar(recyclerView);
-        }
     }
 
     private SPBindingRecyclerAdapter getRecyclerAdapter(){
@@ -105,7 +92,11 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
     @Override
     public void didSelectItem(View view, int position) {
-        titleItems.remove(position);
+        try{
+            titleItems.remove(position);
+        }catch (ArrayIndexOutOfBoundsException e){
+            // Ignore
+        }
     }
 
 

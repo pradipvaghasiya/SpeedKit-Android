@@ -1,5 +1,6 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
+import android.databinding.BaseObservable;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.view.View;
@@ -20,7 +21,7 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     public TextView textView;
     public View dividerLine;
 
-    public static class ViewModel {
+    public static class ViewModel extends BaseObservable{
         public String titleText;
         public ViewModel(String titleText){
             this.titleText = titleText;

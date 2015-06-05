@@ -12,7 +12,6 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingD
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.navigationdrawer.SPDrawerWithActionBarAppCompactActivity;
 import com.speedui.android.uiautomationdemo.cellfragments.ChecklistCellFragment;
-import com.speedui.android.uiautomationdemo.cellfragments.TabsFragment;
 import com.speedui.android.uiautomationdemo.cellfragments.TitleCellFragment;
 
 /**
@@ -23,14 +22,12 @@ public class DrawerWithActionBarAppCompactActivity extends SPDrawerWithActionBar
 
     TitleCellFragment titleCellFragment;
     ChecklistCellFragment checklistCellFragment;
-    TabsFragment tabsFragment;
 
     public DrawerWithActionBarAppCompactActivity(){
         this.isActionBarOverlay = true;
 
         this.titleCellFragment = new TitleCellFragment();
         this.checklistCellFragment = new ChecklistCellFragment();
-        this.tabsFragment = new TabsFragment();
     }
 
 
@@ -60,8 +57,6 @@ public class DrawerWithActionBarAppCompactActivity extends SPDrawerWithActionBar
                 return this.titleCellFragment;
             case 1:
                 return this.checklistCellFragment;
-            case 2:
-                return this.tabsFragment;
             default:
                 return null;
         }
