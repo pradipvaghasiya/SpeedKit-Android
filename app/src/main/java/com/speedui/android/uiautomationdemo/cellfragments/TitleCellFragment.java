@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
