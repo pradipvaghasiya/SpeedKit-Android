@@ -18,9 +18,14 @@ import java.util.List;
 final public class SPListingData {
     public ObservableList<ItemGroup> itemGroupList;
     // Create Listing Data with given section array.
-    public SPListingData(List<ItemGroup> itemGroupList){
-        this.itemGroupList = new ObservableArrayList<ItemGroup>();
-        this.itemGroupList.addAll(itemGroupList);
+    public SPListingData(List<ItemGroup> itemGroupList) {
+        if (itemGroupList instanceof ObservableList){
+            this.itemGroupList = (ObservableList<ItemGroup>) itemGroupList;
+        }else{
+            this.itemGroupList = new ObservableArrayList<ItemGroup>();
+            this.itemGroupList.addAll(itemGroupList);
+        }
+
     }
 
 
