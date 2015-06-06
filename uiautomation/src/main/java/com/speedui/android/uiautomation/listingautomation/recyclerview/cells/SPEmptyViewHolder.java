@@ -7,8 +7,13 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 public class SPEmptyViewHolder extends SPBindingViewHolder {
+
+    public class ViewModel extends SPViewModel{
+        public ViewModel(){};
+    }
 
     public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
@@ -22,7 +27,7 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
         }
     }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<String> viewModelList) {
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList) {
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_empty,
                 0,

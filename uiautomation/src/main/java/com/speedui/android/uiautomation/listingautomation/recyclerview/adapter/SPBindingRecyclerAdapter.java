@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.
@@ -71,9 +74,12 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
         if (itemGroupDetail.itemGroup.getItemCount() > itemGroupDetail.indexOfItemModelList &&
                 itemGroupDetail.indexOfItemModelList >= 0) {
+            SPViewModel viewModel = itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList);
+            viewModel.weakViewHolder = new WeakReference<SPBindingViewHolder>(bindingViewHolder);
+
             bindingViewHolder.getViewDataBinding().setVariable(
                     itemGroupDetail.itemGroup.itemBindingVariable,
-                    itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList));
+                    viewModel);
             bindingViewHolder.getViewDataBinding().executePendingBindings();
         }
 
@@ -88,5 +94,10 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         spListingData.removeObserverCallbacks();
+    }
+
+    @Override
+    public void onViewRecycled(SPBindingViewHolder holder) {
+        super.onViewRecycled(holder);
     }
 }

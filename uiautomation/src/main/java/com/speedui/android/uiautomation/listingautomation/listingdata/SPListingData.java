@@ -4,6 +4,7 @@ import android.databinding.ObservableList;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
@@ -66,12 +67,12 @@ final public class SPListingData {
         }
 
         // Cell Model
-        private ObservableList<?> itemModelList;
-        public ObservableList<?> getItemModelList() {
+        private ObservableList<? extends SPViewModel> itemModelList;
+        public ObservableList<? extends SPViewModel> getItemModelList() {
             return itemModelList;
         }
 
-        public void setItemModelList(ObservableList<Object> itemModelList) {
+        public void setItemModelList(ObservableList<SPViewModel> itemModelList) {
 
             if (this.itemModelList == itemModelList) return;
 
@@ -100,7 +101,7 @@ final public class SPListingData {
         public ItemGroup(int itemLayoutId,
                                   int itemBindingVariable,
                                   Constructor<?> bindingViewHolderConstructor,
-                                  ObservableList<?> itemModelList){
+                                  ObservableList<? extends SPViewModel> itemModelList){
             this.itemLayoutId = itemLayoutId;
             this.itemBindingVariable = itemBindingVariable;
             this.bindingViewHolderConstructor = bindingViewHolderConstructor;
