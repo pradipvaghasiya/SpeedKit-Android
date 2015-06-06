@@ -90,9 +90,9 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     }
 
     @Override
-    public void didSelectItem(View view, int position) {
+    public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
         try{
-            titleItems.remove(position);
+            titleItems.remove(adapterPosition);
         }catch (ArrayIndexOutOfBoundsException e){
             // Ignore
         }

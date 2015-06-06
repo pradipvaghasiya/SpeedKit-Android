@@ -33,6 +33,10 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
         this.spListingData.setSpBindingRecyclerAdapter(this);
     }
 
+    public SPListingData getSpListingData() {
+        return spListingData;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return this.spListingData.getIndexOfItemGroupFrom(position);
@@ -74,6 +78,8 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
         if (itemGroupDetail.itemGroup.getItemCount() > itemGroupDetail.indexOfItemModelList &&
                 itemGroupDetail.indexOfItemModelList >= 0) {
+            bindingViewHolder.itemGroupPosition = itemGroupDetail.indexOfItemModelList;
+
             SPViewModel viewModel = itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList);
             viewModel.weakViewHolder = new WeakReference<SPBindingViewHolder>(bindingViewHolder);
 
@@ -99,5 +105,15 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     @Override
     public void onViewRecycled(SPBindingViewHolder holder) {
         super.onViewRecycled(holder);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(SPBindingViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+    }
+
+    @Override
+    public boolean onFailedToRecycleView(SPBindingViewHolder holder) {
+        return super.onFailedToRecycleView(holder);
     }
 }

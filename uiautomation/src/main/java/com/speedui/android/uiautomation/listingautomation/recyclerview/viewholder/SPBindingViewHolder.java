@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.speedui.android.util.ViewUtil;
 abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public SPBindingViewHolderListener listener;
     public ViewDataBinding viewDataBinding;
+    public int itemGroupPosition;
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
                                SPBindingViewHolderListener listener) {
@@ -50,7 +50,7 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     @Override
     public void onClick(View v) {
         if (this.listener != null){
-            this.listener.didSelectItem(v,getAdapterPosition());
+            this.listener.didSelectItem(v,getAdapterPosition(),itemGroupPosition);
         }
     }
 
