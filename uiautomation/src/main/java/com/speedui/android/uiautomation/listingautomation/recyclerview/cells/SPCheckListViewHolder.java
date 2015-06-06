@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
+import android.media.Image;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,11 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
 
     public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
+
+        this.textView = (TextView) viewDataBinding.getRoot().findViewById(R.id.SPCheckList_TextView);
+        this.imageView = (ImageView) viewDataBinding.getRoot().findViewById(R.id.SPCheckList_ImageView);
+
+        this.customiseViewHolderIfRequired();
     }
 
     public static class ViewModel extends SPViewModel {

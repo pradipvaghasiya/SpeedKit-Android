@@ -17,6 +17,8 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
 
     public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
+
+        this.customiseViewHolderIfRequired();
     }
 
     public void configureCellUsing(Object cellModel) {
