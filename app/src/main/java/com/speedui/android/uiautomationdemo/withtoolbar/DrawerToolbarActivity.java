@@ -20,12 +20,10 @@ import java.util.List;
 public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
     private static List<String> MENU_LIST = Arrays.asList("Title Cell",  "ToolBar Tabs");
 
-    TitleCellToolBarFragment titleCellToolBarFragment;
     ToolbarTabsFragment toolbarTabsFragment;
 
     public DrawerToolbarActivity(){
         this.selectedMenuPosition = 0;
-        this.titleCellToolBarFragment = new TitleCellToolBarFragment();
         this.toolbarTabsFragment = new ToolbarTabsFragment();
     }
 
@@ -45,7 +43,7 @@ public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
 
         switch (position){
             case 0:
-                return this.titleCellToolBarFragment;
+                return new TitleCellToolBarFragment();
             case 1:
                 return this.toolbarTabsFragment;
             default:

@@ -16,6 +16,9 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by Pradip on 5/15/2015.
@@ -28,7 +31,7 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
         super(viewDataBinding, listener);
     }
 
-    public static class ViewModel extends BaseObservable {
+    public static class ViewModel extends SPViewModel {
 
         public ViewModel(String titleText, boolean isSelected){
             this.titleText = titleText;
@@ -54,6 +57,10 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
                 @Override
                 public void onClick(View v) {
                     setIsSelected(!isSelected);
+                    SPBindingViewHolder viewHolder = weakViewHolder.get();
+                    if (viewHolder != null){
+                        viewHolder.onClick(viewHolder.getViewDataBinding().getRoot());
+                    }
                 }
             };
         }

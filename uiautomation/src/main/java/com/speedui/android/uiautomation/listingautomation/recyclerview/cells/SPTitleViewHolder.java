@@ -11,6 +11,7 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 /**
  * Created by Pradip on 5/13/2015.
@@ -21,7 +22,7 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     public TextView textView;
     public View dividerLine;
 
-    public static class ViewModel extends BaseObservable{
+    public static class ViewModel extends SPViewModel{
         public String titleText;
         public ViewModel(String titleText){
             this.titleText = titleText;

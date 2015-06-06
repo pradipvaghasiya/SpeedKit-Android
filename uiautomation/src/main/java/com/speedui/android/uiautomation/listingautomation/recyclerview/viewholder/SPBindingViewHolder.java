@@ -15,8 +15,8 @@ import com.speedui.android.util.ViewUtil;
  * Created by pradipvaghasiya on 04/06/15.
  */
 abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    protected SPBindingViewHolderListener listener;
-    protected ViewDataBinding viewDataBinding;
+    public SPBindingViewHolderListener listener;
+    public ViewDataBinding viewDataBinding;
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
                                SPBindingViewHolderListener listener) {
