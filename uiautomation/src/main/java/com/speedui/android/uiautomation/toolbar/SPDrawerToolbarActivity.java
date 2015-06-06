@@ -1,6 +1,7 @@
 package com.speedui.android.uiautomation.toolbar;
 
 import android.content.res.Configuration;
+import android.databinding.ObservableList;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -53,7 +54,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
             drawerLayout.setScrimColor(Color.TRANSPARENT);
         }
 
-        this.didSelectItem(null,selectedMenuPosition);
+        this.didSelectItem(null,selectedMenuPosition, selectedMenuPosition);
     }
 
     protected ActionBarDrawerToggle configureHomeButtonOnToolBar(Toolbar toolbar){
@@ -105,13 +106,13 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
     }
 
     @Override
-    public void didSelectItem(View view, final int position) {
+    public void didSelectItem(View view, final int adapterPosition, int itemGroupPosition) {
         drawerLayout.closeDrawer(drawerRecyclerView);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                replaceFragments(position);
+                replaceFragments(adapterPosition);
             }
         }, 200);
 

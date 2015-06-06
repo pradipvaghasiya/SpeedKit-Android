@@ -28,6 +28,8 @@ import java.util.Arrays;
 public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
+    ObservableList checklistItems;
+    SPBindingRecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -41,7 +43,8 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        recyclerView.setAdapter(getRecyclerAdapter());
+        adapter = getRecyclerAdapter();
+        recyclerView.setAdapter(adapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -63,7 +66,7 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
         SPListingData.ItemGroup cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
-        ObservableList checklistItems = new ObservableArrayList<>();
+        checklistItems = new ObservableArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
             checklistItems.add(new SPCheckListViewHolder.ViewModel(titleText, true));
@@ -72,7 +75,7 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
         SPListingData.ItemGroup cellGroup2 = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
 
-        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup1,cellGroup2));
+         SPListingData listingData = new SPListingData(Arrays.asList(cellGroup1,cellGroup2));
         //endregion
 
         return new SPBindingRecyclerAdapter(listingData, this);
@@ -80,8 +83,13 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
     }
 
     @Override
-    public void didSelectItem(View view, int position) {
-
+    public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
+        try {
+            SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+            adapter.getSpListingData().itemGroupList.remove(1);
+        }catch (Exception e){
+            //Ignore
+        }
     }
 
     @Override
