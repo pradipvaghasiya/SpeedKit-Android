@@ -84,16 +84,14 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
-        try {
-            SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
-            adapter.getSpListingData().itemGroupList.remove(1);
-        }catch (Exception e){
-            //Ignore
-        }
     }
 
     @Override
     public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        ((SPTitleViewHolder) bindingViewHolder).dividerLine.setVisibility(View.INVISIBLE);
+        if (bindingViewHolder instanceof SPTitleViewHolder){
+            if (((SPTitleViewHolder) bindingViewHolder).dividerLine != null) {
+                ((SPTitleViewHolder) bindingViewHolder).dividerLine.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }
