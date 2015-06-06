@@ -63,7 +63,7 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
                 @Override
                 public void onClick(View v) {
                     setIsSelected(!isSelected);
-                    SPBindingViewHolder viewHolder = weakViewHolder.get();
+                    SPBindingViewHolder viewHolder = getBindingViewHolder();
                     if (viewHolder != null){
                         viewHolder.onClick(viewHolder.getViewDataBinding().getRoot());
                     }

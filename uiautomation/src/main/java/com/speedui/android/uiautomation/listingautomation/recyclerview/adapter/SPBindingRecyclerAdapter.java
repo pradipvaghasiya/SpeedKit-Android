@@ -81,7 +81,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
             bindingViewHolder.itemGroupPosition = itemGroupDetail.indexOfItemModelList;
 
             SPViewModel viewModel = itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList);
-            viewModel.weakViewHolder = new WeakReference<SPBindingViewHolder>(bindingViewHolder);
+            viewModel.setWeakViewHolder(bindingViewHolder);
 
             bindingViewHolder.getViewDataBinding().setVariable(
                     itemGroupDetail.itemGroup.itemBindingVariable,
