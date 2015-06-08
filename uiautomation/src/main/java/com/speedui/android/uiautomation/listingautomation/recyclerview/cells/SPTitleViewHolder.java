@@ -19,9 +19,6 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 public class SPTitleViewHolder extends SPBindingViewHolder {
     public static final String CLASS_NAME = "SPTitleViewHolder";
 
-    public TextView textView;
-    public View dividerLine;
-
     public static class ViewModel extends SPViewModel{
         public String titleText;
         public ViewModel(String titleText){
@@ -32,20 +29,8 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
 
     public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
-
-        this.textView = (TextView) viewDataBinding.getRoot().findViewById(R.id.SPTitleViewHolder_TextView);
-        this.dividerLine = viewDataBinding.getRoot().findViewById(R.id.cell_divider);
-
-        this.customiseViewHolderIfRequired();
     }
 
-    public void configureCellUsing(Object cellModel) {
-        if (cellModel instanceof String) {
-            if (this.textView != null) {
-                this.textView.setText((String) cellModel);
-            }
-        }
-    }
 
     public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> modelList){
         return new SPListingData.ItemGroup(

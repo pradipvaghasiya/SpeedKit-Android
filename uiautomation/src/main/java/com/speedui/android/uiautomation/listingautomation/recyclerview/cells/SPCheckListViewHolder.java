@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.speedui.android.uiautomation.BR;
 import com.speedui.android.uiautomation.R;
 
+import com.speedui.android.uiautomation.databinding.RecyclerCellChecklistBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
@@ -25,16 +26,9 @@ import java.lang.ref.WeakReference;
  * Created by Pradip on 5/15/2015.
  */
 public class SPCheckListViewHolder extends SPBindingViewHolder {
-    public TextView textView;
-    public ImageView imageView;
 
     public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
-
-        this.textView = (TextView) viewDataBinding.getRoot().findViewById(R.id.SPCheckList_TextView);
-        this.imageView = (ImageView) viewDataBinding.getRoot().findViewById(R.id.SPCheckList_ImageView);
-
-        this.customiseViewHolderIfRequired();
     }
 
     public static class ViewModel extends SPViewModel {
@@ -71,28 +65,6 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
             };
         }
 
-    }
-
-    public void configureCellUsing(Object cellModel) {
-
-        // Check if the model is my model.
-        if (cellModel instanceof ViewModel){
-            ViewModel myViewModel = ((ViewModel) cellModel);
-
-            // Set the title Text
-            if (this.textView != null){
-                this.textView.setText(myViewModel.titleText);
-            }
-
-            // Hide selection image if not selected and vice versa
-            if (this.imageView != null){
-                if (myViewModel.isSelected) {
-                    this.imageView.setVisibility(View.VISIBLE);
-                }else{
-                    this.imageView.setVisibility(View.INVISIBLE);
-                }
-            }
-        }
     }
 
     public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList){
