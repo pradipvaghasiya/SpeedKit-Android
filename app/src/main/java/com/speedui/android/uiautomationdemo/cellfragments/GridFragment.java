@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.speedui.android.uiautomation.databinding.RecyclerCellTitleBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
@@ -88,10 +89,8 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     @Override
     public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        if (bindingViewHolder instanceof SPTitleViewHolder){
-            if (((SPTitleViewHolder) bindingViewHolder).dividerLine != null) {
-                ((SPTitleViewHolder) bindingViewHolder).dividerLine.setVisibility(View.INVISIBLE);
-            }
+        if (bindingViewHolder.viewDataBinding instanceof RecyclerCellTitleBinding){
+            ((RecyclerCellTitleBinding)bindingViewHolder.viewDataBinding).sptitleCellSeparator.setVisibility(View.INVISIBLE);
         }
     }
 }

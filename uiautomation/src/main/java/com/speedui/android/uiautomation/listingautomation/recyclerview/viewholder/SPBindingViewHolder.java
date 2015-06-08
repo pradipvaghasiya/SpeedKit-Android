@@ -26,6 +26,7 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
 
         itemView.setOnClickListener(this);
         this.setDefaultDrawable();
+        this.customiseViewHolderIfRequired();
     }
 
     public ViewDataBinding getViewDataBinding() {
