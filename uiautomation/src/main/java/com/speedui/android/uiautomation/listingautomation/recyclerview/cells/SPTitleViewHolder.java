@@ -33,7 +33,7 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
         super(viewDataBinding, listener);
 
-        this.textView = (TextView) viewDataBinding.getRoot().findViewById(R.id.SPTitleCell_TextView);
+        this.textView = (TextView) viewDataBinding.getRoot().findViewById(R.id.SPTitleViewHolder_TextView);
         this.dividerLine = viewDataBinding.getRoot().findViewById(R.id.cell_divider);
 
         this.customiseViewHolderIfRequired();
