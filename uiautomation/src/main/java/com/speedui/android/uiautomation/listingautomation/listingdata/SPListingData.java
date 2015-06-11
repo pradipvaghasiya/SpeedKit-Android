@@ -45,7 +45,7 @@ final public class SPListingData {
 
 
     private ItemsOnListChangedCallback itemsOnListChangedCallback;
-    public ItemsOnListChangedCallback getItemsOnListChangedCallback() {
+    private ItemsOnListChangedCallback getItemsOnListChangedCallback() {
         if (itemsOnListChangedCallback == null){
             itemsOnListChangedCallback = new ItemsOnListChangedCallback();
         }
