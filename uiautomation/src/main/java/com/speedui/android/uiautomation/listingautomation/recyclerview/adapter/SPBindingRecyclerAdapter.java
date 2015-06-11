@@ -11,8 +11,6 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
@@ -39,12 +37,16 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
     @Override
     public int getItemViewType(int position) {
-        return this.spListingData.getIndexOfItemGroupFrom(position);
+        return this.spListingData.getItemType(position);
     }
 
     @Override
     public SPBindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SPListingData.ItemGroup itemGroup= spListingData.itemGroupList.get(viewType);
+        SPListingData.ItemGroup itemGroup= spListingData.getItemGroupOfType(viewType);
+
+        if (itemGroup == null){
+            throw new RuntimeException("UIAutomation Error: onCreateViewHolder View Type " + viewType + " Invalid. Please check");
+        }
 
         if (layoutInflater == null)
         {
@@ -60,7 +62,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
 
             SPBindingViewHolder bindingViewHolder = (SPBindingViewHolder) itemGroup.bindingViewHolderConstructor.
-                    newInstance(binding, this.listener);
+                    newInstance(binding, this.listener, viewType);
 
             return bindingViewHolder;
 

@@ -13,6 +13,8 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
+import java.util.List;
+
 /**
  * Created by Pradip on 5/13/2015.
  */
@@ -27,12 +29,12 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     }
 
 
-    public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
-        super(viewDataBinding, listener);
+    public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+        super(viewDataBinding, listener, itemType);
     }
 
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> modelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> modelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_title,
                 BR.viewModel,

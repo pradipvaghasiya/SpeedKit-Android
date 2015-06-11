@@ -21,14 +21,15 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * Created by Pradip on 5/15/2015.
  */
 public class SPCheckListViewHolder extends SPBindingViewHolder {
 
-    public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
-        super(viewDataBinding, listener);
+    public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+        super(viewDataBinding, listener, itemType);
     }
 
     public static class ViewModel extends SPViewModel {
@@ -67,7 +68,7 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
 
     }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_checklist,
                 BR.viewModel,

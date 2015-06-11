@@ -21,6 +21,7 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -29,7 +30,7 @@ import java.util.Arrays;
 public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
-    ObservableList checklistItems;
+    ArrayList checklistItems;
     SPBindingRecyclerAdapter adapter;
 
     @Nullable
@@ -67,7 +68,7 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
         SPListingData.ItemGroup cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
-        checklistItems = new ObservableArrayList<>();
+        checklistItems = new ArrayList<>();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
             checklistItems.add(new SPCheckListViewHolder.ViewModel(titleText, true));
@@ -85,6 +86,10 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
+        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+
+        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
+
     }
 
     @Override

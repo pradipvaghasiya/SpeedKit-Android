@@ -9,14 +9,16 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
+import java.util.List;
+
 public class SPEmptyViewHolder extends SPBindingViewHolder {
 
     public class ViewModel extends SPViewModel{
         public ViewModel(){};
     }
 
-    public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
-        super(viewDataBinding, listener);
+    public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+        super(viewDataBinding, listener, itemType);
     }
 
     public void configureCellUsing(Object cellModel) {
@@ -27,7 +29,7 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
         }
     }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList) {
+    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList) {
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_empty,
                 0,

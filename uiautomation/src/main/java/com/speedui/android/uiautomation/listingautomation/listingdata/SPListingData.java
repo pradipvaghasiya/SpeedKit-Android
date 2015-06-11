@@ -17,15 +17,30 @@ import java.util.List;
  */
 final public class SPListingData {
     public ObservableList<ItemGroup> itemGroupList;
+
+    private boolean userWantsToAutomateAdapterNotificationForGroupList;
+
+    private int maxItemTypeAssigned;
     // Create Listing Data with given section array.
     public SPListingData(List<ItemGroup> itemGroupList) {
         if (itemGroupList instanceof ObservableList){
             this.itemGroupList = (ObservableList<ItemGroup>) itemGroupList;
+            userWantsToAutomateAdapterNotificationForGroupList = true;
         }else{
             this.itemGroupList = new ObservableArrayList<ItemGroup>();
             this.itemGroupList.addAll(itemGroupList);
+            userWantsToAutomateAdapterNotificationForGroupList = false;
         }
 
+        configureItemType();
+    }
+
+    private void configureItemType() {
+        int itemType;
+        for (itemType = 0; itemType < this.itemGroupList.size(); itemType++){
+            this.itemGroupList.get(0).itemType = itemType;
+        }
+        maxItemTypeAssigned = itemType - 1;
     }
 
 
@@ -52,15 +67,18 @@ final public class SPListingData {
             this.itemGroupList.removeOnListChangedCallback(itemsOnListChangedCallback);
         }
         for (ItemGroup itemGroup : itemGroupList){
-            if (itemGroup.itemModelList != null){
-                itemGroup.itemModelList.removeOnListChangedCallback(itemsOnListChangedCallback);
+            if (itemGroup.itemModelList != null && itemGroup.itemModelList instanceof ObservableList){
+                ((ObservableList)itemGroup.itemModelList).removeOnListChangedCallback(itemsOnListChangedCallback);
             }
         }
     }
 
+
     final public static class ItemGroup{
         // Item Layout ID
         public int itemLayoutId;
+
+        private int itemType;
 
         // Item Binding Variable
         public int itemBindingVariable;
@@ -74,14 +92,14 @@ final public class SPListingData {
         public void setWeakReferenceItemsOnListChangedCallback(ItemsOnListChangedCallback itemsOnListChangedCallback) {
             this.weakReferenceItemsOnListChangedCallback = new WeakReference<ItemsOnListChangedCallback>(itemsOnListChangedCallback);
 
-            if (this.itemModelList != null){
-                this.itemModelList.addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
+            if (this.itemModelList != null && this.itemModelList instanceof ObservableList){
+                ((ObservableList)this.itemModelList).addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
             }
         }
 
         // Cell Model
-        private ObservableList<? extends SPViewModel> itemModelList;
-        public ObservableList<? extends SPViewModel> getItemModelList() {
+        private List<? extends SPViewModel> itemModelList;
+        public List<? extends SPViewModel> getItemModelList() {
             return itemModelList;
         }
 
@@ -89,9 +107,14 @@ final public class SPListingData {
 
             if (this.itemModelList == itemModelList) return;
 
+            if (!(this.itemModelList instanceof ObservableList)){
+                this.itemModelList = itemModelList;
+                return;
+            }
+
             if (this.itemModelList != null){
-                this.itemModelList.removeOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
-                this.weakReferenceItemsOnListChangedCallback.get().onItemRangeRemoved(this.itemModelList, 0, this.itemModelList.size());
+                ((ObservableList)this.itemModelList).removeOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
+                this.weakReferenceItemsOnListChangedCallback.get().onItemRangeRemoved(((ObservableList)this.itemModelList), 0, this.itemModelList.size());
             }
 
             if (itemModelList == null){
@@ -100,8 +123,8 @@ final public class SPListingData {
             }
 
             this.itemModelList = itemModelList;
-            this.itemModelList.addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
-            this.weakReferenceItemsOnListChangedCallback.get().onItemRangeInserted(this.itemModelList,0,this.itemModelList.size());
+            ((ObservableList)this.itemModelList).addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
+            this.weakReferenceItemsOnListChangedCallback.get().onItemRangeInserted(((ObservableList)this.itemModelList),0,this.itemModelList.size());
 
         }
 
@@ -114,7 +137,7 @@ final public class SPListingData {
         public ItemGroup(int itemLayoutId,
                                   int itemBindingVariable,
                                   Constructor<?> bindingViewHolderConstructor,
-                                  ObservableList<? extends SPViewModel> itemModelList){
+                                  List<? extends SPViewModel> itemModelList){
             this.itemLayoutId = itemLayoutId;
             this.itemBindingVariable = itemBindingVariable;
             this.bindingViewHolderConstructor = bindingViewHolderConstructor;
@@ -131,6 +154,8 @@ final public class SPListingData {
         public void onChanged(ObservableList sender) {
             SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
             if (adapter != null){
+                if (sender == itemGroupList && userWantsToAutomateAdapterNotificationForGroupList == false) return;;
+
                 adapter.notifyDataSetChanged();
             }
         }
@@ -169,12 +194,15 @@ final public class SPListingData {
                     // Set the listener as well
                     itemGroupList.get(insertedPositionIndex).setWeakReferenceItemsOnListChangedCallback(this);
 
+                    itemGroupList.get(insertedPositionIndex).itemType = maxItemTypeAssigned + 1;
+                    maxItemTypeAssigned++;
+
                     newItemCount += itemGroupList.get(insertedPositionIndex).getItemCount();
                     insertedPositionIndex++;
                 }
 
                 SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                if (adapter != null){
+                if (adapter != null  && userWantsToAutomateAdapterNotificationForGroupList == true){
                     adapter.notifyItemRangeInserted(newPosition, newItemCount);
                 }
             }else {
@@ -214,7 +242,7 @@ final public class SPListingData {
         public void onItemRangeRemoved(ObservableList sender, int positionStart, int itemCount) {
             if (sender == itemGroupList){
                 SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                if (adapter != null){
+                if (adapter != null && userWantsToAutomateAdapterNotificationForGroupList == true){
                     adapter.notifyDataSetChanged();
                 }
             }else {
@@ -265,18 +293,27 @@ final public class SPListingData {
         return returnType;
     }
 
-    public int getIndexOfItemGroupFrom(int indexOfListView){
+    public int getItemType(int indexOfListView){
         int startIndexOfItemGroup  = 0;
         int totalIndexCovered = 0;
         for(ItemGroup itemGroup : this.itemGroupList){
             totalIndexCovered += itemGroup.getItemCount();
             if (indexOfListView < totalIndexCovered){
-                return startIndexOfItemGroup;
+                return itemGroup.itemType;
             }
 
             startIndexOfItemGroup ++;
         }
         return 0;
+    }
+
+    public ItemGroup getItemGroupOfType(int viewType) {
+        for(ItemGroup itemGroup : this.itemGroupList) {
+            if (itemGroup.itemType == viewType){
+                return itemGroup;
+            }
+        }
+        return null;
     }
 
 }
