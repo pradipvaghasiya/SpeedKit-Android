@@ -19,6 +19,12 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
 
     private int itemGroupPosition;
 
+    private int itemType;
+
+    public int getItemType() {
+        return itemType;
+    }
+
     public int getItemGroupPosition() {
         return itemGroupPosition;
     }
@@ -28,10 +34,12 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     }
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
-                               SPBindingViewHolderListener listener) {
+                               SPBindingViewHolderListener listener,
+                               int itemType) {
         super(viewDataBinding.getRoot());
         this.listener = listener;
         this.viewDataBinding = viewDataBinding;
+        this.itemType = itemType;
 
         itemView.setOnClickListener(this);
         this.setDefaultDrawable();
@@ -67,7 +75,7 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     protected void customiseViewHolderIfRequired(){
         if (this.listener != null &&
                 this.listener instanceof SPBindingViewHolderCustomisor){
-            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, getAdapterPosition());
+            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, this.itemType);
         }
     }
 }
