@@ -16,7 +16,16 @@ import com.speedui.android.util.ViewUtil;
 abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public SPBindingViewHolderListener listener;
     public ViewDataBinding viewDataBinding;
-    public int itemGroupPosition;
+
+    private int itemGroupPosition;
+
+    public int getItemGroupPosition() {
+        return itemGroupPosition;
+    }
+
+    public void setItemGroupPosition(int itemGroupPosition) {
+        this.itemGroupPosition = itemGroupPosition;
+    }
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
                                SPBindingViewHolderListener listener) {
