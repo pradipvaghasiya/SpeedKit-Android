@@ -299,7 +299,6 @@ final public class SPListingData {
         for(ItemGroup itemGroup : this.itemGroupList){
             totalIndexCovered += itemGroup.getItemCount();
             if (indexOfListView < totalIndexCovered){
-                System.out.println(itemGroup.itemType);
                 return itemGroup.itemType;
             }
 
