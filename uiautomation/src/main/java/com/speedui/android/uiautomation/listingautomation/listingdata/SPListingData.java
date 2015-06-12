@@ -38,7 +38,7 @@ final public class SPListingData {
     private void configureItemType() {
         int itemType;
         for (itemType = 0; itemType < this.itemGroupList.size(); itemType++){
-            this.itemGroupList.get(0).itemType = itemType;
+            this.itemGroupList.get(itemType).itemType = itemType;
         }
         maxItemTypeAssigned = itemType - 1;
     }
@@ -299,6 +299,7 @@ final public class SPListingData {
         for(ItemGroup itemGroup : this.itemGroupList){
             totalIndexCovered += itemGroup.getItemCount();
             if (indexOfListView < totalIndexCovered){
+                System.out.println(itemGroup.itemType);
                 return itemGroup.itemType;
             }
 
