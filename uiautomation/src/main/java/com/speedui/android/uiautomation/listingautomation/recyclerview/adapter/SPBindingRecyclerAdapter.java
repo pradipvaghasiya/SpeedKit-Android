@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.
@@ -30,14 +31,22 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
         this.spListingData.setSpBindingRecyclerAdapter(this);
     }
 
+    public SPListingData getSpListingData() {
+        return spListingData;
+    }
+
     @Override
     public int getItemViewType(int position) {
-        return this.spListingData.getIndexOfItemGroupFrom(position);
+        return this.spListingData.getItemType(position);
     }
 
     @Override
     public SPBindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SPListingData.ItemGroup itemGroup= spListingData.itemGroupList.get(viewType);
+        SPListingData.ItemGroup itemGroup= spListingData.getItemGroupOfType(viewType);
+
+        if (itemGroup == null){
+            throw new RuntimeException("UIAutomation Error: onCreateViewHolder View Type " + viewType + " Invalid. Please check");
+        }
 
         if (layoutInflater == null)
         {
@@ -53,7 +62,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
 
             SPBindingViewHolder bindingViewHolder = (SPBindingViewHolder) itemGroup.bindingViewHolderConstructor.
-                    newInstance(binding, this.listener);
+                    newInstance(binding, this.listener, viewType);
 
             return bindingViewHolder;
 
@@ -71,9 +80,14 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
         if (itemGroupDetail.itemGroup.getItemCount() > itemGroupDetail.indexOfItemModelList &&
                 itemGroupDetail.indexOfItemModelList >= 0) {
+            bindingViewHolder.setItemGroupPosition(itemGroupDetail.indexOfItemModelList);
+
+            SPViewModel viewModel = itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList);
+            viewModel.setWeakViewHolder(bindingViewHolder);
+
             bindingViewHolder.getViewDataBinding().setVariable(
                     itemGroupDetail.itemGroup.itemBindingVariable,
-                    itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList));
+                    viewModel);
             bindingViewHolder.getViewDataBinding().executePendingBindings();
         }
 
@@ -88,5 +102,20 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         spListingData.removeObserverCallbacks();
+    }
+
+    @Override
+    public void onViewRecycled(SPBindingViewHolder holder) {
+        super.onViewRecycled(holder);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(SPBindingViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+    }
+
+    @Override
+    public boolean onFailedToRecycleView(SPBindingViewHolder holder) {
+        return super.onFailedToRecycleView(holder);
     }
 }

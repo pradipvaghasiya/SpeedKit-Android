@@ -11,14 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.speedui.android.uiautomation.databinding.RecyclerCellTitleBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -27,6 +30,8 @@ import java.util.Arrays;
 public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
+    ArrayList checklistItems;
+    SPBindingRecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -40,18 +45,10 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        recyclerView.setAdapter(getRecyclerAdapter());
+        adapter = getRecyclerAdapter();
+        recyclerView.setAdapter(adapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (position == 0) return 2;
-
-                return 1;
-            }
-        });
-
         recyclerView.setLayoutManager(gridLayoutManager);
     }
 
@@ -59,17 +56,7 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
     private SPBindingRecyclerAdapter getRecyclerAdapter(){
 
         ObservableList titleItems = new ObservableArrayList();
-        for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
+        for (String itemTitle : Arrays.asList("Title Cell 1",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell Last")){
@@ -77,12 +64,20 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
 
             titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
-
         }
 
-        SPListingData.ItemGroup cellGroup = SPTitleViewHolder.getItemGroupFromItems(titleItems);
+        SPListingData.ItemGroup cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
-        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
+        checklistItems = new ArrayList<>();
+
+        for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
+            checklistItems.add(new SPCheckListViewHolder.ViewModel(titleText, true));
+        }
+
+
+        SPListingData.ItemGroup cellGroup2 = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+
+         SPListingData listingData = new SPListingData(Arrays.asList(cellGroup1,cellGroup2));
         //endregion
 
         return new SPBindingRecyclerAdapter(listingData, this);
@@ -90,12 +85,17 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
     }
 
     @Override
-    public void didSelectItem(View view, int position) {
+    public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
+        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+
+        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
 
     }
 
     @Override
     public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        ((SPTitleViewHolder) bindingViewHolder).dividerLine.setVisibility(View.INVISIBLE);
+        if (bindingViewHolder.viewDataBinding instanceof RecyclerCellTitleBinding){
+            ((RecyclerCellTitleBinding)bindingViewHolder.viewDataBinding).sptitleCellSeparator.setVisibility(View.INVISIBLE);
+        }
     }
 }

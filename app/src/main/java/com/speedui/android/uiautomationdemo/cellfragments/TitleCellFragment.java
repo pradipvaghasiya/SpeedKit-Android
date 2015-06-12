@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.actionbar.SPActionBarAppCompactActivity;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
@@ -91,9 +90,9 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     }
 
     @Override
-    public void didSelectItem(View view, int position) {
+    public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
         try{
-            titleItems.remove(position);
+            titleItems.remove(adapterPosition);
         }catch (ArrayIndexOutOfBoundsException e){
             // Ignore
         }

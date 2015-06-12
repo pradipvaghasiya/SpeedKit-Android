@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
+import android.media.Image;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,22 +14,25 @@ import android.widget.TextView;
 import com.speedui.android.uiautomation.BR;
 import com.speedui.android.uiautomation.R;
 
+import com.speedui.android.uiautomation.databinding.RecyclerCellChecklistBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * Created by Pradip on 5/15/2015.
  */
 public class SPCheckListViewHolder extends SPBindingViewHolder {
-    public TextView textView;
-    public ImageView imageView;
 
-    public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
-        super(viewDataBinding, listener);
+    public SPCheckListViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+        super(viewDataBinding, listener, itemType);
     }
 
-    public static class ViewModel extends BaseObservable {
+    public static class ViewModel extends SPViewModel {
 
         public ViewModel(String titleText, boolean isSelected){
             this.titleText = titleText;
@@ -54,35 +58,17 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
                 @Override
                 public void onClick(View v) {
                     setIsSelected(!isSelected);
+                    SPBindingViewHolder viewHolder = getBindingViewHolder();
+                    if (viewHolder != null){
+                        viewHolder.onClick(viewHolder.getViewDataBinding().getRoot());
+                    }
                 }
             };
         }
 
     }
 
-    public void configureCellUsing(Object cellModel) {
-
-        // Check if the model is my model.
-        if (cellModel instanceof ViewModel){
-            ViewModel myViewModel = ((ViewModel) cellModel);
-
-            // Set the title Text
-            if (this.textView != null){
-                this.textView.setText(myViewModel.titleText);
-            }
-
-            // Hide selection image if not selected and vice versa
-            if (this.imageView != null){
-                if (myViewModel.isSelected) {
-                    this.imageView.setVisibility(View.VISIBLE);
-                }else{
-                    this.imageView.setVisibility(View.INVISIBLE);
-                }
-            }
-        }
-    }
-
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_checklist,
                 BR.viewModel,

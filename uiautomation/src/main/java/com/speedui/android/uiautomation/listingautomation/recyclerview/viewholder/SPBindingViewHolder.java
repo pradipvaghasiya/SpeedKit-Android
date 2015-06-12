@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,17 +14,36 @@ import com.speedui.android.util.ViewUtil;
  * Created by pradipvaghasiya on 04/06/15.
  */
 abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    protected SPBindingViewHolderListener listener;
-    protected ViewDataBinding viewDataBinding;
+    public SPBindingViewHolderListener listener;
+    public ViewDataBinding viewDataBinding;
+
+    private int itemGroupPosition;
+
+    private int itemType;
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public int getItemGroupPosition() {
+        return itemGroupPosition;
+    }
+
+    public void setItemGroupPosition(int itemGroupPosition) {
+        this.itemGroupPosition = itemGroupPosition;
+    }
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
-                               SPBindingViewHolderListener listener) {
+                               SPBindingViewHolderListener listener,
+                               int itemType) {
         super(viewDataBinding.getRoot());
         this.listener = listener;
         this.viewDataBinding = viewDataBinding;
+        this.itemType = itemType;
 
         itemView.setOnClickListener(this);
         this.setDefaultDrawable();
+        this.customiseViewHolderIfRequired();
     }
 
     public ViewDataBinding getViewDataBinding() {
@@ -50,14 +68,14 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     @Override
     public void onClick(View v) {
         if (this.listener != null){
-            this.listener.didSelectItem(v,getAdapterPosition());
+            this.listener.didSelectItem(v,getAdapterPosition(),itemGroupPosition);
         }
     }
 
     protected void customiseViewHolderIfRequired(){
         if (this.listener != null &&
                 this.listener instanceof SPBindingViewHolderCustomisor){
-            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, getAdapterPosition());
+            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, this.itemType);
         }
     }
 }
