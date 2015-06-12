@@ -11,6 +11,9 @@ import com.speedui.android.uiautomation.R;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+
+import java.util.List;
 
 /**
  * Created by Pradip on 5/13/2015.
@@ -18,10 +21,7 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 public class SPTitleViewHolder extends SPBindingViewHolder {
     public static final String CLASS_NAME = "SPTitleViewHolder";
 
-    public TextView textView;
-    public View dividerLine;
-
-    public static class ViewModel extends BaseObservable{
+    public static class ViewModel extends SPViewModel{
         public String titleText;
         public ViewModel(String titleText){
             this.titleText = titleText;
@@ -29,19 +29,12 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     }
 
 
-    public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener) {
-        super(viewDataBinding, listener);
+    public SPTitleViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+        super(viewDataBinding, listener, itemType);
     }
 
-    public void configureCellUsing(Object cellModel) {
-        if (cellModel instanceof String) {
-            if (this.textView != null) {
-                this.textView.setText((String) cellModel);
-            }
-        }
-    }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> modelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> modelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_title,
                 BR.viewModel,

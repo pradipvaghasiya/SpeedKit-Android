@@ -76,7 +76,8 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 
     //region Cell Callbacks or Customization
     @Override
-    public void didSelectItem(View view, int position) {
+    public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
+
 //        int checklistPosition = position - 1;  //Offset to cover header view row.
 //
 //        if (checklistPosition >= 0 &&

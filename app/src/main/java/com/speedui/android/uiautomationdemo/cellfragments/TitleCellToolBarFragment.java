@@ -17,7 +17,6 @@ import com.speedui.android.uiautomation.toolbar.SPToolBarOnlyFragment;
  */
 public class TitleCellToolBarFragment extends SPDarkToolBarOnlyFragment {
 
-    public  ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected Fragment getContentFragment() {
         return new TitleCellFragment();
