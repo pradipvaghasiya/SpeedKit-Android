@@ -2,10 +2,12 @@ package com.speedui.android.uiautomation.listingautomation.listingdata;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
 import android.graphics.drawable.InsetDrawable;
 
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 import java.lang.ref.WeakReference;
@@ -83,10 +85,9 @@ final public class SPListingData {
         // Item Binding Variable
         public int itemBindingVariable;
 
-        // Cell Class Name
-        public Constructor<?> bindingViewHolderConstructor;
-
-
+        public SPBindingViewHolder getBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType){
+            return itemModelList.get(0).createBindingViewHolder(viewDataBinding, listener, itemType);
+        }
 
         private WeakReference<ItemsOnListChangedCallback> weakReferenceItemsOnListChangedCallback;
         public void setWeakReferenceItemsOnListChangedCallback(ItemsOnListChangedCallback itemsOnListChangedCallback) {
@@ -136,11 +137,9 @@ final public class SPListingData {
 
         public ItemGroup(int itemLayoutId,
                                   int itemBindingVariable,
-                                  Constructor<?> bindingViewHolderConstructor,
                                   List<? extends SPViewModel> itemModelList){
             this.itemLayoutId = itemLayoutId;
             this.itemBindingVariable = itemBindingVariable;
-            this.bindingViewHolderConstructor = bindingViewHolderConstructor;
             this.itemModelList = itemModelList;
         }
 

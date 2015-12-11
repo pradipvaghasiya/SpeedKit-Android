@@ -60,9 +60,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
                     parent,
                     false);
 
-
-            SPBindingViewHolder bindingViewHolder = (SPBindingViewHolder) itemGroup.bindingViewHolderConstructor.
-                    newInstance(binding, this.listener, viewType);
+            SPBindingViewHolder bindingViewHolder = (SPBindingViewHolder) itemGroup.getBindingViewHolder(binding, this.listener, viewType);
 
             return bindingViewHolder;
 
