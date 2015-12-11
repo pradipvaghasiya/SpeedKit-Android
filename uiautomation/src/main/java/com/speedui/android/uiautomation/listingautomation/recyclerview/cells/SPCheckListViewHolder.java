@@ -1,26 +1,17 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
-import android.media.Image;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.speedui.android.uiautomation.BR;
 import com.speedui.android.uiautomation.R;
 
-import com.speedui.android.uiautomation.databinding.RecyclerCellChecklistBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -34,30 +25,30 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
 
     public static class ViewModel extends SPViewModel {
 
-        public ViewModel(String titleText, boolean isSelected){
+        public ViewModel(String titleText, boolean selected){
             this.titleText = titleText;
-            this.isSelected = isSelected;
+            this.selected = selected;
         }
 
         public String titleText;
 
         @Bindable
-        private boolean isSelected;
+        private boolean selected;
 
         public boolean isSelected() {
-            return isSelected;
+            return selected;
         }
 
         public void setIsSelected(boolean isSelected) {
-            this.isSelected = isSelected;
-            notifyPropertyChanged(BR.isSelected);
+            this.selected = isSelected;
+            notifyPropertyChanged(BR.selected);
         }
 
         public View.OnClickListener getOnClickListener(){
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setIsSelected(!isSelected);
+                    setIsSelected(!selected);
                     SPBindingViewHolder viewHolder = getBindingViewHolder();
                     if (viewHolder != null){
                         viewHolder.onClick(viewHolder.getViewDataBinding().getRoot());
