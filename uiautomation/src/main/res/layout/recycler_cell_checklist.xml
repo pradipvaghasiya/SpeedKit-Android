@@ -37,7 +37,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:background="@mipmap/ic_action_accept"
-                android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.selected ? View.VISIBLE : View.INVISIBLE}"
                 />
 
         </LinearLayout>
