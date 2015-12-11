@@ -78,8 +78,6 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
         if (itemGroupDetail.itemGroup.getItemCount() > itemGroupDetail.indexOfItemModelList &&
                 itemGroupDetail.indexOfItemModelList >= 0) {
-            bindingViewHolder.setItemGroupPosition(itemGroupDetail.indexOfItemModelList);
-
             SPViewModel viewModel = itemGroupDetail.itemGroup.getItemModelList().get(itemGroupDetail.indexOfItemModelList);
             viewModel.setWeakViewHolder(bindingViewHolder);
 

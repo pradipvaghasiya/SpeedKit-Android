@@ -17,20 +17,10 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     public SPBindingViewHolderListener listener;
     public ViewDataBinding viewDataBinding;
 
-    private int itemGroupPosition;
-
     private int itemType;
 
     public int getItemType() {
         return itemType;
-    }
-
-    public int getItemGroupPosition() {
-        return itemGroupPosition;
-    }
-
-    public void setItemGroupPosition(int itemGroupPosition) {
-        this.itemGroupPosition = itemGroupPosition;
     }
 
     public SPBindingViewHolder(ViewDataBinding viewDataBinding,
@@ -68,7 +58,7 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     @Override
     public void onClick(View v) {
         if (this.listener != null){
-            this.listener.didSelectItem(v,getAdapterPosition(),itemGroupPosition);
+            this.listener.didSelectItem(v,getAdapterPosition(),getAdapterPosition());
         }
     }
 
