@@ -39,7 +39,7 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
     }
 
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> modelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> modelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_title,
                 BR.viewModel,
