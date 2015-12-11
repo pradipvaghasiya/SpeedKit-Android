@@ -100,7 +100,7 @@ final public class SPListingData {
 
         // Cell Model
         private List<? extends SPViewModel> itemModelList;
-        public List<? extends SPViewModel> getItemModelList() {
+        public List<? extends SPViewModel> items() {
             return itemModelList;
         }
 
@@ -189,7 +189,7 @@ final public class SPListingData {
 
                 int insertedPositionIndex = positionStart;
                 int newItemCount = 0;
-                while (insertedPositionIndex < itemCount){
+                //                while (insertedPositionIndex < itemCount){
                     // Set the listener as well
                     itemGroupList.get(insertedPositionIndex).setWeakReferenceItemsOnListChangedCallback(this);
 
@@ -198,7 +198,7 @@ final public class SPListingData {
 
                     newItemCount += itemGroupList.get(insertedPositionIndex).getItemCount();
                     insertedPositionIndex++;
-                }
+//                }
 
                 SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
                 if (adapter != null  && userWantsToAutomateAdapterNotificationForGroupList == true){
@@ -272,6 +272,20 @@ final public class SPListingData {
     public class ItemGroupAndItemModelIndexReturnType {
         public ItemGroup itemGroup;
         public int indexOfItemModelList;
+    }
+
+    public SPViewModel getItemAtAdapterPosition(int position){
+        int startIndexOfCellFound  = 0;
+        int totalCellCountParsedFromCellGroupArray  = 0;
+        for(ItemGroup itemGroup : this.itemGroupList){
+            totalCellCountParsedFromCellGroupArray += itemGroup.getItemCount();
+            if (position < totalCellCountParsedFromCellGroupArray){
+                return itemGroup.items().get(position - startIndexOfCellFound);
+            }
+
+            startIndexOfCellFound += itemGroup.getItemCount();
+        }
+        return null;
     }
 
     public ItemGroupAndItemModelIndexReturnType getListingItemGroupWithIndexOfItemModelList(int index){
