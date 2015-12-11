@@ -19,6 +19,7 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPT
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomationdemo.R;
 import com.speedui.android.util.ObservableListUtil;
 
@@ -32,8 +33,9 @@ import java.util.Observable;
 public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
 
     RecyclerView recyclerView;
-    ArrayList checklistItems;
+    ObservableArrayList<SPCheckListViewHolder.ViewModel> checklistItems;
     SPBindingRecyclerAdapter adapter;
+    SPListingData.ItemGroup cellGroup1;
 
     @Nullable
     @Override
@@ -68,7 +70,7 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
             titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
         }
 
-        SPListingData.ItemGroup cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
+        cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
         checklistItems = new ObservableArrayList();
 
@@ -86,10 +88,14 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
-        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+//        cellGroup1.items.add(new SPCheckListViewHolder.ViewModel("added after click", true));
 
-        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
-        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
+
+//        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+
+//        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
+
+        //((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
 
     }
 

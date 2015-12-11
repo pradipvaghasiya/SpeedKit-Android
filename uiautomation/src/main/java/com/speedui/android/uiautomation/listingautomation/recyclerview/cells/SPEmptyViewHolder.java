@@ -34,7 +34,7 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
         }
     }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList) {
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList) {
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_empty,
                 0,

@@ -1,6 +1,7 @@
 package com.speedui.android.uiautomation.listingautomation.recyclerview.cells;
 
 import android.databinding.Bindable;
+import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.view.View;
 
@@ -63,7 +64,7 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
         }
     }
 
-    public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList){
+    public static SPListingData.ItemGroup getItemGroupFromItems(ObservableList<ViewModel> viewModelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_checklist,
                 BR.viewModel,
