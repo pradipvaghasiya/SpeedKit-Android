@@ -15,6 +15,11 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
 
     public class ViewModel extends SPViewModel{
         public ViewModel(){};
+
+        @Override
+        public SPBindingViewHolder createBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+            return new SPEmptyViewHolder(viewDataBinding,listener,itemType);
+        }
     }
 
     public SPEmptyViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
@@ -33,7 +38,6 @@ public class SPEmptyViewHolder extends SPBindingViewHolder {
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_empty,
                 0,
-                SPEmptyViewHolder.class.getConstructors()[0],
                 viewModelList);
 
     }

@@ -57,13 +57,16 @@ public class SPCheckListViewHolder extends SPBindingViewHolder {
             };
         }
 
+        @Override
+        public SPBindingViewHolder createBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+            return new SPCheckListViewHolder(viewDataBinding,listener,itemType);
+        }
     }
 
     public static SPListingData.ItemGroup getItemGroupFromItems(List<ViewModel> viewModelList){
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_checklist,
                 BR.viewModel,
-                SPCheckListViewHolder.class.getConstructors()[0],
                 viewModelList);
 
     }

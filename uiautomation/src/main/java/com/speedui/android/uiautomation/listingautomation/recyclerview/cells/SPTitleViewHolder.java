@@ -26,6 +26,11 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
         public ViewModel(String titleText){
             this.titleText = titleText;
         }
+
+        @Override
+        public SPBindingViewHolder createBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType) {
+            return new SPTitleViewHolder(viewDataBinding, listener, itemType);
+        }
     }
 
 
@@ -38,7 +43,6 @@ public class SPTitleViewHolder extends SPBindingViewHolder {
         return new SPListingData.ItemGroup(
                 R.layout.recycler_cell_title,
                 BR.viewModel,
-                SPTitleViewHolder.class.getConstructors()[0],
                 modelList);
 
     }
