@@ -1,6 +1,7 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +11,11 @@ import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.ChecklistRModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomationdemo.R;
+import com.speedui.android.util.ObservableListUtil;
 
 import java.util.Arrays;
 
@@ -24,11 +25,14 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class ChecklistCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
+public class ChecklistCellFragment extends android.support.v4.app.Fragment
+        implements SPRecyclerViewController
+{
 
     public RecyclerView recyclerView;
-    ObservableArrayList<SPCheckListViewHolder.ViewModel> viewModelArrayList;
+    ObservableList<SPViewModel> models;
     SPBindingRecyclerAdapter spRecyclerAdapter;
+    SPListingData listingData = new SPListingData();
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -50,19 +54,11 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
     }
 
     void setupRecyclerView(){
-        //region Listing Data Creation
-        viewModelArrayList = new ObservableArrayList<>();
-
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-            viewModelArrayList.add(new SPCheckListViewHolder.ViewModel(titleText,true));
+            listingData.add(new ChecklistRModel(titleText, true));
         }
 
-
-        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(viewModelArrayList);
-        SPListingData listingData = new SPListingData(Arrays.asList(cellGroup));
-        //endregion
-
-        spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
+        spRecyclerAdapter = new SPBindingRecyclerAdapter(this);
 
         //region RecyclerView Setup
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -81,8 +77,8 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 //        int checklistPosition = position - 1;  //Offset to cover header view row.
 //
 //        if (checklistPosition >= 0 &&
-//                viewModelArrayList.size()> checklistPosition){
-//            viewModelArrayList.get(checklistPosition).isSelected = !viewModelArrayList.get(checklistPosition).isSelected;
+//                models.size()> checklistPosition){
+//            models.get(checklistPosition).ismSelected = !models.get(checklistPosition).ismSelected;
 //            spRecyclerAdapter.notifyItemChanged(position);
 //        }
 //
@@ -91,7 +87,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment imple
 
 
     @Override
-    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-
+    public SPListingData getListingData() {
+        return listingData;
     }
 }

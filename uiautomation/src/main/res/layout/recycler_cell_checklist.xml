@@ -6,14 +6,14 @@
 
         <import type="android.view.View"/>
 
-        <variable name="viewModel" type = "com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder.ViewModel"/>
+        <variable name="checklistRModel" type = "com.speedui.android.uiautomation.listingautomation.recyclerview.cells.ChecklistRModel"/>
 
     </data>
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:setOnClickListener="@{viewModel.onClickListener}">
+        app:setOnClickListener="@{checklistRModel.onClickListener}">
 
         <LinearLayout
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.titleText}"
+                android:text="@{checklistRModel.mTitle}"
                 android:gravity="center_vertical"
                 android:textSize="17sp" />
 
@@ -37,7 +37,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:background="@mipmap/ic_action_accept"
-                android:visibility="@{viewModel.selected ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{checklistRModel.mSelected ? View.VISIBLE : View.INVISIBLE}"
                 />
 
         </LinearLayout>

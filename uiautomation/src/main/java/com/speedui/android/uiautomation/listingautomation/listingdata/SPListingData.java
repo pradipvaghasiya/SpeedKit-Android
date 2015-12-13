@@ -2,326 +2,163 @@ package com.speedui.android.uiautomation.listingautomation.listingdata;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 
-import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
-import java.lang.ref.WeakReference;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by Pradip on 5/12/2015.
  */
-final public class SPListingData {
-    public ObservableList<ItemGroup> itemGroupList;
 
-    private boolean userWantsToAutomateAdapterNotificationForGroupList;
+final public class SPListingData implements ObservableList<SPViewModel>{
+    private ObservableList<SPViewModel> mItems;
 
-    private int maxItemTypeAssigned;
-    // Create Listing Data with given section array.
-    public SPListingData(List<ItemGroup> itemGroupList) {
-        if (itemGroupList instanceof ObservableList){
-            this.itemGroupList = (ObservableList<ItemGroup>) itemGroupList;
-            userWantsToAutomateAdapterNotificationForGroupList = true;
-        }else{
-            this.itemGroupList = new ObservableArrayList<ItemGroup>();
-            this.itemGroupList.addAll(itemGroupList);
-            userWantsToAutomateAdapterNotificationForGroupList = false;
-        }
-
-        configureItemType();
+    public SPListingData(){
+        mItems = new ObservableArrayList<>();
     }
 
-    private void configureItemType() {
-        int itemType;
-        for (itemType = 0; itemType < this.itemGroupList.size(); itemType++){
-            this.itemGroupList.get(itemType).itemType = itemType;
-        }
-        maxItemTypeAssigned = itemType - 1;
+    @Override
+    public void addOnListChangedCallback(OnListChangedCallback<? extends ObservableList<SPViewModel>> callback) {
+        mItems.addOnListChangedCallback(callback);
     }
 
-
-    private ItemsOnListChangedCallback itemsOnListChangedCallback;
-    private ItemsOnListChangedCallback getItemsOnListChangedCallback() {
-        if (itemsOnListChangedCallback == null){
-            itemsOnListChangedCallback = new ItemsOnListChangedCallback();
-        }
-        return itemsOnListChangedCallback;
+    @Override
+    public void removeOnListChangedCallback(OnListChangedCallback<? extends ObservableList<SPViewModel>> callback) {
+        mItems.removeOnListChangedCallback(callback);
     }
 
-    private WeakReference<SPBindingRecyclerAdapter> weakReferenceBindingRecyclerAdapter;
-    public void setSpBindingRecyclerAdapter(SPBindingRecyclerAdapter spBindingRecyclerAdapter) {
-        this.weakReferenceBindingRecyclerAdapter = new WeakReference<SPBindingRecyclerAdapter>(spBindingRecyclerAdapter);
-
-        this.itemGroupList.addOnListChangedCallback(getItemsOnListChangedCallback());
-        for (ItemGroup itemGroup : itemGroupList){
-            itemGroup.setWeakReferenceItemsOnListChangedCallback(getItemsOnListChangedCallback());
-        }
+    @Override
+    public void add(int location, SPViewModel object) {
+        mItems.add(location, object);
     }
 
-    public void removeObserverCallbacks(){
-        if (this.itemGroupList != null){
-            this.itemGroupList.removeOnListChangedCallback(itemsOnListChangedCallback);
-        }
-        for (ItemGroup itemGroup : itemGroupList){
-            if (itemGroup.items != null && itemGroup.items instanceof ObservableList){
-                ((ObservableList)itemGroup.items).removeOnListChangedCallback(itemsOnListChangedCallback);
-            }
-        }
+    @Override
+    public boolean add(SPViewModel object) {
+        return mItems.add(object);
     }
 
-
-    final public static class ItemGroup{
-        // Item Layout ID
-        public int itemLayoutId;
-
-        private int itemType;
-
-        // Item Binding Variable
-        public int itemBindingVariable;
-
-        public SPBindingViewHolder getBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType){
-            return ((SPViewModel)items.get(0)).createBindingViewHolder(viewDataBinding, listener, itemType);
-        }
-
-        private WeakReference<ItemsOnListChangedCallback> weakReferenceItemsOnListChangedCallback;
-        public void setWeakReferenceItemsOnListChangedCallback(ItemsOnListChangedCallback itemsOnListChangedCallback) {
-            this.weakReferenceItemsOnListChangedCallback = new WeakReference<ItemsOnListChangedCallback>(itemsOnListChangedCallback);
-
-            if (this.items != null && this.items instanceof ObservableList){
-                ((ObservableList)this.items).addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
-            }
-        }
-
-        // Cell Model
-        public List<? extends  SPViewModel> items;
-
-        public void setItems(ObservableList<? extends  SPViewModel> items) {
-
-            if (this.items == items) return;
-
-            if (!(this.items instanceof ObservableList)){
-                this.items = items;
-                return;
-            }
-
-            if (this.items != null){
-                ((ObservableList)this.items).removeOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
-                this.weakReferenceItemsOnListChangedCallback.get().onItemRangeRemoved(((ObservableList) this.items), 0, this.items.size());
-            }
-
-            if (items == null){
-                this.items = items;
-                return;
-            }
-
-            this.items = items;
-            ((ObservableList)this.items).addOnListChangedCallback(this.weakReferenceItemsOnListChangedCallback.get());
-            this.weakReferenceItemsOnListChangedCallback.get().onItemRangeInserted(((ObservableList) this.items), 0, this.items.size());
-
-        }
-
-        // Cell Count
-        public int getItemCount() {
-            return items.size();
-        }
-
-
-        public ItemGroup(int itemLayoutId,
-                                  int itemBindingVariable,
-                                  ObservableList<? extends  SPViewModel> items){
-            this.itemLayoutId = itemLayoutId;
-            this.itemBindingVariable = itemBindingVariable;
-            this.items = items;
-        }
-
+    @Override
+    public boolean addAll(int location, Collection<? extends SPViewModel> collection) {
+        return mItems.addAll(location, collection);
     }
 
-
-
-    private class ItemsOnListChangedCallback extends ObservableList.OnListChangedCallback{
-
-        @Override
-        public void onChanged(ObservableList sender) {
-            SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-            if (adapter != null){
-                if (sender == itemGroupList && userWantsToAutomateAdapterNotificationForGroupList == false) return;;
-
-                adapter.notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public void onItemRangeChanged(ObservableList sender, int positionStart, int itemCount) {
-            if (sender == itemGroupList)return;
-
-            int startPositionOffset = 0;
-            for (ItemGroup itemGroup : itemGroupList){
-                if (itemGroup.items == sender){
-                    SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                    if (adapter != null){
-                        adapter.notifyItemRangeChanged(startPositionOffset + positionStart,itemCount);
-                    }
-                }else{
-                    startPositionOffset = startPositionOffset + itemGroup.getItemCount();
-                }
-            }
-        }
-
-        @Override
-        public void onItemRangeInserted(ObservableList sender, int positionStart, int itemCount) {
-            if (sender == itemGroupList){
-
-                int positionIndex = 0;
-                int newPosition = 0;
-                while (positionIndex < positionStart){
-                    newPosition += itemGroupList.get(positionIndex).getItemCount();
-                    positionIndex++;
-                }
-
-                int insertedPositionIndex = positionStart;
-                int newItemCount = 0;
-                //                while (insertedPositionIndex < itemCount){
-                    // Set the listener as well
-                    itemGroupList.get(insertedPositionIndex).setWeakReferenceItemsOnListChangedCallback(this);
-
-                    itemGroupList.get(insertedPositionIndex).itemType = maxItemTypeAssigned + 1;
-                    maxItemTypeAssigned++;
-
-                    newItemCount += itemGroupList.get(insertedPositionIndex).getItemCount();
-                    insertedPositionIndex++;
-//                }
-
-                SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                if (adapter != null  && userWantsToAutomateAdapterNotificationForGroupList == true){
-                    adapter.notifyItemRangeInserted(newPosition, newItemCount);
-                }
-            }else {
-                int startPositionOffset = 0;
-                for (ItemGroup itemGroup : itemGroupList) {
-                    if (itemGroup.items == sender) {
-                        SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                        if (adapter != null) {
-                            adapter.notifyItemRangeInserted(startPositionOffset + positionStart, itemCount);
-                        }
-                    } else {
-                        startPositionOffset = startPositionOffset + itemGroup.getItemCount();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onItemRangeMoved(ObservableList sender, int fromPosition, int toPosition, int itemCount) {
-            if (itemCount > 1) return;      // Currently only handles 1 item movement within same type of data.
-
-            int startPositionOffset = 0;
-            for (ItemGroup itemGroup : itemGroupList){
-                if (itemGroup.items == sender){
-                    SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                    if (adapter != null){
-                        adapter.notifyItemMoved(startPositionOffset + fromPosition, startPositionOffset + toPosition);
-                    }
-                }else{
-                    startPositionOffset = startPositionOffset + itemGroup.getItemCount();
-                }
-            }
-
-        }
-
-        @Override
-        public void onItemRangeRemoved(ObservableList sender, int positionStart, int itemCount) {
-            if (sender == itemGroupList){
-                SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                if (adapter != null && userWantsToAutomateAdapterNotificationForGroupList == true){
-                    adapter.notifyDataSetChanged();
-                }
-            }else {
-                int startPositionOffset = 0;
-                for (ItemGroup itemGroup : itemGroupList) {
-                    if (itemGroup.items == sender) {
-                        SPBindingRecyclerAdapter adapter = weakReferenceBindingRecyclerAdapter.get();
-                        if (adapter != null) {
-                            adapter.notifyItemRangeRemoved(startPositionOffset + positionStart, itemCount);
-                        }
-                    } else {
-                        startPositionOffset = startPositionOffset + itemGroup.getItemCount();
-                    }
-                }
-            }
-        }
+    @Override
+    public boolean addAll(Collection<? extends SPViewModel> collection) {
+        return addAll(collection);
     }
 
-
-    public int getTotalItemCount(){
-        int itemCount = 0;
-        for (ItemGroup itemGroup : itemGroupList){
-            itemCount += itemGroup.getItemCount();
-        }
-        return itemCount;
+    @Override
+    public void clear() {
+        mItems.clear();
     }
 
-    public class ItemGroupAndItemModelIndexReturnType {
-        public ItemGroup itemGroup;
-        public int indexOfItemModelList;
+    @Override
+    public boolean contains(Object object) {
+        return mItems.contains(object);
     }
 
-    public SPViewModel getItemAtAdapterPosition(int position){
-        int startIndexOfCellFound  = 0;
-        int totalCellCountParsedFromCellGroupArray  = 0;
-        for(ItemGroup itemGroup : this.itemGroupList){
-            totalCellCountParsedFromCellGroupArray += itemGroup.getItemCount();
-            if (position < totalCellCountParsedFromCellGroupArray){
-                return (SPViewModel) itemGroup.items.get(position - startIndexOfCellFound);
-            }
-
-            startIndexOfCellFound += itemGroup.getItemCount();
-        }
-        return null;
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        return mItems.containsAll(collection);
     }
 
-    public ItemGroupAndItemModelIndexReturnType getListingItemGroupWithIndexOfItemModelList(int index){
-        ItemGroupAndItemModelIndexReturnType returnType = new ItemGroupAndItemModelIndexReturnType();
-
-        int startIndexOfCellFound  = 0;
-        int totalCellCountParsedFromCellGroupArray  = 0;
-        for(ItemGroup itemGroup : this.itemGroupList){
-            totalCellCountParsedFromCellGroupArray += itemGroup.getItemCount();
-            if (index < totalCellCountParsedFromCellGroupArray){
-                returnType.itemGroup = itemGroup;
-                returnType.indexOfItemModelList = index - startIndexOfCellFound;
-                break;
-            }
-
-            startIndexOfCellFound += itemGroup.getItemCount();
-        }
-        return returnType;
+    @Override
+    public boolean equals(Object object) {
+        return mItems.equals(object);
     }
 
-    public int getItemType(int indexOfListView){
-        int startIndexOfItemGroup  = 0;
-        int totalIndexCovered = 0;
-        for(ItemGroup itemGroup : this.itemGroupList){
-            totalIndexCovered += itemGroup.getItemCount();
-            if (indexOfListView < totalIndexCovered){
-                return itemGroup.itemType;
-            }
-
-            startIndexOfItemGroup ++;
-        }
-        return 0;
+    @Override
+    public SPViewModel get(int location) {
+        return mItems.get(location);
     }
 
-    public ItemGroup getItemGroupOfType(int viewType) {
-        for(ItemGroup itemGroup : this.itemGroupList) {
-            if (itemGroup.itemType == viewType){
-                return itemGroup;
-            }
-        }
-        return null;
+    @Override
+    public int hashCode() {
+        return mItems.hashCode();
     }
 
+    @Override
+    public int indexOf(Object object) {
+        return mItems.indexOf(object);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return mItems.isEmpty();
+    }
+
+    @NonNull
+    @Override
+    public Iterator<SPViewModel> iterator() {
+        return mItems.iterator();
+    }
+
+    @Override
+    public int lastIndexOf(Object object) {
+        return mItems.lastIndexOf(object);
+    }
+
+    @Override
+    public ListIterator<SPViewModel> listIterator() {
+        return mItems.listIterator();
+    }
+
+    @NonNull
+    @Override
+    public ListIterator<SPViewModel> listIterator(int location) {
+        return mItems.listIterator(location);
+    }
+
+    @Override
+    public SPViewModel remove(int location) {
+        return mItems.remove(location);
+    }
+
+    @Override
+    public boolean remove(Object object) {
+        return mItems.remove(object);
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        return mItems.removeAll(collection);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> collection) {
+        return mItems.retainAll(collection);
+    }
+
+    @Override
+    public SPViewModel set(int location, SPViewModel object) {
+        return mItems.set(location, object);
+    }
+
+    @Override
+    public int size() {
+        return mItems.size();
+    }
+
+    @NonNull
+    @Override
+    public List<SPViewModel> subList(int start, int end) {
+        return mItems.subList(start, end);
+    }
+
+    @NonNull
+    @Override
+    public Object[] toArray() {
+        return mItems.toArray();
+    }
+
+    @NonNull
+    @Override
+    public <T> T[] toArray(T[] array) {
+        return mItems.toArray(array);
+    }
 }

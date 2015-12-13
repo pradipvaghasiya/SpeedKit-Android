@@ -9,14 +9,7 @@ import java.lang.ref.WeakReference;
  * Created by pradipvaghasiya on 06/06/15.
  */
 abstract public class SPViewModel extends BaseObservable {
-    public SPBindingViewHolder getBindingViewHolder() {
-        return weakViewHolder.get();
-    }
-
-    public void setWeakViewHolder(SPBindingViewHolder spBindingViewHolder) {
-        this.weakViewHolder = new WeakReference<SPBindingViewHolder>(spBindingViewHolder);
-    }
-
-    private WeakReference<SPBindingViewHolder> weakViewHolder;
-    public abstract SPBindingViewHolder createBindingViewHolder(ViewDataBinding viewDataBinding, SPBindingViewHolderListener listener, int itemType);
+    public SPBindingViewHolder mViewHolder;
+    public int mLayoutId;
+    public int mBindingVariable = 0;  // By default 0 if in case no Binding used.
 }

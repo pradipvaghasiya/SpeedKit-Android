@@ -4,8 +4,9 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.TitleRModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomation.toolbar.SPDrawerToolbarActivity;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
 import com.speedui.android.uiautomation.toolbar.SPToolBarFragment;
 import com.speedui.android.uiautomationdemo.cellfragments.TitleCellToolBarFragment;
 import com.speedui.android.uiautomationdemo.cellfragments.ToolbarTabsFragment;
@@ -28,14 +29,14 @@ public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
     }
 
     @Override
-    protected List<SPListingData.ItemGroup> getCellGroupListForDrawer() {
-        ObservableList titleItems = new ObservableArrayList();
+    protected SPListingData getListingDataForDrawer() {
+        SPListingData listingData  = new SPListingData();
         for (String itemTitle : MENU_LIST){
 
-            titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
+            listingData.add(new TitleRModel(itemTitle));
 
         }
-        return Arrays.asList(SPTitleViewHolder.getItemGroupFromItems(titleItems));
+        return listingData;
     }
 
     @Override
