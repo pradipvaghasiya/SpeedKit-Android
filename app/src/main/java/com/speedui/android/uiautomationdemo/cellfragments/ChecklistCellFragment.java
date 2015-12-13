@@ -1,6 +1,5 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +11,9 @@ import android.view.ViewGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.ChecklistRModel;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomationdemo.R;
-import com.speedui.android.util.ObservableListUtil;
 
 import java.util.Arrays;
 
@@ -26,11 +24,10 @@ import java.util.Arrays;
  * to handle interaction events.
  */
 public class ChecklistCellFragment extends android.support.v4.app.Fragment
-        implements SPRecyclerViewController
+        implements SPBindingViewHolderListener
 {
 
     public RecyclerView recyclerView;
-    ObservableList<SPViewModel> models;
     SPBindingRecyclerAdapter spRecyclerAdapter;
     SPListingData listingData = new SPListingData();
 
@@ -58,7 +55,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment
             listingData.add(new ChecklistRModel(titleText, true));
         }
 
-        spRecyclerAdapter = new SPBindingRecyclerAdapter(this);
+        spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
 
         //region RecyclerView Setup
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -85,9 +82,4 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment
 //        System.out.println("Item DidSelect At : " + position );
     }
 
-
-    @Override
-    public SPListingData getListingData() {
-        return listingData;
-    }
 }

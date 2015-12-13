@@ -1,7 +1,5 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +13,7 @@ import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingD
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.ChecklistRModel;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.TitleRModel;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
 import java.util.Arrays;
@@ -24,7 +21,7 @@ import java.util.Arrays;
 /**
  * Created by pradipvaghasiya on 27/05/15.
  */
-public class GridFragment extends Fragment implements SPRecyclerViewController{
+public class GridFragment extends Fragment implements SPBindingViewHolderListener{
 
     RecyclerView recyclerView;
     SPBindingRecyclerAdapter adapter;
@@ -51,29 +48,26 @@ public class GridFragment extends Fragment implements SPRecyclerViewController{
 
 
     private SPBindingRecyclerAdapter getRecyclerAdapter(){
+        if (listingData.size() == 0) {
+            for (String itemTitle : Arrays.asList("Title Cell 1",
+                    "Title Cell", "Title Cell", "Title Cell",
+                    "Title Cell", "Title Cell", "Title Cell",
+                    "Title Cell", "Title Cell", "Title Cell Last")) {
 
-        for (String itemTitle : Arrays.asList("Title Cell 1",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell Last")){
+                listingData.add(new TitleRModel(itemTitle));
+            }
 
 
-
-            listingData.add(new TitleRModel(itemTitle));
+            for (String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")) {
+                listingData.add(new ChecklistRModel(titleText, true));
+            }
         }
-
-
-        for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-            listingData.add(new ChecklistRModel(titleText, true));
-        }
-
-        return new SPBindingRecyclerAdapter(this);
+        return new SPBindingRecyclerAdapter(listingData,this);
     }
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
         listingData.add(new TitleRModel("Hello"));
-        recyclerView.getAdapter().notifyDataSetChanged();
 //        cellGroup1.items.add(new SPCheckListViewHolder.ViewModel("added after click", true));
 
 
@@ -85,9 +79,4 @@ public class GridFragment extends Fragment implements SPRecyclerViewController{
 
     }
 
-
-    @Override
-    public SPListingData getListingData() {
-        return listingData;
-    }
 }

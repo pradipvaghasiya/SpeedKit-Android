@@ -1,7 +1,5 @@
 package com.speedui.android.uiautomationdemo.cellfragments;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +10,7 @@ import android.view.ViewGroup;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.TitleRModel;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomationdemo.R;
 
 import java.util.Arrays;
@@ -24,11 +21,11 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements SPRecyclerViewController {
+public class TitleCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener {
     RecyclerView recyclerView;
     SPBindingRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
-    SPListingData listingData  = new SPListingData();
+    SPListingData listingData = new SPListingData();
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -45,7 +42,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.setupRecyclerView();
     }
 
@@ -59,7 +56,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
     }
 
-    private SPBindingRecyclerAdapter getRecyclerAdapter(){
+    private SPBindingRecyclerAdapter getRecyclerAdapter() {
         for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
@@ -73,7 +70,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
-                "Title Cell", "Title Cell", "Title Cell Last")){
+                "Title Cell", "Title Cell", "Title Cell Last")) {
 
             listingData.add(new TitleRModel(itemTitle));
 
@@ -81,22 +78,17 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
         //endregion
 
-        return new SPBindingRecyclerAdapter(this);
+        return new SPBindingRecyclerAdapter(listingData,this);
 
     }
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
-        try{
+        try {
             listingData.remove(adapterPosition);
-        }catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             // Ignore
         }
     }
 
-
-    @Override
-    public SPListingData getListingData() {
-        return listingData;
-    }
 }

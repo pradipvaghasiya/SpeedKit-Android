@@ -7,8 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
+import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 /**
@@ -17,19 +18,41 @@ import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholde
 public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingViewHolder> {
     //Unlike iOS, this need not be Weak reference because,
     //GC can remove entire retain cycle if none of the Objects pointing to the cycle.
-    private SPRecyclerViewController mController;
+    private SPBindingViewHolderListener mListener;
+    private SPBindingRecyclerAdapterChangeListener mChangeListener = new SPBindingRecyclerAdapterChangeListener(this);
+    private SPListingData mListingData;
+
+    public void setListingData(SPListingData listingData) {
+        if(mListingData == listingData){
+            return;
+        }
+
+        if (mListingData != null){
+            mListingData.removeOnListChangedCallback(mChangeListener);
+            mChangeListener.onItemRangeRemoved(null,0,mListingData.size());
+        }
+
+        if (listingData == null){
+            mListingData = listingData;
+            return;
+        }
+
+        mListingData = listingData;
+        mListingData.addOnListChangedCallback(mChangeListener);
+        mChangeListener.onItemRangeInserted(null, 0 , mListingData.size());
+    }
 
     private LayoutInflater mLayoutInflater;
 
-
-    public SPBindingRecyclerAdapter(@NonNull SPRecyclerViewController controller){
+    public SPBindingRecyclerAdapter(@NonNull SPListingData listingData, @NonNull SPBindingViewHolderListener listener){
         super();
-        mController = controller;
+        mListener = listener;
+        setListingData(listingData);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mController.getListingData().get(position).mLayoutId;
+        return mListingData.get(position).mLayoutId;
     }
 
     @Override
@@ -47,7 +70,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
                     parent,
                     false);
 
-            return new SPBindingViewHolder(binding, mController);
+            return new SPBindingViewHolder(binding, mListener);
 
         } catch (Exception e) {
             System.out.println("SpeedKit Error: onCreateViewHolder :" + e.toString());
@@ -58,7 +81,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
     @Override
     public void onBindViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        SPViewModel model = mController.getListingData().get(position);
+        SPViewModel model = mListingData.get(position);
 
         model.mViewHolder = bindingViewHolder;
 
@@ -72,12 +95,13 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
     @Override
     public int getItemCount() {
-        return mController.getListingData().size();
+        return mListingData.size();
     }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
+        mListingData = null;
     }
 
     @Override
