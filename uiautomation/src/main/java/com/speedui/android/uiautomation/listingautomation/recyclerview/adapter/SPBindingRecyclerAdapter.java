@@ -22,7 +22,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     private SPBindingRecyclerAdapterChangeListener mChangeListener = new SPBindingRecyclerAdapterChangeListener(this);
     private SPListingData mListingData;
 
-    public void setListingData(SPListingData listingData) {
+    final public void setListingData(SPListingData listingData) {
         if(mListingData == listingData){
             return;
         }
@@ -42,7 +42,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
         mChangeListener.onItemRangeInserted(null, 0 , mListingData.size());
     }
 
-    private LayoutInflater mLayoutInflater;
+    protected LayoutInflater mLayoutInflater;
 
     public SPBindingRecyclerAdapter(@NonNull SPListingData listingData, @NonNull SPBindingViewHolderListener listener){
         super();
@@ -51,7 +51,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    public int getItemViewType(int position) {
+    final public int getItemViewType(int position) {
         return mListingData.get(position).mLayoutId;
     }
 
@@ -80,7 +80,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    public void onBindViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
+    final public void onBindViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
         SPViewModel model = mListingData.get(position);
 
         model.mViewHolder = bindingViewHolder;
@@ -94,28 +94,28 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    public int getItemCount() {
+    final public int getItemCount() {
         return mListingData.size();
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    final public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mListingData = null;
     }
 
     @Override
-    public void onViewRecycled(SPBindingViewHolder holder) {
+    final public void onViewRecycled(SPBindingViewHolder holder) {
         super.onViewRecycled(holder);
     }
 
     @Override
-    public void onViewDetachedFromWindow(SPBindingViewHolder holder) {
+    final public void onViewDetachedFromWindow(SPBindingViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
     }
 
     @Override
-    public boolean onFailedToRecycleView(SPBindingViewHolder holder) {
+    final public boolean onFailedToRecycleView(SPBindingViewHolder holder) {
         return super.onFailedToRecycleView(holder);
     }
 }
