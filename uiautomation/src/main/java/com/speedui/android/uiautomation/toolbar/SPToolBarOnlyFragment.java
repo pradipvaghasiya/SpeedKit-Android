@@ -13,7 +13,10 @@ import com.speedui.android.uiautomation.R;
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-abstract public class SPToolBarOnlyFragment extends SPToolBarFragment {
+public class SPToolBarOnlyFragment extends SPToolBarFragment {
+    public SPToolBarOnlyFragment(){
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +30,7 @@ abstract public class SPToolBarOnlyFragment extends SPToolBarFragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.toolbar = (Toolbar) view.findViewById(R.id.toolbar_frag_toolbar);
+        this.toolbar.setTitle(getActivity().getTitle());
         this.setupContentFragment();
 
         if (this.fragmentLifeCycleListener != null){
@@ -51,5 +55,17 @@ abstract public class SPToolBarOnlyFragment extends SPToolBarFragment {
         }
     }
 
-    abstract protected Fragment getContentFragment();
+    protected Fragment getContentFragment() {
+        ToolbarFMDatasource datasource;
+        if (getActivity() instanceof ToolbarFMDatasource) {
+            datasource= (ToolbarFMDatasource) getActivity();
+        } else {
+            throw new RuntimeException("ToolbarFM Datasource not found");
+        }
+        return datasource.getContentFragmentOfToolBarFragment();
+    }
+
+    public interface ToolbarFMDatasource{
+        Fragment getContentFragmentOfToolBarFragment();
+    }
 }
