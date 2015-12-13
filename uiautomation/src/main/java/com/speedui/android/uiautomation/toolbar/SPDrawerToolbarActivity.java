@@ -16,11 +16,11 @@ import android.view.View;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.util.ViewUtil;
 
 public abstract class SPDrawerToolbarActivity extends AppCompatActivity implements
-        SPRecyclerViewController,
+        SPBindingViewHolderListener,
         SPToolBarFragment.SPFragmentLifeCycleListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -36,7 +36,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
 
         // SPRecycler Adapter Setup
         listingData = getListingDataForDrawer();
-        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(this);
+        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.drawer_recyclerview_drawer);
@@ -131,11 +131,6 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
     @Override
     public void onViewCreated(SPToolBarFragment fragment) {
         this.configureHomeButtonOnToolBar(fragment.toolbar);
-    }
-
-    @Override
-    public SPListingData getListingData() {
-        return listingData;
     }
 
     protected abstract SPListingData getListingDataForDrawer();
