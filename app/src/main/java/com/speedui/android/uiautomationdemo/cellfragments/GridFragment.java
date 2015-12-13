@@ -11,31 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.databinding.RecyclerCellTitleBinding;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPCheckListViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.ChecklistRModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.TitleRModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomationdemo.R;
-import com.speedui.android.util.ObservableListUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Observable;
 
 /**
  * Created by pradipvaghasiya on 27/05/15.
  */
-public class GridFragment extends Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor{
+public class GridFragment extends Fragment implements SPRecyclerViewController{
 
     RecyclerView recyclerView;
-    ObservableArrayList<SPCheckListViewHolder.ViewModel> checklistItems;
     SPBindingRecyclerAdapter adapter;
-    SPListingData.ItemGroup cellGroup1;
+    SPListingData listingData = new SPListingData();
 
     @Nullable
     @Override
@@ -59,7 +52,6 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     private SPBindingRecyclerAdapter getRecyclerAdapter(){
 
-        ObservableList titleItems = new ObservableArrayList();
         for (String itemTitle : Arrays.asList("Title Cell 1",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
@@ -67,27 +59,21 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
 
 
-            titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
+            listingData.add(new TitleRModel(itemTitle));
         }
 
-        cellGroup1 = SPTitleViewHolder.getItemGroupFromItems(titleItems);
-
-        checklistItems = new ObservableArrayList();
 
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-            checklistItems.add(new SPCheckListViewHolder.ViewModel(titleText, true));
+            listingData.add(new ChecklistRModel(titleText, true));
         }
 
-
-        SPListingData.ItemGroup cellGroup2 = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
-
-        SPListingData listingData = new SPListingData(ObservableListUtil.asObservableList(cellGroup1, cellGroup2));
-
-        return new SPBindingRecyclerAdapter(listingData, this);
+        return new SPBindingRecyclerAdapter(this);
     }
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
+        listingData.add(new TitleRModel("Hello"));
+        recyclerView.getAdapter().notifyDataSetChanged();
 //        cellGroup1.items.add(new SPCheckListViewHolder.ViewModel("added after click", true));
 
 
@@ -99,10 +85,9 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
 
     }
 
+
     @Override
-    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        if (bindingViewHolder.viewDataBinding instanceof RecyclerCellTitleBinding){
-            ((RecyclerCellTitleBinding)bindingViewHolder.viewDataBinding).sptitleCellSeparator.setVisibility(View.INVISIBLE);
-        }
+    public SPListingData getListingData() {
+        return listingData;
     }
 }

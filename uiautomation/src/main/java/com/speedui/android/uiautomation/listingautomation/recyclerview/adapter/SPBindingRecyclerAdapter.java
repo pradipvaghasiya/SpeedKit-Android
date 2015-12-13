@@ -2,102 +2,82 @@ package com.speedui.android.uiautomation.listingautomation.recyclerview.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
 public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingViewHolder> {
-    private SPListingData spListingData;
-    private SPBindingViewHolderListener listener;
-    private LayoutInflater layoutInflater;
+    //Unlike iOS, this need not be Weak reference because,
+    //GC can remove entire retain cycle if none of the Objects pointing to the cycle.
+    private SPRecyclerViewController mController;
+
+    private LayoutInflater mLayoutInflater;
 
 
-    public SPBindingRecyclerAdapter(SPListingData spListingData, SPBindingViewHolderListener listener){
+    public SPBindingRecyclerAdapter(@NonNull SPRecyclerViewController controller){
         super();
-        this.setSpListingData(spListingData);
-        this.listener = listener;
-    }
-
-    public void setSpListingData(SPListingData spListingData) {
-        this.spListingData = spListingData;
-        this.spListingData.setSpBindingRecyclerAdapter(this);
-    }
-
-    public SPListingData getSpListingData() {
-        return spListingData;
+        mController = controller;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return this.spListingData.getItemType(position);
+        return mController.getListingData().get(position).mLayoutId;
     }
 
     @Override
     public SPBindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SPListingData.ItemGroup itemGroup= spListingData.getItemGroupOfType(viewType);
 
-        if (itemGroup == null){
-            throw new RuntimeException("UIAutomation Error: onCreateViewHolder View Type " + viewType + " Invalid. Please check");
-        }
-
-        if (layoutInflater == null)
+        if (mLayoutInflater == null)
         {
-            layoutInflater = LayoutInflater.from(parent.getContext());
+            mLayoutInflater = LayoutInflater.from(parent.getContext());
         }
 
         try {
 
-            ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater,
-                    itemGroup.itemLayoutId,
+            ViewDataBinding binding = DataBindingUtil.inflate(mLayoutInflater,
+                    viewType,       // Here viewType is mLayoutId itself
                     parent,
                     false);
 
-            SPBindingViewHolder bindingViewHolder = (SPBindingViewHolder) itemGroup.getBindingViewHolder(binding, this.listener, viewType);
-
-            return bindingViewHolder;
+            return new SPBindingViewHolder(binding, mController);
 
         } catch (Exception e) {
             System.out.println("SpeedKit Error: onCreateViewHolder :" + e.toString());
         }
 
         return null;
-}
+    }
 
     @Override
     public void onBindViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        SPListingData.ItemGroupAndItemModelIndexReturnType itemGroupDetail =
-                spListingData.getListingItemGroupWithIndexOfItemModelList(position);
+        SPViewModel model = mController.getListingData().get(position);
 
-        if (itemGroupDetail.itemGroup.getItemCount() > itemGroupDetail.indexOfItemModelList &&
-                itemGroupDetail.indexOfItemModelList >= 0) {
-            SPViewModel viewModel = itemGroupDetail.itemGroup.items.get(itemGroupDetail.indexOfItemModelList);
-            viewModel.setWeakViewHolder(bindingViewHolder);
+        model.mViewHolder = bindingViewHolder;
 
-            bindingViewHolder.getViewDataBinding().setVariable(
-                    itemGroupDetail.itemGroup.itemBindingVariable,
-                    viewModel);
-            bindingViewHolder.getViewDataBinding().executePendingBindings();
+        if (model.mBindingVariable == 0){ // Return if binding not used.
+            return;
         }
 
+        bindingViewHolder.getDataBinding().setVariable(model.mBindingVariable, model);
+        bindingViewHolder.getDataBinding().executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return this.spListingData.getTotalItemCount();
+        return mController.getListingData().size();
     }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
-        spListingData.removeObserverCallbacks();
     }
 
     @Override

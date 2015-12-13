@@ -13,31 +13,24 @@ import com.speedui.android.util.ViewUtil;
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
-abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    public SPBindingViewHolderListener listener;
-    public ViewDataBinding viewDataBinding;
+public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private SPBindingViewHolderListener listener;
+    private ViewDataBinding dataBinding;
 
-    private int itemType;
-
-    public int getItemType() {
-        return itemType;
-    }
-
-    public SPBindingViewHolder(ViewDataBinding viewDataBinding,
-                               SPBindingViewHolderListener listener,
-                               int itemType) {
-        super(viewDataBinding.getRoot());
+    public SPBindingViewHolder(ViewDataBinding dataBinding,
+                               SPBindingViewHolderListener listener) {
+        super(dataBinding.getRoot());
         this.listener = listener;
-        this.viewDataBinding = viewDataBinding;
-        this.itemType = itemType;
+        this.dataBinding = dataBinding;
+
 
         itemView.setOnClickListener(this);
         this.setDefaultDrawable();
-        this.customiseViewHolderIfRequired();
+
     }
 
-    public ViewDataBinding getViewDataBinding() {
-        return viewDataBinding;
+    public ViewDataBinding getDataBinding() {
+        return dataBinding;
     }
 
     public void setDefaultDrawable(){
@@ -59,13 +52,6 @@ abstract public class SPBindingViewHolder extends RecyclerView.ViewHolder implem
     public void onClick(View v) {
         if (this.listener != null){
             this.listener.didSelectItem(v,getAdapterPosition(),getAdapterPosition());
-        }
-    }
-
-    protected void customiseViewHolderIfRequired(){
-        if (this.listener != null &&
-                this.listener instanceof SPBindingViewHolderCustomisor){
-            ((SPBindingViewHolderCustomisor) this.listener).customiseViewHolder(this, this.itemType);
         }
     }
 }

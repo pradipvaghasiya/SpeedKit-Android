@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.SPTitleViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolder;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderCustomisor;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.cells.TitleRModel;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPViewModel;
 import com.speedui.android.uiautomationdemo.R;
 
 import java.util.Arrays;
@@ -25,11 +24,11 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener,SPBindingViewHolderCustomisor {
-    ObservableList titleItems;
+public class TitleCellFragment extends android.support.v4.app.Fragment implements SPRecyclerViewController {
     RecyclerView recyclerView;
     SPBindingRecyclerAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
+    SPListingData listingData  = new SPListingData();
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -61,7 +60,6 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     }
 
     private SPBindingRecyclerAdapter getRecyclerAdapter(){
-        titleItems = new ObservableArrayList();
         for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
@@ -77,22 +75,20 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell Last")){
 
-            titleItems.add(new SPTitleViewHolder.ViewModel(itemTitle));
+            listingData.add(new TitleRModel(itemTitle));
 
         }
-        SPListingData.ItemGroup titleItemGroup = SPTitleViewHolder.getItemGroupFromItems(titleItems);
 
-        SPListingData listingData = new SPListingData(Arrays.asList(titleItemGroup));
         //endregion
 
-        return new SPBindingRecyclerAdapter(listingData, this);
+        return new SPBindingRecyclerAdapter(this);
 
     }
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
         try{
-            titleItems.remove(adapterPosition);
+            listingData.remove(adapterPosition);
         }catch (ArrayIndexOutOfBoundsException e){
             // Ignore
         }
@@ -100,7 +96,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
 
     @Override
-    public void customiseViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-
+    public SPListingData getListingData() {
+        return listingData;
     }
 }

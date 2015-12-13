@@ -1,7 +1,6 @@
 package com.speedui.android.uiautomation.toolbar;
 
 import android.content.res.Configuration;
-import android.databinding.ObservableList;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -17,19 +16,18 @@ import android.view.View;
 import com.speedui.android.uiautomation.listingautomation.listingdata.SPListingData;
 import com.speedui.android.uiautomation.listingautomation.recyclerview.adapter.SPBindingRecyclerAdapter;
 import com.speedui.android.uiautomation.R;
-import com.speedui.android.uiautomation.listingautomation.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.speedui.android.uiautomation.listingautomation.recyclerview.controller.SPRecyclerViewController;
 import com.speedui.android.util.ViewUtil;
 
-import java.util.List;
-
 public abstract class SPDrawerToolbarActivity extends AppCompatActivity implements
-        SPBindingViewHolderListener,
+        SPRecyclerViewController,
         SPToolBarFragment.SPFragmentLifeCycleListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     protected RecyclerView drawerRecyclerView;
     protected int selectedMenuPosition = 0;
     protected boolean isDrawerOverToolBar = true;
+    private SPListingData listingData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,8 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
         setContentView(R.layout.activity_spdrawer_toolbar);
 
         // SPRecycler Adapter Setup
-        SPListingData listingData = new SPListingData(this.getCellGroupListForDrawer());
-        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
+        listingData = getListingDataForDrawer();
+        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.drawer_recyclerview_drawer);
@@ -135,8 +133,14 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
         this.configureHomeButtonOnToolBar(fragment.toolbar);
     }
 
-    protected abstract List<SPListingData.ItemGroup> getCellGroupListForDrawer();
+    @Override
+    public SPListingData getListingData() {
+        return listingData;
+    }
+
+    protected abstract SPListingData getListingDataForDrawer();
 
     protected abstract SPToolBarFragment getFragmentAtPosition(int position);
+
 
 }
