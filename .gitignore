@@ -6,9 +6,8 @@
 /build
 
 .idea/*
-uiautomation/build
-
 gradle.properties
 
 
 *.iml
+swiftui/build

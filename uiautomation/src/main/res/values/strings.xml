@@ -1,7 +1,0 @@
-<resources>
-    <string name="library_name">UIAutomation</string>
-
-    <string name="spdrawer_open">Open navigation drawer</string>
-    <string name="spdrawer_close">Close navigation drawer</string>
-
-</resources>
