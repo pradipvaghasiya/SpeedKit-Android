@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.happyfall.speedkit.cells.SPTitleCell xmlns:android="http://schemas.android.com/apk/res/android"
+<com.happyfall.android.demo.cells.SPTitleCell xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/SPTitleCell"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,4 +13,4 @@
     android:text="Sample"
     android:gravity="center"/>
 
-</com.happyfall.speedkit.cells.SPTitleCell>
+</com.happyfall.android.demo.cells.SPTitleCell>

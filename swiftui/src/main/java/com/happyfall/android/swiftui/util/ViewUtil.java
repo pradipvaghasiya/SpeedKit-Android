@@ -1,6 +1,7 @@
 package com.happyfall.android.swiftui.util;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,9 +38,9 @@ public class ViewUtil {
     }
 
     public static void setBackground(View view, Drawable drawable){
-        try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackground(drawable);
-        }catch (NoSuchMethodError e){
+        }else{
             view.setBackgroundDrawable(drawable);
         }
     }
