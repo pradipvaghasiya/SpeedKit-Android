@@ -1,4 +1,4 @@
-package com.happyfall.android.swiftui.recyclerview.viewholder;
+package com.happyfall.android.swiftui.listing.viewholder;
 
 import android.view.View;
 

@@ -32,8 +32,7 @@ dependencies {
 
     compile project(':swiftui')
 
-    compile 'com.android.support:appcompat-v7:+'
+//    compile 'com.android.support:appcompat-v7:+'
     compile "com.android.support:gridlayout-v7:+"
-    compile "com.android.support:recyclerview-v7:+"
-    compile 'com.android.support:design:+'
+//    compile "com.android.support:recyclerview-v7:+"
 }

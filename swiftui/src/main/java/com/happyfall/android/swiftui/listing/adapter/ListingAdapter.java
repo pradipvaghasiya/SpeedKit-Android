@@ -1,4 +1,4 @@
-package com.happyfall.android.swiftui.recyclerview.adapter;
+package com.happyfall.android.swiftui.listing.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolder;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.listing.ListingViewModel;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolder;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.

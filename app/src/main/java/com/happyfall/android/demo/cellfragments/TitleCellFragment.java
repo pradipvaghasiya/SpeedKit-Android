@@ -1,5 +1,6 @@
 package com.happyfall.android.demo.cellfragments;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.listing.adapter.ListingAdapter;
 import com.happyfall.android.demo.cells.TitleRModelListing;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements ListingViewHolderListener {
+public class TitleCellFragment extends Fragment implements ListingViewHolderListener {
     RecyclerView recyclerView;
     ListingAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -35,7 +36,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cells_list, container, false);
+        return inflater.inflate(R.layout.fragment_listing_data, container, false);
     }
 
     @Override

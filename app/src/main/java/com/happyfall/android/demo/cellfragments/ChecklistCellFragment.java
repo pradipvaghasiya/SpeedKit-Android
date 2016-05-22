@@ -6,11 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
 
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.listing.adapter.ListingAdapter;
 import com.happyfall.android.demo.cells.ChecklistRModelListing;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class ChecklistCellFragment extends android.support.v4.app.Fragment
+public class ChecklistCellFragment extends Fragment
         implements ListingViewHolderListener
 {
 
@@ -37,7 +38,7 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View fragmentView = inflater.inflate(R.layout.fragment_cells_list, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_listing_data, container, false);
         recyclerView = (RecyclerView)fragmentView.findViewById(R.id.recyclerView);
 
         this.setupRecyclerView();

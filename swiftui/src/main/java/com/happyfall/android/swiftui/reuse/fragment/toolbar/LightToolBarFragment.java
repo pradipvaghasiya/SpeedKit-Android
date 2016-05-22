@@ -1,20 +1,21 @@
-package com.happyfall.android.demo.toolbar;
+package com.happyfall.android.swiftui.reuse.fragment.toolbar;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.happyfall.android.swiftui.R;
 
-import com.happyfall.android.demo.R;
 
 /**
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public class SPToolBarOnlyFragment extends SPToolBarFragment {
-    public SPToolBarOnlyFragment(){
+public class LightToolBarFragment extends ToolBarFragment {
+    public LightToolBarFragment(){
 
     }
 
@@ -33,8 +34,8 @@ public class SPToolBarOnlyFragment extends SPToolBarFragment {
         this.toolbar.setTitle(getActivity().getTitle());
         this.setupContentFragment();
 
-        if (this.fragmentLifeCycleListener != null){
-            this.fragmentLifeCycleListener.onViewCreated(this);
+        if (this.mToolBarFragmentListner != null){
+            this.mToolBarFragmentListner.onViewCreated(this);
         }
     }
 
@@ -44,13 +45,13 @@ public class SPToolBarOnlyFragment extends SPToolBarFragment {
 
         if (fragment != null){
             try {
-                android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentManager fragmentManager = getChildFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.toolbaronly_content_frame,fragment)
                         .commit();
 
             }catch (Exception e){
-                throw new RuntimeException("SPToolBarOnlyFragment must be used with AppCompatActivity");
+                throw new RuntimeException("LightToolBarFragment must be used with AppCompatActivity");
             }
         }
     }

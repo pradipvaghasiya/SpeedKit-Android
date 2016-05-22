@@ -1,6 +1,8 @@
-package com.happyfall.android.swiftui.recyclerview.viewholder;
+package com.happyfall.android.swiftui.listing;
 
 import android.databinding.BaseObservable;
+
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolder;
 
 /**
  * Created by pradipvaghasiya on 06/06/15.

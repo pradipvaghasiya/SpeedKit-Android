@@ -1,4 +1,4 @@
-package com.happyfall.android.demo.toolbar.tabs;
+package com.happyfall.android.swiftui.reuse.fragment.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,16 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.demo.R;
-import com.happyfall.android.demo.toolbar.SPToolBarFragment;
-
 import java.util.List;
-
+import com.happyfall.android.swiftui.R;
 /**
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public abstract class SPToolBarTabsFragment extends SPToolBarFragment {
+public abstract class LightToolBarTabsFragment extends ToolBarFragment {
     private ViewPager viewPager;
     protected TabLayout tabLayout;
 
@@ -44,8 +41,8 @@ public abstract class SPToolBarTabsFragment extends SPToolBarFragment {
         // Configure Sliding Tabs
         this.setupTabLayout(view);
 
-        if (this.fragmentLifeCycleListener != null){
-            this.fragmentLifeCycleListener.onViewCreated(this);
+        if (this.mToolBarFragmentListner != null){
+            this.mToolBarFragmentListner.onViewCreated(this);
         }
     }
 
@@ -109,7 +106,7 @@ public abstract class SPToolBarTabsFragment extends SPToolBarFragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
 
             Fragment fragment = getV4FragmentAt(position);
             if (fragment == null){

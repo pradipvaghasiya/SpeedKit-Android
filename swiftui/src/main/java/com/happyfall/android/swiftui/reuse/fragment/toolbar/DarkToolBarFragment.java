@@ -1,18 +1,17 @@
-package com.happyfall.android.demo.toolbar;
+package com.happyfall.android.swiftui.reuse.fragment.toolbar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.happyfall.android.demo.R;
+import com.happyfall.android.swiftui.R;
 
 /**
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public class SPDarkToolBarOnlyFragment  extends SPToolBarOnlyFragment{
-    public SPDarkToolBarOnlyFragment(){
+public class DarkToolBarFragment extends LightToolBarFragment {
+    public DarkToolBarFragment(){
 
     }
 

@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.happyfall.android.demo.BR;
 import com.happyfall.android.demo.R;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
+import com.happyfall.android.swiftui.listing.ListingViewModel;
 
 /**
  * Created by pradip on 12/13/15.

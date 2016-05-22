@@ -1,10 +1,8 @@
-package com.happyfall.android.swiftui.listingdata;
+package com.happyfall.android.swiftui.listing;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
-
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
 
 import java.util.Collection;
 import java.util.Iterator;

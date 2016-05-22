@@ -1,9 +1,9 @@
-package com.happyfall.android.swiftui.recyclerview.adapter;
+package com.happyfall.android.swiftui.listing.adapter;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
+import com.happyfall.android.swiftui.listing.ListingViewModel;
 
 /**
  * Created by pradip on 12/13/15.

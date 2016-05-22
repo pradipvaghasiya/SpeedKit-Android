@@ -1,12 +1,12 @@
 package com.happyfall.android.demo.cellfragments;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.happyfall.android.demo.toolbar.tabs.SPDarkToolBarTabsFragment;
+import com.happyfall.android.swiftui.reuse.fragment.toolbar.DarkToolBarTabsFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public class ToolbarTabsFragment extends SPDarkToolBarTabsFragment {
+public class ToolbarTabsFragment extends DarkToolBarTabsFragment {
     private List<String> tabTitles = Arrays.asList("Title Cell", "Check List Cell", "Grid Titles");
     private TitleCellFragment titleCellFragment;
     private ChecklistCellFragment checklistCellFragment;

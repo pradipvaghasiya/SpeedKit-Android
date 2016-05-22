@@ -2,18 +2,18 @@ package com.happyfall.android.demo.cellfragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
 
 import com.happyfall.android.demo.cells.ChecklistRModelListing;
 import com.happyfall.android.demo.cells.TitleRModelListing;
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.listing.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class GridFragment extends Fragment implements ListingViewHolderListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_cells_list,container,false);
+        return inflater.inflate(R.layout.fragment_listing_data,container,false);
     }
 
     @Override

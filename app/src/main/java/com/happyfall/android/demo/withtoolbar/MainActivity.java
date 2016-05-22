@@ -1,9 +1,9 @@
 package com.happyfall.android.demo.withtoolbar;
 
 import com.happyfall.android.demo.cells.TitleRModelListing;
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.demo.toolbar.SPDrawerToolbarActivity;
-import com.happyfall.android.demo.toolbar.SPToolBarFragment;
+import com.happyfall.android.swiftui.reuse.fragment.toolbar.ToolBarFragment;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.reuse.activity.DrawerToolbarActivity;
 import com.happyfall.android.demo.cellfragments.TitleCellToolBarFragment;
 import com.happyfall.android.demo.cellfragments.ToolbarTabsFragment;
 
@@ -14,13 +14,13 @@ import java.util.List;
  * Project: UIAutomation-Android
  * Created by Pradip on 6/2/2015.
  */
-public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
+public class MainActivity extends DrawerToolbarActivity {
     private static List<String> MENU_LIST = Arrays.asList("Title Cell",  "ToolBar Tabs");
 
     ToolbarTabsFragment toolbarTabsFragment;
 
-    public DrawerToolbarActivity(){
-        this.selectedMenuPosition = 0;
+    public MainActivity(){
+        this.mSelectedMenuPosition = 0;
         this.toolbarTabsFragment = new ToolbarTabsFragment();
     }
 
@@ -36,7 +36,7 @@ public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
     }
 
     @Override
-    protected SPToolBarFragment getFragmentAtPosition(int position) {
+    protected ToolBarFragment getFragmentAtPosition(int position) {
 
         switch (position){
             case 0:

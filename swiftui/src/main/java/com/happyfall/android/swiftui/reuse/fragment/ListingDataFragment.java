@@ -1,4 +1,4 @@
-package com.happyfall.android.demo.fragment;
+package com.happyfall.android.swiftui.reuse.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,16 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.happyfall.android.swiftui.R;
 
-import com.happyfall.android.swiftui.listingdata.ListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
-import com.happyfall.android.demo.R;
+import com.happyfall.android.swiftui.listing.ListingData;
+import com.happyfall.android.swiftui.listing.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
 
 /**
  * Created by pradip on 12/13/15.
  */
-abstract public class SPListingDataFragment extends Fragment implements ListingViewHolderListener {
+abstract public class ListingDataFragment extends Fragment implements ListingViewHolderListener {
     protected SPListingDataFragmentListener mListener;
 
     protected RecyclerView mRecyclerView;
@@ -31,7 +31,7 @@ abstract public class SPListingDataFragment extends Fragment implements ListingV
     }
 
 
-    public SPListingDataFragment() {
+    public ListingDataFragment() {
         // Required empty public constructor
     }
 

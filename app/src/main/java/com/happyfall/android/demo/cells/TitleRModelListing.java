@@ -2,7 +2,7 @@ package com.happyfall.android.demo.cells;
 
 import com.happyfall.android.demo.R;
 import com.happyfall.android.demo.BR;
-import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
+import com.happyfall.android.swiftui.listing.ListingViewModel;
 
 /**
  * Created by Pradip on 5/13/2015.

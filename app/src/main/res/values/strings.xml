@@ -13,8 +13,4 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_toolbar">UIAutomation Demo</string>
 
-    <string name="spdrawer_open">Open navigation drawer</string>
-    <string name="spdrawer_close">Close navigation drawer</string>
-
-
 </resources>
