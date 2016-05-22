@@ -7,22 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolder;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPViewModel;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolder;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
-public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingViewHolder> {
+public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     //Unlike iOS, this need not be Weak reference because,
     //GC can remove entire retain cycle if none of the Objects pointing to the cycle.
-    private SPBindingViewHolderListener mListener;
-    private SPBindingRecyclerAdapterChangeListener mChangeListener = new SPBindingRecyclerAdapterChangeListener(this);
-    private SPListingData mListingData;
+    private ListingViewHolderListener mListener;
+    private ListingAdapterListener mChangeListener = new ListingAdapterListener(this);
+    private ListingData mListingData;
 
-    final public void setListingData(SPListingData listingData) {
+    final public void setListingData(ListingData listingData) {
         if(mListingData == listingData){
             return;
         }
@@ -44,7 +44,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
 
     protected LayoutInflater mLayoutInflater;
 
-    public SPBindingRecyclerAdapter(@NonNull SPListingData listingData, @NonNull SPBindingViewHolderListener listener){
+    public ListingAdapter(@NonNull ListingData listingData, @NonNull ListingViewHolderListener listener){
         super();
         mListener = listener;
         setListingData(listingData);
@@ -56,7 +56,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    public SPBindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (mLayoutInflater == null)
         {
@@ -70,7 +70,7 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
                     parent,
                     false);
 
-            return new SPBindingViewHolder(binding, mListener);
+            return new ListingViewHolder(binding, mListener);
 
         } catch (Exception e) {
             System.out.println("SpeedKit Error: onCreateViewHolder :" + e.toString());
@@ -80,8 +80,8 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    final public void onBindViewHolder(SPBindingViewHolder bindingViewHolder, int position) {
-        SPViewModel model = mListingData.get(position);
+    final public void onBindViewHolder(ListingViewHolder bindingViewHolder, int position) {
+        ListingViewModel model = mListingData.get(position);
 
         model.mViewHolder = bindingViewHolder;
 
@@ -105,17 +105,17 @@ public class SPBindingRecyclerAdapter extends RecyclerView.Adapter<SPBindingView
     }
 
     @Override
-    final public void onViewRecycled(SPBindingViewHolder holder) {
+    final public void onViewRecycled(ListingViewHolder holder) {
         super.onViewRecycled(holder);
     }
 
     @Override
-    final public void onViewDetachedFromWindow(SPBindingViewHolder holder) {
+    final public void onViewDetachedFromWindow(ListingViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
     }
 
     @Override
-    final public boolean onFailedToRecycleView(SPBindingViewHolder holder) {
+    final public boolean onFailedToRecycleView(ListingViewHolder holder) {
         return super.onFailedToRecycleView(holder);
     }
 }

@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.happyfall.android.demo.cells.ChecklistRModel;
-import com.happyfall.android.demo.cells.TitleRModel;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.happyfall.android.demo.cells.ChecklistRModelListing;
+import com.happyfall.android.demo.cells.TitleRModelListing;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -21,11 +21,11 @@ import java.util.Arrays;
 /**
  * Created by pradipvaghasiya on 27/05/15.
  */
-public class GridFragment extends Fragment implements SPBindingViewHolderListener{
+public class GridFragment extends Fragment implements ListingViewHolderListener {
 
     RecyclerView recyclerView;
-    SPBindingRecyclerAdapter adapter;
-    SPListingData listingData = new SPListingData();
+    ListingAdapter adapter;
+    ListingData listingData = new ListingData();
 
     @Nullable
     @Override
@@ -47,35 +47,35 @@ public class GridFragment extends Fragment implements SPBindingViewHolderListene
     }
 
 
-    private SPBindingRecyclerAdapter getRecyclerAdapter(){
+    private ListingAdapter getRecyclerAdapter(){
         if (listingData.size() == 0) {
             for (String itemTitle : Arrays.asList("Title Cell 1",
                     "Title Cell", "Title Cell", "Title Cell",
                     "Title Cell", "Title Cell", "Title Cell",
                     "Title Cell", "Title Cell", "Title Cell Last")) {
 
-                listingData.add(new TitleRModel(itemTitle));
+                listingData.add(new TitleRModelListing(itemTitle));
             }
 
 
             for (String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")) {
-                listingData.add(new ChecklistRModel(titleText, true));
+                listingData.add(new ChecklistRModelListing(titleText, true));
             }
         }
-        return new SPBindingRecyclerAdapter(listingData,this);
+        return new ListingAdapter(listingData,this);
     }
 
     @Override
     public void didSelectItem(View view, int adapterPosition, int itemGroupPosition) {
-        listingData.add(new TitleRModel("Hello"));
-//        cellGroup1.items.add(new SPCheckListViewHolder.ViewModel("added after click", true));
+        listingData.add(new TitleRModelListing("Hello"));
+//        cellGroup1.items.add(new SPCheckListViewHolder.ListingViewModel("added after click", true));
 
 
-//        SPListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
+//        ListingData.ItemGroup cellGroup = SPCheckListViewHolder.getItemGroupFromItems(checklistItems);
 
-//        ((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
+//        ((ListingAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
 
-        //((SPBindingRecyclerAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
+        //((ListingAdapter)recyclerView.getAdapter()).getSpListingData().itemGroupList.add(cellGroup);
 
     }
 

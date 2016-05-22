@@ -8,15 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 /**
  * Created by pradip on 12/13/15.
  */
-abstract public class SPListingDataFragment extends Fragment implements SPBindingViewHolderListener {
+abstract public class SPListingDataFragment extends Fragment implements ListingViewHolderListener {
     protected SPListingDataFragmentListener mListener;
 
     protected RecyclerView mRecyclerView;
@@ -26,7 +26,7 @@ abstract public class SPListingDataFragment extends Fragment implements SPBindin
 
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(getLayout(getActivity()));
-            recyclerView.setAdapter(new SPBindingRecyclerAdapter(getListingData(),this));
+            recyclerView.setAdapter(new ListingAdapter(getListingData(),this));
         }
     }
 
@@ -65,6 +65,6 @@ abstract public class SPListingDataFragment extends Fragment implements SPBindin
 
     }
 
-    abstract public SPListingData getListingData();
+    abstract public ListingData getListingData();
     abstract public RecyclerView.LayoutManager getLayout(Context context);
 }

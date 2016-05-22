@@ -4,7 +4,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPViewModel;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,40 +15,40 @@ import java.util.ListIterator;
  * Created by Pradip on 5/12/2015.
  */
 
-final public class SPListingData implements ObservableList<SPViewModel>{
-    private ObservableList<SPViewModel> mItems;
+final public class ListingData implements ObservableList<ListingViewModel>{
+    private ObservableList<ListingViewModel> mItems;
 
-    public SPListingData(){
+    public ListingData(){
         mItems = new ObservableArrayList<>();
     }
 
     @Override
-    public void addOnListChangedCallback(OnListChangedCallback<? extends ObservableList<SPViewModel>> callback) {
+    public void addOnListChangedCallback(OnListChangedCallback<? extends ObservableList<ListingViewModel>> callback) {
         mItems.addOnListChangedCallback(callback);
     }
 
     @Override
-    public void removeOnListChangedCallback(OnListChangedCallback<? extends ObservableList<SPViewModel>> callback) {
+    public void removeOnListChangedCallback(OnListChangedCallback<? extends ObservableList<ListingViewModel>> callback) {
         mItems.removeOnListChangedCallback(callback);
     }
 
     @Override
-    public void add(int location, SPViewModel object) {
+    public void add(int location, ListingViewModel object) {
         mItems.add(location, object);
     }
 
     @Override
-    public boolean add(SPViewModel object) {
+    public boolean add(ListingViewModel object) {
         return mItems.add(object);
     }
 
     @Override
-    public boolean addAll(int location, Collection<? extends SPViewModel> collection) {
+    public boolean addAll(int location, Collection<? extends ListingViewModel> collection) {
         return mItems.addAll(location, collection);
     }
 
     @Override
-    public boolean addAll(Collection<? extends SPViewModel> collection) {
+    public boolean addAll(Collection<? extends ListingViewModel> collection) {
         return addAll(collection);
     }
 
@@ -73,7 +73,7 @@ final public class SPListingData implements ObservableList<SPViewModel>{
     }
 
     @Override
-    public SPViewModel get(int location) {
+    public ListingViewModel get(int location) {
         return mItems.get(location);
     }
 
@@ -94,7 +94,7 @@ final public class SPListingData implements ObservableList<SPViewModel>{
 
     @NonNull
     @Override
-    public Iterator<SPViewModel> iterator() {
+    public Iterator<ListingViewModel> iterator() {
         return mItems.iterator();
     }
 
@@ -104,18 +104,18 @@ final public class SPListingData implements ObservableList<SPViewModel>{
     }
 
     @Override
-    public ListIterator<SPViewModel> listIterator() {
+    public ListIterator<ListingViewModel> listIterator() {
         return mItems.listIterator();
     }
 
     @NonNull
     @Override
-    public ListIterator<SPViewModel> listIterator(int location) {
+    public ListIterator<ListingViewModel> listIterator(int location) {
         return mItems.listIterator(location);
     }
 
     @Override
-    public SPViewModel remove(int location) {
+    public ListingViewModel remove(int location) {
         return mItems.remove(location);
     }
 
@@ -135,7 +135,7 @@ final public class SPListingData implements ObservableList<SPViewModel>{
     }
 
     @Override
-    public SPViewModel set(int location, SPViewModel object) {
+    public ListingViewModel set(int location, ListingViewModel object) {
         return mItems.set(location, object);
     }
 
@@ -146,7 +146,7 @@ final public class SPListingData implements ObservableList<SPViewModel>{
 
     @NonNull
     @Override
-    public List<SPViewModel> subList(int start, int end) {
+    public List<ListingViewModel> subList(int start, int end) {
         return mItems.subList(start, end);
     }
 

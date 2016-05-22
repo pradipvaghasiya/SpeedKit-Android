@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.happyfall.android.demo.cells.TitleRModel;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.demo.cells.TitleRModelListing;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -21,11 +21,11 @@ import java.util.Arrays;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TitleCellFragment extends android.support.v4.app.Fragment implements SPBindingViewHolderListener {
+public class TitleCellFragment extends android.support.v4.app.Fragment implements ListingViewHolderListener {
     RecyclerView recyclerView;
-    SPBindingRecyclerAdapter spRecyclerAdapter;
+    ListingAdapter spRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
-    SPListingData listingData = new SPListingData();
+    ListingData listingData = new ListingData();
 
     public TitleCellFragment() {
         // Required empty public constructor
@@ -56,7 +56,7 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
 
     }
 
-    private SPBindingRecyclerAdapter getRecyclerAdapter() {
+    private ListingAdapter getRecyclerAdapter() {
         for (String itemTitle : Arrays.asList("Title Cell 1", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell",
@@ -72,13 +72,13 @@ public class TitleCellFragment extends android.support.v4.app.Fragment implement
                 "Title Cell", "Title Cell", "Title Cell",
                 "Title Cell", "Title Cell", "Title Cell Last")) {
 
-            listingData.add(new TitleRModel(itemTitle));
+            listingData.add(new TitleRModelListing(itemTitle));
 
         }
 
         //endregion
 
-        return new SPBindingRecyclerAdapter(listingData,this);
+        return new ListingAdapter(listingData,this);
 
     }
 

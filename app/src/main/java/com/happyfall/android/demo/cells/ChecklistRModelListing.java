@@ -5,13 +5,13 @@ import android.view.View;
 
 import com.happyfall.android.demo.BR;
 import com.happyfall.android.demo.R;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPViewModel;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewModel;
 
 /**
  * Created by pradip on 12/13/15.
  */
-public class ChecklistRModel extends SPViewModel{
-    public ChecklistRModel(String title, boolean selected){
+public class ChecklistRModelListing extends ListingViewModel {
+    public ChecklistRModelListing(String title, boolean selected){
         mLayoutId = R.layout.recycler_cell_checklist;
         mBindingVariable = BR.checklistRModel;
         this.mTitle = title;

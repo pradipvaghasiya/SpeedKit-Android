@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="titleRModel" type = "com.happyfall.android.demo.cells.TitleRModel"/>
+        <variable name="titleRModel" type = "com.happyfall.android.demo.cells.TitleRModelListing"/>
     </data>
 
     <LinearLayout

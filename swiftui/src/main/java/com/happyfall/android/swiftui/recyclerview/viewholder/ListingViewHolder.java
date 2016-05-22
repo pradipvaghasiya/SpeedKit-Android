@@ -13,15 +13,15 @@ import com.happyfall.android.swiftui.util.ViewUtil;
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
-public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    private SPBindingViewHolderListener listener;
-    private ViewDataBinding dataBinding;
+public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private ListingViewHolderListener mListener;
+    private ViewDataBinding mDataBinding;
 
-    public SPBindingViewHolder(ViewDataBinding dataBinding,
-                               SPBindingViewHolderListener listener) {
+    public ListingViewHolder(ViewDataBinding dataBinding,
+                             ListingViewHolderListener listener) {
         super(dataBinding.getRoot());
-        this.listener = listener;
-        this.dataBinding = dataBinding;
+        mListener = listener;
+        mDataBinding = dataBinding;
 
 
         itemView.setOnClickListener(this);
@@ -30,7 +30,7 @@ public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View
     }
 
     public ViewDataBinding getDataBinding() {
-        return dataBinding;
+        return mDataBinding;
     }
 
     public void setDefaultDrawable(){
@@ -50,8 +50,8 @@ public class SPBindingViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View v) {
-        if (this.listener != null){
-            this.listener.didSelectItem(v,getAdapterPosition(),getAdapterPosition());
+        if (mListener != null){
+            mListener.didSelectItem(v, getAdapterPosition(), getAdapterPosition());
         }
     }
 }

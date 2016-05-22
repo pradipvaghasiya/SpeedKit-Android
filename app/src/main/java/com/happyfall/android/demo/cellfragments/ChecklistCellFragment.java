@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.happyfall.android.demo.cells.ChecklistRModel;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.demo.cells.ChecklistRModelListing;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
 import com.happyfall.android.demo.R;
 
 import java.util.Arrays;
@@ -22,12 +22,12 @@ import java.util.Arrays;
  * to handle interaction events.
  */
 public class ChecklistCellFragment extends android.support.v4.app.Fragment
-        implements SPBindingViewHolderListener
+        implements ListingViewHolderListener
 {
 
     public RecyclerView recyclerView;
-    SPBindingRecyclerAdapter spRecyclerAdapter;
-    SPListingData listingData = new SPListingData();
+    ListingAdapter spRecyclerAdapter;
+    ListingData listingData = new ListingData();
 
     public ChecklistCellFragment() {
         // Required empty public constructor
@@ -50,10 +50,10 @@ public class ChecklistCellFragment extends android.support.v4.app.Fragment
 
     void setupRecyclerView(){
         for(String titleText : Arrays.asList("Check List Cell 1", "Check List Cell 2", "Check List Cell 3")){
-            listingData.add(new ChecklistRModel(titleText, true));
+            listingData.add(new ChecklistRModelListing(titleText, true));
         }
 
-        spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
+        spRecyclerAdapter = new ListingAdapter(listingData,this);
 
         //region RecyclerView Setup
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

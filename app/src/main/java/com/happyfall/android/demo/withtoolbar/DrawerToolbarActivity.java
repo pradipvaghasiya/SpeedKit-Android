@@ -1,7 +1,7 @@
 package com.happyfall.android.demo.withtoolbar;
 
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.demo.cells.TitleRModel;
+import com.happyfall.android.demo.cells.TitleRModelListing;
+import com.happyfall.android.swiftui.listingdata.ListingData;
 import com.happyfall.android.demo.toolbar.SPDrawerToolbarActivity;
 import com.happyfall.android.demo.toolbar.SPToolBarFragment;
 import com.happyfall.android.demo.cellfragments.TitleCellToolBarFragment;
@@ -25,11 +25,11 @@ public class DrawerToolbarActivity extends SPDrawerToolbarActivity {
     }
 
     @Override
-    protected SPListingData getListingDataForDrawer() {
-        SPListingData listingData  = new SPListingData();
+    protected ListingData getListingDataForDrawer() {
+        ListingData listingData  = new ListingData();
         for (String itemTitle : MENU_LIST){
 
-            listingData.add(new TitleRModel(itemTitle));
+            listingData.add(new TitleRModelListing(itemTitle));
 
         }
         return listingData;

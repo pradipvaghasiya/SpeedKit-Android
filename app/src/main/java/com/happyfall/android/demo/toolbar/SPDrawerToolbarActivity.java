@@ -14,20 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.happyfall.android.demo.R;
-import com.happyfall.android.swiftui.listingdata.SPListingData;
-import com.happyfall.android.swiftui.recyclerview.adapter.SPBindingRecyclerAdapter;
-import com.happyfall.android.swiftui.recyclerview.viewholder.SPBindingViewHolderListener;
+import com.happyfall.android.swiftui.listingdata.ListingData;
+import com.happyfall.android.swiftui.recyclerview.adapter.ListingAdapter;
+import com.happyfall.android.swiftui.recyclerview.viewholder.ListingViewHolderListener;
 import com.happyfall.android.swiftui.util.ViewUtil;
 
 public abstract class SPDrawerToolbarActivity extends AppCompatActivity implements
-        SPBindingViewHolderListener,
+        ListingViewHolderListener,
         SPToolBarFragment.SPFragmentLifeCycleListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     protected RecyclerView drawerRecyclerView;
     protected int selectedMenuPosition = 0;
     protected boolean isDrawerOverToolBar = true;
-    private SPListingData listingData;
+    private ListingData listingData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
 
         // SPRecycler Adapter Setup
         listingData = getListingDataForDrawer();
-        SPBindingRecyclerAdapter spRecyclerAdapter = new SPBindingRecyclerAdapter(listingData,this);
+        ListingAdapter spRecyclerAdapter = new ListingAdapter(listingData,this);
 
         //Drawer RecyclerView Setup
         drawerRecyclerView = (RecyclerView)findViewById(R.id.drawer_recyclerview_drawer);
@@ -133,7 +133,7 @@ public abstract class SPDrawerToolbarActivity extends AppCompatActivity implemen
         this.configureHomeButtonOnToolBar(fragment.toolbar);
     }
 
-    protected abstract SPListingData getListingDataForDrawer();
+    protected abstract ListingData getListingDataForDrawer();
 
     protected abstract SPToolBarFragment getFragmentAtPosition(int position);
 
