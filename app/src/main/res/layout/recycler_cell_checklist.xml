@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable name="checklistRModel" type = "com.happyfall.android.demo.cells.ChecklistRModelListing"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setOnClickListener="@{checklistRModel.onClickListener}">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/SPCheckList_TextView"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{checklistRModel.mTitle}"
+                android:gravity="center_vertical"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/SPCheckList_ImageView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/ic_action_accept"
+                android:visibility="@{checklistRModel.mSelected ? View.VISIBLE : View.INVISIBLE}"
+                />
+
+        </LinearLayout>
+
+        <include layout="@layout/cell_separator"/>
+
+    </LinearLayout>
+
+</layout>
