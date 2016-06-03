@@ -9,6 +9,7 @@ import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolder;
  */
 abstract public class ListingViewModel extends BaseObservable {
     public ListingViewHolder mViewHolder;
+    public Object serverId;
     public int mLayoutId;
     public int mBindingVariable = 0;  // By default 0 if in case no Binding used.
 }
