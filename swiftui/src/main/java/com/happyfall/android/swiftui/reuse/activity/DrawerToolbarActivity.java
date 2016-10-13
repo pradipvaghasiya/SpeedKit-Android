@@ -39,7 +39,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
         setupMenu();
         setupAppearance();
 
-        this.didSelectItem(null, mSelectedMenuPosition, mSelectedMenuPosition);
+        this.didSelectItem(null, mSelectedMenuPosition);
     }
 
     private void setupAppearance() {
@@ -122,9 +122,14 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void didSelectItem(View view, final int adapterPosition, int itemGroupPosition) {
+    public void didSelectItem(View view, final int position){
         mDrawerLayout.closeDrawer(mRecyclerView);
-        replaceFragmentAfterSomeDelay(adapterPosition);
+        replaceFragmentAfterSomeDelay(position);
+    }
+
+    @Override
+    public Boolean didLongPressed(View view, int position) {
+        return false;
     }
 
     private void replaceFragmentAfterSomeDelay(final int adapterPosition) {

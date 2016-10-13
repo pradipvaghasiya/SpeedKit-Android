@@ -13,7 +13,7 @@ import com.happyfall.android.swiftui.util.ViewUtil;
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
-public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private ListingViewHolderListener mListener;
     private ViewDataBinding mDataBinding;
 
@@ -25,6 +25,7 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
 
 
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         this.setDefaultDrawable();
 
     }
@@ -51,7 +52,16 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         if (mListener != null){
-            mListener.didSelectItem(v, getAdapterPosition(), getAdapterPosition());
+            mListener.didSelectItem(v, getAdapterPosition());
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (mListener == null){
+            return false;
+        }
+
+        return mListener.didLongPressed(v, getAdapterPosition());
     }
 }
