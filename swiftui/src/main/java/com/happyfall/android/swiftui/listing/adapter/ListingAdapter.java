@@ -91,6 +91,8 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
 
         bindingViewHolder.getDataBinding().setVariable(model.mBindingVariable, model);
         bindingViewHolder.getDataBinding().executePendingBindings();
+
+        model.bindingExecuted();
     }
 
     @Override

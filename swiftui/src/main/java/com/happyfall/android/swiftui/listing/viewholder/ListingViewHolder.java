@@ -14,7 +14,7 @@ import com.happyfall.android.swiftui.util.ViewUtil;
  * Created by pradipvaghasiya on 04/06/15.
  */
 public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-    private ListingViewHolderListener mListener;
+    public ListingViewHolderListener mListener;
     private ViewDataBinding mDataBinding;
 
     public ListingViewHolder(ViewDataBinding dataBinding,
