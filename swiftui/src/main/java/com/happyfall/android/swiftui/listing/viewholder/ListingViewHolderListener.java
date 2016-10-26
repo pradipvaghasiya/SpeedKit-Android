@@ -7,5 +7,5 @@ import android.view.View;
  */
 public interface ListingViewHolderListener {
     void didSelectItem(View view, int position);
-    Boolean didLongPressed(View view, int position);
+    boolean didLongPressed(View view, int position);
 }

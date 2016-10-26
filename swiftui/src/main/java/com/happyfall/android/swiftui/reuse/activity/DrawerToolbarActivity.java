@@ -128,7 +128,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     }
 
     @Override
-    public Boolean didLongPressed(View view, int position) {
+    public boolean didLongPressed(View view, int position) {
         return false;
     }
 
