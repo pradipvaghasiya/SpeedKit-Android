@@ -73,10 +73,8 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
             return new ListingViewHolder(binding, mListener);
 
         } catch (Exception e) {
-            System.out.println("SpeedKit Error: onCreateViewHolder :" + e.toString());
+            throw new RuntimeException("SpeedKit Error: onCreateViewHolder :" + e.toString());
         }
-
-        return null;
     }
 
     @Override
