@@ -14,4 +14,5 @@ abstract public class ListingViewModel extends BaseObservable {
     public int mBindingVariable = 0;  // By default 0 if in case no Binding used.
 
     public abstract void bindingExecuted();
+    public abstract void viewHolderAttached();
 }
