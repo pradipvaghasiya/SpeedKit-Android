@@ -9,7 +9,7 @@ version  "0.5-SNAPSHOT"
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
@@ -32,96 +32,16 @@ android {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.4' //version required
-}
-
-//************ Maven Center Upload   ****************//
-
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-def isSnapshot = version.endsWith('-SNAPSHOT')
-
-def ossrhUsername = hasProperty('ossrhUsername') ?
-        getProperty('ossrhUsername') :
-        'dummyUsername'
-def ossrhPassword = hasProperty('ossrhPassword') ?
-        getProperty('ossrhPassword') :
-        'dummyPassword'
-
-signing {
-    required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
-
-    sign configurations.archives
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'SpeedUI Android'
-                packaging 'aar'
-
-                description 'Speeds up Android UI Development and enforces developer to follow MVMVC (Model-View Model-View-Controller) design pattern for better re usability and maintainability.'
-
-                url 'http://www.speedui.com'
-
-                scm {
-                    url 'https://github.com/pradipvaghasiya/SpeedKit-Android'
-                    connection 'scm:git:https://github.com/pradipvaghasiya/SpeedKit-Android.git'
-                }
-
-                licenses {
-                    license {
-                        name 'MIT License'
-                        url 'http://opensource.org/licenses/MIT'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'pradipvaghasiya'
-                        name 'Pradip Vaghasiya'
-                        email 'pradip.vaghasiya@gmail.com'
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-android.libraryVariants.all { variant ->
-    task("generate${variant.name.substring(0,1).toUpperCase() + variant.name.substring(1)}Javadoc", type: Javadoc) {
-        source = variant.javaCompile.source
-        def androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-
-        classpath = files(variant.javaCompile.classpath.files, androidJar)
-        options {
-            links "http://docs.oracle.com/javase/7/docs/api/"
-            linksOffline "http://d.android.com/reference","${android.sdkDirectory}/docs/reference"
-            linksOffline "https://bignerdranch.github.io/recyclerview-multiselect/javadocs/", "/Users/pradipvaghasiya/1_Work/3_Android/Frameworks/UIAutomation-Android/recyclerview-multiselect/recyclerview-multiselect/build/docs/javadoc"
-
-        }
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
     }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
+    //https://developer.android.com/topic/libraries/support-library/revisions.html
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
 }
