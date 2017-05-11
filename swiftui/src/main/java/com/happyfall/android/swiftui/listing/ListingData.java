@@ -47,7 +47,7 @@ final public class ListingData implements ObservableList<ListingViewModel>{
 
     @Override
     public boolean addAll(Collection<? extends ListingViewModel> collection) {
-        return addAll(collection);
+        return mItems.addAll(collection);
     }
 
     @Override
