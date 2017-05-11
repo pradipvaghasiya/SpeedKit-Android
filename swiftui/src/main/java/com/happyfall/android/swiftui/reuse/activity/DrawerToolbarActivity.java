@@ -38,7 +38,11 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_drawer);
         setupMenu();
         setupAppearance();
+    }
 
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
         this.didSelectItem(null, mSelectedMenuPosition);
     }
 
