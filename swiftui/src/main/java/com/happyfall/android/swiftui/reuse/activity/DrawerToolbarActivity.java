@@ -2,10 +2,9 @@ package com.happyfall.android.swiftui.reuse.activity;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import com.happyfall.android.swiftui.R;
 
-import com.happyfall.android.swiftui.reuse.fragment.toolbar.ToolBarFragment;
+import com.happyfall.android.swiftui.R;
 import com.happyfall.android.swiftui.listing.ListingData;
 import com.happyfall.android.swiftui.listing.adapter.ListingAdapter;
 import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.reuse.fragment.toolbar.ToolBarFragment;
 import com.happyfall.android.swiftui.util.ViewUtil;
 
 public abstract class DrawerToolbarActivity extends AppCompatActivity implements
@@ -31,6 +30,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     protected int mSelectedMenuPosition = 0;
     protected boolean mIsDrawerOverToolBar = true;
     private ListingData mListingData;
+    private int mPositionToSetOnClose = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        this.didSelectItem(null, mSelectedMenuPosition);
+        replaceFragments(0);
     }
 
     private void setupAppearance() {
@@ -88,6 +88,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
                  */
                 public void onDrawerClosed(View view) {
                     invalidateOptionsMenu();
+                    replaceFragments(mPositionToSetOnClose);
                 }
             };
         }
@@ -127,22 +128,13 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
 
     @Override
     public void didSelectItem(View view, final int position){
+        mPositionToSetOnClose = position;
         mDrawerLayout.closeDrawer(mRecyclerView);
-        replaceFragmentAfterSomeDelay(position);
     }
 
     @Override
     public boolean didLongPressed(View view, int position) {
         return false;
-    }
-
-    private void replaceFragmentAfterSomeDelay(final int adapterPosition) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                replaceFragments(adapterPosition);
-            }
-        }, 200);
     }
 
     private void replaceFragments(int position){
