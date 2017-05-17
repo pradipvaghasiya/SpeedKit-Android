@@ -11,6 +11,7 @@ import com.happyfall.android.swiftui.listing.ListingData;
 import com.happyfall.android.swiftui.listing.ListingViewModel;
 import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolder;
 import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolderListener;
+import com.happyfall.android.swiftui.util.ViewUtil;
 
 /**
  * Created by pradipvaghasiya on 04/06/15.
@@ -81,8 +82,10 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     final public void onBindViewHolder(ListingViewHolder bindingViewHolder, int position) {
         ListingViewModel model = mListingData.get(position);
 
+        if (model.mIsClickable == false){
+            ViewUtil.setBackground(bindingViewHolder.itemView, null);
+        }
         model.mViewHolder = bindingViewHolder;
-
         if (model.mBindingVariable == 0){ // Return if binding not used.
             return;
         }

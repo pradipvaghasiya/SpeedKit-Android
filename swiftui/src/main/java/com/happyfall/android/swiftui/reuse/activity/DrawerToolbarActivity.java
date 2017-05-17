@@ -27,10 +27,10 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mActionBarDrawerToggle;
     protected RecyclerView mRecyclerView;
-    protected int mSelectedMenuPosition = 0;
     protected boolean mIsDrawerOverToolBar = true;
     private ListingData mListingData;
     private int mPositionToSetOnClose = 0;
+    private int mPrevPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        replaceFragments(0);
+        replaceFragments(mPositionToSetOnClose);
     }
 
     private void setupAppearance() {
@@ -137,7 +137,11 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
         return false;
     }
 
-    private void replaceFragments(int position){
+    protected void replaceFragments(int position){
+        if (position == mPrevPosition){
+            return;
+        }
+
         ToolBarFragment fragment = this.getFragmentAtPosition(position);
         fragment.mToolBarFragmentListner = this;
 
@@ -146,6 +150,7 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
             fragmentManager.beginTransaction()
                     .replace(R.id.drawer_content,fragment)
                     .commit();
+            mPrevPosition = position;
         }
     }
 
