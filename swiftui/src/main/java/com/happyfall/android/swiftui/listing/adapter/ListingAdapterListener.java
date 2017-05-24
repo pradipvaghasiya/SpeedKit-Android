@@ -19,21 +19,33 @@ public class ListingAdapterListener extends ObservableList.OnListChangedCallback
 
     @Override
     public void onChanged(ObservableArrayList<ListingViewModel> sender) {
+        if (mAdapterWeakReference.get() == null){
+            return;
+        }
         mAdapterWeakReference.get().notifyDataSetChanged();
     }
 
     @Override
     public void onItemRangeChanged(ObservableArrayList<ListingViewModel> sender, int positionStart, int itemCount) {
+        if (mAdapterWeakReference.get() == null){
+            return;
+        }
         mAdapterWeakReference.get().notifyItemRangeChanged(positionStart, itemCount);
     }
 
     @Override
     public void onItemRangeInserted(ObservableArrayList<ListingViewModel> sender, int positionStart, int itemCount) {
+        if (mAdapterWeakReference.get() == null){
+            return;
+        }
         mAdapterWeakReference.get().notifyItemRangeInserted(positionStart, itemCount);
     }
 
     @Override
     public void onItemRangeMoved(ObservableArrayList<ListingViewModel> sender, int fromPosition, int toPosition, int itemCount) {
+        if (mAdapterWeakReference.get() == null){
+            return;
+        }
         if (itemCount == 1){
             mAdapterWeakReference.get().notifyItemMoved(fromPosition, toPosition);
         }else{
@@ -43,6 +55,9 @@ public class ListingAdapterListener extends ObservableList.OnListChangedCallback
 
     @Override
     public void onItemRangeRemoved(ObservableArrayList<ListingViewModel> sender, int positionStart, int itemCount) {
+        if (mAdapterWeakReference.get() == null){
+            return;
+        }
         mAdapterWeakReference.get().notifyItemRangeRemoved(positionStart, itemCount);
     }
 }

@@ -19,6 +19,10 @@ import com.happyfall.android.swiftui.R;
  * Created by Pradip on 6/2/2015.
  */
 public abstract class LightToolBarTabsFragment extends ToolBarFragment {
+    public ViewPager getViewPager() {
+        return mViewPager;
+    }
+
     protected ViewPager mViewPager;
     protected TabLayout mTabLayout;
 
