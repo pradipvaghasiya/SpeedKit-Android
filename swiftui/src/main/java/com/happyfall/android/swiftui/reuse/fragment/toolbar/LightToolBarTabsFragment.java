@@ -1,5 +1,6 @@
 package com.happyfall.android.swiftui.reuse.fragment.toolbar;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -65,14 +66,19 @@ public abstract class LightToolBarTabsFragment extends ToolBarFragment {
         mViewPager.setAdapter(new TabLayoutPagerAdapter(getChildFragmentManager(), this.getTabTitles()));
     }
 
+    protected void customiseTabs(){
+    }
+
     /**
      * <p>Gets SlidingTabLayout from Layout and sets its adapter.</p>
      *
      * @param view Layoutview for this fragment.
      */
-    private void setupTabLayout(View view){
+    protected void setupTabLayout(View view){
         mTabLayout = (TabLayout)view.findViewById(R.id.toolbar_tabs_tablayout);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        customiseTabs();
     }
 
 
