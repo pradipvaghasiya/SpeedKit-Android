@@ -1,5 +1,6 @@
 package com.happyfall.android.swiftui.listing;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 
 import com.happyfall.android.swiftui.listing.viewholder.ListingViewHolder;
@@ -16,4 +17,8 @@ abstract public class ListingViewModel extends BaseObservable {
 
     public abstract void bindingExecuted();
     public abstract void viewHolderAttached();
+
+    protected Context getContext(){
+        return mViewHolder.getDataBinding().getRoot().getContext();
+    }
 }
