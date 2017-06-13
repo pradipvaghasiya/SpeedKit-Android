@@ -82,9 +82,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     final public void onBindViewHolder(ListingViewHolder bindingViewHolder, int position) {
         ListingViewModel model = mListingData.get(position);
 
-        if (model.mIsClickable == false){
-            ViewUtil.setBackground(bindingViewHolder.itemView, null);
-        }
         model.mViewHolder = bindingViewHolder;
         if (model.mBindingVariable == 0){ // Return if binding not used.
             return;

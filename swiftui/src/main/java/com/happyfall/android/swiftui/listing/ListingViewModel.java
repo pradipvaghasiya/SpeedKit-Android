@@ -13,7 +13,6 @@ abstract public class ListingViewModel extends BaseObservable {
     public Object serverId;
     public int mLayoutId;
     public int mBindingVariable = 0;  // By default 0 if in case no Binding used.
-    public boolean mIsClickable = true;
 
     public abstract void bindingExecuted();
     public abstract void viewHolderAttached();

@@ -132,11 +132,6 @@ public abstract class DrawerToolbarActivity extends AppCompatActivity implements
         mDrawerLayout.closeDrawer(mRecyclerView);
     }
 
-    @Override
-    public boolean didLongPressed(View view, int position) {
-        return false;
-    }
-
     protected void replaceFragments(int position){
         if (position == mPrevPosition){
             return;

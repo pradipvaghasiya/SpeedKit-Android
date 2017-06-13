@@ -13,7 +13,7 @@ import com.happyfall.android.swiftui.util.ViewUtil;
 /**
  * Created by pradipvaghasiya on 04/06/15.
  */
-public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public ListingViewHolderListener mListener;
     private ViewDataBinding mDataBinding;
 
@@ -25,28 +25,10 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
 
 
         itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
-        this.setDefaultDrawable();
-
     }
 
     public ViewDataBinding getDataBinding() {
         return mDataBinding;
-    }
-
-    public void setDefaultDrawable(){
-        TypedValue outValue = new TypedValue();
-        Resources.Theme theme = itemView.getContext().getTheme();
-        theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-
-        Drawable selectionDrawable;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            selectionDrawable = itemView.getResources().getDrawable(outValue.resourceId, theme);
-        }else{
-            selectionDrawable = itemView.getResources().getDrawable(outValue.resourceId);
-        }
-
-        ViewUtil.setBackground(itemView, selectionDrawable);
     }
 
     @Override
@@ -54,14 +36,5 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
         if (mListener != null){
             mListener.didSelectItem(v, getAdapterPosition());
         }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        if (mListener == null){
-            return false;
-        }
-
-        return mListener.didLongPressed(v, getAdapterPosition());
     }
 }
