@@ -37,11 +37,14 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    maven{
+        url "https://maven.google.com"
+    }
 }
 
 dependencies {
     //https://developer.android.com/topic/libraries/support-library/revisions.html
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:recyclerview-v7:25.4.0'
+    compile 'com.android.support:design:25.4.0'
 }
