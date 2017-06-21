@@ -112,7 +112,12 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     @Override
     public void onViewAttachedToWindow(ListingViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        mListingData.get(holder.getAdapterPosition()).viewHolderAttached();
+        int position = holder.getAdapterPosition();
+        if (position < 0){
+            return;
+        }
+
+        mListingData.get(position).viewHolderAttached();
     }
 
     @Override

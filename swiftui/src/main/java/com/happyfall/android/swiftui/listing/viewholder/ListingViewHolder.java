@@ -33,8 +33,13 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View v) {
+        int position = getAdapterPosition();
+        if (position < 0){
+            return;
+        }
+
         if (mListener != null){
-            mListener.didSelectItem(v, getAdapterPosition());
+            mListener.didSelectItem(v, position);
         }
     }
 }
