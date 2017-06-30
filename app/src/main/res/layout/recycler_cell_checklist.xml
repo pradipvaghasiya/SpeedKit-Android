@@ -13,7 +13,7 @@
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:setOnClickListener="@{checklistRModel.onClickListener}">
+        app:setOnClickListener="@{checklistRModel::onClickListener}">
 
         <LinearLayout
             android:layout_height="wrap_content"
