@@ -8,11 +8,11 @@ archivesBaseName = "swiftui"
 version  "0.5-SNAPSHOT"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion $compile_version
+    buildToolsVersion $buildtools_version
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion $targetsdk_version
         versionCode version_code
         versionName version_name
     }
@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     //https://developer.android.com/topic/libraries/support-library/revisions.html
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:recyclerview-v7:25.4.0'
-    compile 'com.android.support:design:25.4.0'
+    compile "com.android.support:appcompat-v7:$support_lib_version"
+    compile "com.android.support:recyclerview-v7:$support_lib_version"
+    compile "com.android.support:design:$support_lib_version"
 }
