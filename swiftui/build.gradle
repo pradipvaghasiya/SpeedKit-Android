@@ -8,11 +8,11 @@ archivesBaseName = "swiftui"
 version  "0.5-SNAPSHOT"
 
 android {
-    compileSdkVersion $compile_version
-    buildToolsVersion $buildtools_version
+    compileSdkVersion compile_version
+    buildToolsVersion buildtools_version
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion $targetsdk_version
+        targetSdkVersion targetsdk_version
         versionCode version_code
         versionName version_name
     }
