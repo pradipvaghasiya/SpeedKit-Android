@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     //https://developer.android.com/topic/libraries/support-library/revisions.html
-    compile "com.android.support:appcompat-v7:$support_lib_version"
-    compile "com.android.support:recyclerview-v7:$support_lib_version"
-    compile "com.android.support:design:$support_lib_version"
+    implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:recyclerview-v7:$support_lib_version"
+    implementation "com.android.support:design:$support_lib_version"
 }

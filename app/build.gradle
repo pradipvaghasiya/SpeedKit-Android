@@ -28,6 +28,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':swiftui')
+    implemetation fileTree(dir: 'libs', include: ['*.jar'])
+    implemetation project(':swiftui')
 }
