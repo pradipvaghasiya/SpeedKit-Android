@@ -53,7 +53,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
 
     @Override
     final public int getItemViewType(int position) {
-        return mListingData.get(position).mLayoutId;
+        return mListingData.get(position).getMLayoutId();
     }
 
     @Override
@@ -82,12 +82,12 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     final public void onBindViewHolder(ListingViewHolder bindingViewHolder, int position) {
         ListingViewModel model = mListingData.get(position);
 
-        model.mViewHolder = bindingViewHolder;
-        if (model.mBindingVariable == 0){ // Return if binding not used.
+        model.setMViewHolder(bindingViewHolder);
+        if (model.getMBindingVariable() == 0){ // Return if binding not used.
             return;
         }
 
-        bindingViewHolder.getDataBinding().setVariable(model.mBindingVariable, model);
+        bindingViewHolder.getDataBinding().setVariable(model.getMBindingVariable(), model);
         bindingViewHolder.getDataBinding().executePendingBindings();
 
         model.bindingExecuted();
@@ -123,6 +123,12 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingViewHolder> {
     @Override
     final public void onViewDetachedFromWindow(ListingViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
+        int position = holder.getAdapterPosition();
+        if (position < 0){
+            return;
+        }
+
+        mListingData.get(position).viewHolderDettached();
     }
 
     @Override

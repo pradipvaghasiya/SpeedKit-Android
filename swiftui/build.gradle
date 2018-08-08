@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 def version_code = 1
 def version_name = '0.5'
@@ -47,4 +48,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_lib_version"
     implementation "com.android.support:recyclerview-v7:$support_lib_version"
     implementation "com.android.support:design:$support_lib_version"
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //Rx
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin"
 }

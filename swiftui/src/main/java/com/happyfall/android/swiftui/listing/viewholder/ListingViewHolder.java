@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.happyfall.android.swiftui.util.ViewUtil;
  * Created by pradipvaghasiya on 04/06/15.
  */
 public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Nullable
     public ListingViewHolderListener mListener;
     private ViewDataBinding mDataBinding;
 
