@@ -11,10 +11,10 @@ import io.reactivex.disposables.Disposable
  * Created by pradipvaghasiya on 06/06/15.
  */
 abstract class ListingViewModel : BaseObservable() {
-    var mViewHolder: ListingViewHolder? = null
-    var serverId: Any? = null
-    var mLayoutId: Int = 0
-    var mBindingVariable = 0  // By default 0 if in case no Binding used.
+    @JvmField var mViewHolder: ListingViewHolder? = null
+    @JvmField var serverId: Any? = null
+    @JvmField var mLayoutId: Int = 0
+    @JvmField var mBindingVariable = 0  // By default 0 if in case no Binding used.
 
     protected val context: Context?
         get() = mViewHolder?.dataBinding?.root?.context
