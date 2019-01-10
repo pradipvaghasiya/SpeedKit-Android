@@ -29,6 +29,7 @@ public class ListingViewHolder extends RecyclerView.ViewHolder implements View.O
         itemView.setOnClickListener(this);
     }
 
+    @Nullable
     public ViewDataBinding getDataBinding() {
         return mDataBinding;
     }
